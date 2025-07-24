@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: NORM YOUNG
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Answer True or False: Why do I like my running group so much? Because our runs always start and end at a brewery or bakery!
+
+Answer: true, t, yes, correct
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Name a tool that can help you write better prompts in Power Automate?
+
+Answer: prompt coach, coach, promptcoach
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the best Copilot feature in Power Automate?
+
+Answer: create an expression, create expression, an expression, expression, expression creation, creating expression
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Why do results with Copilot in Power Automate vary from user to user and session to session?
+
+Answer: its non-deterministic, it is non-deterministic, copilot is non-deterministic, because its non-deterministic, since its non-deterministic, as its non-deterministic
+
+================================================================================

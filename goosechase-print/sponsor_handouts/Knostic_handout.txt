@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPONSOR: KNOSTIC
+================================================================================
+
+FUN FACT:
+Points: 300
+Type: Text Answer
+
+Question: What mental model helped Knostic discover the problem we are solving?
+
+Answer: dikw pyramid, dikwpyramid
+
+------------------------------------------------------------
+
+SERVICES Q1:
+Points: 300
+Type: Text Answer
+
+Question: Knostic helps you accelerate the secure deployment of which Microsoft product?
+
+Answer: copilot, purview, copilot purview
+
+------------------------------------------------------------
+
+SERVICES Q2:
+Points: 300
+Type: Text Answer
+
+Question: What fundamental security principle does Knostic use to give LLMs the power of discretion?
+
+Answer: need to know, needtoknow
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 400
+Type: Text Answer
+
+Question: In what recent competition did Knostic win $5M?
+
+Answer: rsac innovation sandbox
+
+================================================================================

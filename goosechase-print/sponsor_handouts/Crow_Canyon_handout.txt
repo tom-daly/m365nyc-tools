@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPONSOR: CROW CANYON
+================================================================================
+
+FUN FACT:
+Points: 300
+Type: Text Answer
+
+Question: What year was Crow Canyon Software founded?
+
+Answer: 1999, year 99, year 1999, yr 99, yr 1999, in 1999, in 99, in year 1999, in yr 99, in year 99, in yr 1999
+
+------------------------------------------------------------
+
+SERVICES Q1:
+Points: 300
+Type: Text Answer
+
+Question: Name two AI features of NITRO Help Desk 3.5
+
+Answer: kb copilot, ticket summarization, ticket summary, kbcopilot, copilot kb, summarize ticket, summary of ticket
+
+------------------------------------------------------------
+
+SERVICES Q2:
+Points: 300
+Type: Text Answer
+
+Question: What platform powers our workflow automation solutions?
+
+Answer: nitro studio, nitrostudio
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 400
+Type: Text Answer
+
+Question: What Washington, D.C., agency did Crow Canyon Software provide a help desk to?
+
+Answer: department of transportation, dot, transportation department, transport department, department of transport, dc dot, washington dc dot, washington department of transportation, dep of transport
+
+================================================================================

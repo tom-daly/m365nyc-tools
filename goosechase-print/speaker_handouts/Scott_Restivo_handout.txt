@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SCOTT RESTIVO
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: In what foreign capital city did I recently attend a M365 Community Days event?
+
+Answer: poland, warsaw, warsaw poland, warsaw in poland
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What does the acronym iBPA stand for?
+
+Answer: intelligent business process automation, intelligent bus. proc. automation
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the top layer of the NITRO Copilot architecture?
+
+Answer: output, out put
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: When was the Gartner Hype Cycle first published?
+
+Answer: 1995, 95, in 1995, in 95, year 95, year 1995, yr 95, yr 1995, nineteen ninety five
+
+================================================================================

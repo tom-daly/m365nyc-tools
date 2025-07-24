@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: DAVID PATRICK
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What instrument did I pretend to play in a 80s band?
+
+Answer: drums, drum, the drum, the drums, its drums
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What did tables used to be called in the dataverse UI?
+
+Answer: entity, entities
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the max size of a dataverse for teams database?
+
+Answer: 2 gb, 2 gigs, 2 gigabytes, 2 giga bytes, 2gb
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What was Microsoft’s internal code name for dataverse?
+
+Answer: project oakdale, oakdale, prj oakdale
+
+================================================================================

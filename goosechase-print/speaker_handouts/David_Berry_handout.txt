@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: DAVID BERRY
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What regional tech council am I a member of that connects and supports technology leaders in Northern Virginia
+
+Answer: nvtc or northern virginia technology council, northern virginia technology council, nvtc, n virginia tech council, n va tech council, virginia technology council
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is likely the top risk when rolling out Microsoft 365 Copilot in your organization?
+
+Answer: oversharing, over sharing, sharing more, sharing
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: When planning to deploy Microsoft 365 Copilot, what’s one thing you definitely shouldn’t skimp on?
+
+Answer: training, education, training, education, train, educate
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What is the cutoff date of the Azure OpenAI large language model used in Microsoft 365 Copilot? MM/YYYY
+
+Answer: 10/2023, 10 / 2023, 10/ 2023, 10 /2023
+
+================================================================================

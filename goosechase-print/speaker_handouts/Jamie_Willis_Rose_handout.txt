@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: JAMIE WILLIS-ROSE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What suburb of NYC did I grow up?
+
+Answer: rutherford, rutherford nj, nj, new jersey, rutherford new jersey
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Where are the audio files stored?
+
+Answer: azure blob storage, blob, blob storage, blob storage in azure, azure blob
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the aka link to the GitHub report where this solution is available?
+
+Answer: fedba, aka.ms/fedba, /fedba
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year did Microsoft launch the Government Community Cloud (GCC)?
+
+Answer: 2011, '11, in year 2011, year 2011, yr 2011, in yr 2011
+
+================================================================================

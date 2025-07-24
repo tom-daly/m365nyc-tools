@@ -1,0 +1,1358 @@
+================================================================================
+M365 NYC GOOSECHASE - ALL SPEAKER HANDOUTS
+================================================================================
+
+Total speakers: 30
+
+• Brian Alderman
+• CAT Susch
+• Charles Lakes II
+• David Berry
+• David Patrick
+• Diego Domingos
+• Ed Williams
+• Jamel ABED
+• Jamie Willis-Rose
+• Jared Matfess
+• Karen Dredske
+• Kristopher Turner
+• Lenore Flower
+• Matt Wade
+• Matthew Bailey
+• Melissa Jurkoic
+• Mike Maadarani
+• Mona Ghadiri
+• Nicholas Pinto & Jeff Gellman
+• Norm Young
+• Paul Swider
+• Richard Plantt & Kanwal Khipple
+• Sanjoy Ghosh
+• Scott Restivo
+• Scott Shearer
+• Shari Oswald
+• Sonal Bordia
+• Sunny Eltepu
+• Susan Hanley
+• Vanessa Toves
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: BRIAN ALDERMAN
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Most memorable personal sport accomplishment
+
+Answer: hole in one, golf hole, hole in one in golf, hole in golf
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is first OOB to use to determine potential migration issues
+
+Answer: smat
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What I will be tall to use to perform small to medium immigrations to Microsoft 365
+
+Answer: spmt
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Answer whether True or False: What steps should you take to expedite and perform a clean migration? Clean up AD and content before migration
+
+Answer: true, yes, correct
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: CAT SUSCH
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What was the name of my Video Podcast from 2006 until 2021?
+
+Answer: letsknit2gether, lets knit together, letsknittogether, lets knit 2gether
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is the last App for M365 Copilot to exit preview?
+
+Answer: excel, xls, microsoft excel, ms excel
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What are the three ways to create Agents in the Microsoft Ecosystem?
+
+Answer: agent builder, copilot studio, azure ai agent builder
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Answer True or False: An AI Frontier Firm is an organization that blends human judgment with AI agents to scale faster, work smarter, and unlock new value.
+
+Answer: true, yes, correct, right
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: CHARLES LAKES II
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Of my "About Me" facts, I wear the crown as the main character because I am the what?
+
+Answer: middle child, middle-child, midchild, mid child, mid-child
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: For the well-established organizations wanting to ETL their existing data into Dataverse, which Microsoft tool do they use?
+
+Answer: power query, powerquery
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Businesses are concerned low-code solutions will sprawl in their orgs. What solution can you install and configure to monitor your environments?
+
+Answer: center of excellence, coe
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Dataverse isn't just for the Power Platform low-code solutions. Pro-code devs can build custom solutions, too, leveraging what?
+
+Answer: dataverse sdk, dataversesdk, sdk, the sdk
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: DAVID BERRY
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What regional tech council am I a member of that connects and supports technology leaders in Northern Virginia
+
+Answer: nvtc or northern virginia technology council, northern virginia technology council, nvtc, n virginia tech council, n va tech council, virginia technology council
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is likely the top risk when rolling out Microsoft 365 Copilot in your organization?
+
+Answer: oversharing, over sharing, sharing more, sharing
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: When planning to deploy Microsoft 365 Copilot, what’s one thing you definitely shouldn’t skimp on?
+
+Answer: training, education, training, education, train, educate
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What is the cutoff date of the Azure OpenAI large language model used in Microsoft 365 Copilot? MM/YYYY
+
+Answer: 10/2023, 10 / 2023, 10/ 2023, 10 /2023
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: DAVID PATRICK
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What instrument did I pretend to play in a 80s band?
+
+Answer: drums, drum, the drum, the drums, its drums
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What did tables used to be called in the dataverse UI?
+
+Answer: entity, entities
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the max size of a dataverse for teams database?
+
+Answer: 2 gb, 2 gigs, 2 gigabytes, 2 giga bytes, 2gb
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What was Microsoft’s internal code name for dataverse?
+
+Answer: project oakdale, oakdale, prj oakdale
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: DIEGO DOMINGOS
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: I shared in my impromptu session at AICO NYC that I was a “Bedroom DJ.” I’ve since been promoted to ….. ?
+
+Answer: karaoke dj, karaoke, karaokedj
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is another word used to describe “Copilot Readiness” that has once again become relevant?
+
+Answer: governance
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is my favorite (non-MS) AI tool for capturing ideas and turning lecture recordings and YouTube videos into notes, flashcards, and quizzes?
+
+Answer: turbo.ai, turboai, turbo ai, turbo
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What is one huge new feature that everyone now has in their tenants for basically free and that should help with their Copilot Readiness journey?
+
+Answer: sharepoint advanced management, sam
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: ED WILLIAMS
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What job did I have before joining the Army?
+
+Answer: welder, welding
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is one way to add an agent to another agent in MCPS?
+
+Answer: via the agent tab, agent tab, the agent tab
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: How long does an agent wait before it times out from a flow action?
+
+Answer: 2min, 2 min, 2 minutes, 2minutes, 2mins, 2 mins
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Answer True or False: When did Great Planes (D365 predecessor) go EOS? Never! It's still being used!
+
+Answer: true, yes, correct, t
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: JAMEL ABED
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What’s the first thing I do when I check into a hotel room ?
+
+Answer: desk, setup desk, desk setup
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Which API is primarily used to interact with SharePoint Embedded?
+
+Answer: graph, graph api, graphapi
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What must be registered in Azure AD before accessing SharePoint Embedded containers?
+
+Answer: app registration, register app, application registration, app regis., registration of app, registration of application, the application, application, app
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year was SharePoint Embedded announced by Microsoft?
+
+Answer: 2023, 23, year 23, year 2023, yr 2023, in 2023, in 23, in yr 23, in year 23
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: JAMIE WILLIS-ROSE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What suburb of NYC did I grow up?
+
+Answer: rutherford, rutherford nj, nj, new jersey, rutherford new jersey
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Where are the audio files stored?
+
+Answer: azure blob storage, blob, blob storage, blob storage in azure, azure blob
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the aka link to the GitHub report where this solution is available?
+
+Answer: fedba, aka.ms/fedba, /fedba
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year did Microsoft launch the Government Community Cloud (GCC)?
+
+Answer: 2011, '11, in year 2011, year 2011, yr 2011, in yr 2011
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: JARED MATFESS
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: I started my working career in Corporate Communications at which large aerospace company?
+
+Answer: pratt & whitney, pratt, whitney
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Approximately, how many Copilots does Microsoft have?
+
+Answer: 35, thirty five, thirty-five, thirtyfive
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Approximately, what % of AI Projects fail to move past the pilot stage?
+
+Answer: 60%, 60, 60 %, sixty-percent, sixty, sixty percent, 60 percent, 60 percentage, sixty percentage
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year did Microsoft release Copilot?
+
+Answer: 2023, year 2023, 23, twenty three
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: KAREN DREDSKE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Karen proudly claims to be a mom of four — but how many don't bark, meow, or chirp?
+
+Answer: 1, one, only 1, only one, single, just one, just 1
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is another name for Project for the Web?
+
+Answer: planner premium, planner, premium
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What Copilot agent will write a status report for you?
+
+Answer: project manager, manager, project
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What Microsoft Office application can you export your project information into – no matter which M365 app you use to manage projects?
+
+Answer: excel, xls, ms excel, microsoft excel
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: KRISTOPHER TURNER
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: When I stroll through The Wizarding World of Harry Potter at Universal Studios Florida, people often do a double-take, mistaking me for a certain character. What iconic line do my close friends always quote when we visit this area
+
+Answer: you're a wizard, harry, you're a wizard, you are a wizard, you are a wizard harry
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What files did I learn to create to shape the AI "toddler" behavior in VS Code with GitHub Copilot?
+
+Answer: instruction files, prompt files, instruction files, prompt files, instruction prompt, instruction, prompt, instruction and prompt files
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: In my demo on customizing GitHub Copilot's behavior with configuration files in Visual Studio Code, which cartoon duo inspires the AI persona I showcase?
+
+Answer: pinky & the brain, pinky, the brain, pinky & brain, pinky, brain
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: In what year did GitHub Copilot, used by Kristopher Turner for automating Azure Virtual Desktop deployments in VS Code, first become available as an extension in Visual Studio Code? YYYY
+
+Answer: 2021, '21, year 2021, yr 2021, year 21, yr 21
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: LENORE FLOWER
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Lenore is obsessed with making things! She's currently working on Regency costumes for which festival in Bath?
+
+Answer: jane austen festival, jane austen
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Who makes the reports in an Enterprise BI scenario?
+
+Answer: enterprise bi team, bi team, the bi team, bi, enterprise bi, ent bi
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Power BI reports that have a live connection to a shared semantic model are called what?
+
+Answer: thin reports, thin, thin rpts, thin rpt
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Power Automate flows are a great way to streamline new data requests, so a small data team doesn't experience "death by email." What action in the flow kicks off the approval process and pauses the flow until the right data steward responds?
+
+Answer: start and wait, start action, wait action, start and wait, start action, wait action, start wait, start, wait
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MATT WADE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Which Caribbean island did I call home when I complete my first SharePoint-to-SharePoint Online migration?
+
+Answer: st thomas, us virgin islands, saint thomas, saint thomas us virgin, saint thomas us virgin island, saint thomas us virgin islands
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: How do you ensure your SharePoint site gets a built-in Copilot SharePoint agent knowledgeable of your site's content?
+
+Answer: you dont its auto, you dont its automatic, its automatic, you dont, dont have to, not do anything, do nothing, it is auto, automatic, happens automatic
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: How large a docx, pptx, and pdf file will Copilot index for use with SharePoint agents?
+
+Answer: 512, 512 mb, 512 megs, 512 megabytes, 512 mbs
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: SharePoint agents aren't right for your scenario, what do you try next?
+
+Answer: copilot studio or azure ai, copilot studio, azure ai, copilot studio azure ai
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MATTHEW BAILEY
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Which "Aussie" pop star have I traveled around the world to see multiple times?
+
+Answer: kylie minogue, kylie, minogue
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: How many different Microsoft AI tools did I compare & review in my presentation?
+
+Answer: 5, five, 5 tools, 5 ai tools
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the cheaper method of buying Copilot Studio messages for use in your agents?
+
+Answer: message packs, packs, pack, buy a pack
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: At which event did Microsoft announce the new app "Copilot Studio"?
+
+Answer: msignite, microsoft ignite, ignite, ms ignite, ignite conference
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MELISSA JURKOIC
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What two things are bubbling and blooming in my kitchen when I am not mapping out AI adoption strategies?
+
+Answer: kombucha & flower arrangements, kombucha, flower arrangements
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What’s the difference between AI usage and AI fluency?
+
+Answer: ai usage is activity, ai fluency is confidence and consistency, activity, confidence, consistency, usage is activity, fluency is confidence and consistency
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Which stage of the AI fluency journey comes after “Embedded”?
+
+Answer: evangelized, evangelize
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What new Microsoft 365 Copilot feature helps users organize multi-step research across Word, PowerPoint, Excel, and Copilot chats in a single workspace?
+
+Answer: copilot notebooks, notebooks, copilotnotebook, notebook
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MIKE MAADARANI
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: How many events have I spoken at?
+
+Answer: 130, 130 events, hundred and thirty, one hundred & thirty
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: How can I create content extraction models?
+
+Answer: content creator, content, creator
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Who can create SharePoint Agents?
+
+Answer: site members, a site member, members, members of the site, only members
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Can I customize a SharePoint Agent?
+
+Answer: no, nope, nah, false, you can't, you cannot, no cant
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MONA GHADIRI
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What kind of court case was I involved with at 17?
+
+Answer: civil rights, civil, civilrights
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What data governance tool in Microsoft should be enabled alongside Security Copilot?
+
+Answer: purview, dspm, dspm for ai
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is first in a manifest?
+
+Answer: manifest version, version, the version, the manifest version, a version
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Which out of the box security copilot agent helps with Entra?
+
+Answer: ca, conditional access, cond access, conditionalaccess
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: NICHOLAS PINTO & JEFF GELLMAN
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What is a fun fact I like to do on the weekends? I mentioned at the beginning.
+
+Answer: drone pilot, drone
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What are the two new AI agents introduced in Microsoft 365 Copilot for FY26?
+
+Answer: researcher and analyst, researcher, analyst, researcher & analyst, researcher n analyst
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What new modules are included in the redesigned Copilot app for FY26?
+
+Answer: notebooks and agent store, notebooks, agent store, agent store, notebooks, notebooks & agent store
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What tool in Microsoft 365 helps track Copilot usage, adoption, and business KPIs?
+
+Answer: copilot dashboard in viva insights, copilot dashboard viva insights, copilot dashboard, dashboard in viva insights, copilot dashboard in insights, dashboard in insights, dashboard
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: NORM YOUNG
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Answer True or False: Why do I like my running group so much? Because our runs always start and end at a brewery or bakery!
+
+Answer: true, t, yes, correct
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Name a tool that can help you write better prompts in Power Automate?
+
+Answer: prompt coach, coach, promptcoach
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the best Copilot feature in Power Automate?
+
+Answer: create an expression, create expression, an expression, expression, expression creation, creating expression
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Why do results with Copilot in Power Automate vary from user to user and session to session?
+
+Answer: its non-deterministic, it is non-deterministic, copilot is non-deterministic, because its non-deterministic, since its non-deterministic, as its non-deterministic
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: PAUL SWIDER
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What gear did I use to sleep while trekking to Everest Base Camp, in sub-freezing weather in 2023?
+
+Answer: tent, sleeping bag, tent and sleeping bag
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Name two platforms in the Microsoft ecosystem you can use to create agents today?
+
+Answer: copilot studio, azure, power platform, copilot studio azure pp, copilot studio, azure, power platform
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the name of the open-sourced framework for creating agents, and supported by the Azure team?
+
+Answer: semantic kernel, kernel, semantic
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year did Microsoft release the Semantic Kernel open-sourced repo for agents?
+
+Answer: march 17, 2023, 2023, mar 2023, in 2023, year 23, year 2023, yr 23, yr 2023, march 2023, march 23
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: RICHARD PLANTT & KANWAL KHIPPLE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What did I accidentally delete during a live intranet demo — leading to five minutes of panic and five months' worth of learning?
+
+Answer: homepage, home, home page
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What kind of employee experience does Microsoft Viva Connections aim to deliver in a modern intranet?
+
+Answer: personalized, personalization, personalized, personalize, personalization
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the primary purpose of Microsoft Viva Amplify in a modern intranet — helping teams share consistent messaging across platforms?
+
+Answer: communication, communicate
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year was Microsoft Viva officially launched? YYYY
+
+Answer: 2021, '21, year 21, year 2021, in yr 2021, in year 2021, in year 21, in yr 21
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SANJOY GHOSH
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What’s the one app I open automatically every morning before even brushing my teeth?
+
+Answer: teams, ms teams, microsoft teams
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What was Microsoft’s first GenAI product embedded into M365 apps?
+
+Answer: microsoft 365 copilot, m365 copilot, copilot, copilot in m365, copilot in microsoft 365
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Which foundational model is often used to build enterprise copilots?
+
+Answer: gpt-4, gpt 4, gpt4
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Which Microsoft's open-source framework is commonly used for building multi agents system?
+
+Answer: autogen, auto gen, auto-gen
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SCOTT RESTIVO
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: In what foreign capital city did I recently attend a M365 Community Days event?
+
+Answer: poland, warsaw, warsaw poland, warsaw in poland
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What does the acronym iBPA stand for?
+
+Answer: intelligent business process automation, intelligent bus. proc. automation
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the top layer of the NITRO Copilot architecture?
+
+Answer: output, out put
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: When was the Gartner Hype Cycle first published?
+
+Answer: 1995, 95, in 1995, in 95, year 95, year 1995, yr 95, yr 1995, nineteen ninety five
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SCOTT SHEARER
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What ancient tourist attraction in Jordan have I visited? Hint - it was the location for the final scenes of Indiana Jones and the Last Crusade.
+
+Answer: petra
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Power Automate Flows are the successor to what SharePoint feature?
+
+Answer: sharepoint designer workflows, sharepoint designer, sp designer workflows
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What Power Automate feature can you use instead of using Templates?
+
+Answer: copilot in power automate, copilot
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What type of license is required in order to use the SQL Server connector in Power Automate?
+
+Answer: a premium license, premium, premium lic
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SHARI OSWALD
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: My husband and I were competitive Country Western dancers "back in the day" and were on an exhibition dance team called the ....?
+
+Answer: dancing eagles, dancin eagles, eagles dancing, eagles dancin
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is the name of the feature in Viva Amplify that helps organize content across multiple channels?
+
+Answer: campaigns, campaign
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Which tab in Viva Amplify shows performance metrics like impressions and engagement rate?
+
+Answer: insights, insight
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What Microsoft 365 license is typically required to access Viva Amplify?
+
+Answer: viva suite, suite, vivasuite
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SONAL BORDIA
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Answer True or False: Sonal says: I belong to AAA .. and do AAA. That means Sonal is from 'Asia Australia America' and does 'Act Analyze Automate'
+
+Answer: true, yes, correct, right
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is a pre-requisite for copilot for sales service and finance?
+
+Answer: m365 copilot, productivity copilot
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: How many copilots did Sonal discuss?
+
+Answer: 5, five, more than 5, more than five, atleast 5, atleast five
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Answer True or False: Copilot usage is measured through Adoption Metrics – Active users (DAU/WAU/MAU), license usage Engagement – Number of prompts, use case types, session duration Impact – Time saved, content generated, task automation Feedback – User ratings on responses Custom Copilots – Intent success rate, API/connector usage, error rates Tools – Microsoft 365 Admin Center, Copilot Studio Analytics, Power Platform Admin Center, Power BI dashboards
+
+Answer: true, yes, correct, right
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SUNNY ELTEPU
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: I used to have 9 pets of the same breed - what were they? (dogs? cats? etc)
+
+Answer: parakeets, 9 parakeets
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is the Power Platform's low code no code AI tool called?
+
+Answer: ai builder, aibuilder
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What type of component can we use to show formatted text in the AI recommendation response instead of plain text?
+
+Answer: html, html text
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: how can we automatically alert the hiring manager that a match has been found?
+
+Answer: power automate, powerautomate
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: SUSAN HANLEY
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: How many grandchildren do I have?
+
+Answer: 3, three
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What is the numeric value of a published news article in the Promoted State field in SharePoint?
+
+Answer: 2, two
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Which product can a communicator use to write news in one place and publish it to SharePoint, Teams, Engage, and Outlook at the same time?
+
+Answer: viva amplify
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What are the names of the two licenses that you can acquire if you want to get the premium features for Viva Engage and Viva Connections?
+
+Answer: microsoft viva employee communications and communities, microsoft viva suite, viva employee communications and communities, viva suite
+
+================================================================================
+
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: VANESSA TOVES
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What famous bar’s mechanical bull did I ride on my 30th birthday?
+
+Answer: gilley’s in irving texas, gilley’s, gilley, gilley’s in texas, gilley’s in irving, gilley’s irving tx
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Beyond the restore, your historic snapshots of data aid your cyber incident response in what way?
+
+Answer: anomaly detection, anomaly
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Answer True or False: What type of data adds complexities when recovering from a ransomware attack? Time sensitive data. Not to be confused with sensitive PII data.
+
+Answer: true, yes, correct, right, t
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Answer True or False: How many identity attacks did Microsoft report in the digital defense report for 2024? 600 million identity attacks per day
+
+Answer: true, t, yes, correct
+
+================================================================================

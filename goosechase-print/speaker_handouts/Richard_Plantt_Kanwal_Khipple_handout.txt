@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: RICHARD PLANTT & KANWAL KHIPPLE
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What did I accidentally delete during a live intranet demo — leading to five minutes of panic and five months' worth of learning?
+
+Answer: homepage, home, home page
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What kind of employee experience does Microsoft Viva Connections aim to deliver in a modern intranet?
+
+Answer: personalized, personalization, personalized, personalize, personalization
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the primary purpose of Microsoft Viva Amplify in a modern intranet — helping teams share consistent messaging across platforms?
+
+Answer: communication, communicate
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year was Microsoft Viva officially launched? YYYY
+
+Answer: 2021, '21, year 21, year 2021, in yr 2021, in year 2021, in year 21, in yr 21
+
+================================================================================

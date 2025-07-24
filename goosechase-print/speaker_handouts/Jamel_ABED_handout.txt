@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: JAMEL ABED
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What’s the first thing I do when I check into a hotel room ?
+
+Answer: desk, setup desk, desk setup
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Which API is primarily used to interact with SharePoint Embedded?
+
+Answer: graph, graph api, graphapi
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What must be registered in Azure AD before accessing SharePoint Embedded containers?
+
+Answer: app registration, register app, application registration, app regis., registration of app, registration of application, the application, application, app
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year was SharePoint Embedded announced by Microsoft?
+
+Answer: 2023, 23, year 23, year 2023, yr 2023, in 2023, in 23, in yr 23, in year 23
+
+================================================================================

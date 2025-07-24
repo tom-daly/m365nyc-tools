@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MIKE MAADARANI
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: How many events have I spoken at?
+
+Answer: 130, 130 events, hundred and thirty, one hundred & thirty
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: How can I create content extraction models?
+
+Answer: content creator, content, creator
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: Who can create SharePoint Agents?
+
+Answer: site members, a site member, members, members of the site, only members
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Can I customize a SharePoint Agent?
+
+Answer: no, nope, nah, false, you can't, you cannot, no cant
+
+================================================================================

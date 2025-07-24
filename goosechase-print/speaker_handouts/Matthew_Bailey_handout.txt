@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MATTHEW BAILEY
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: Which "Aussie" pop star have I traveled around the world to see multiple times?
+
+Answer: kylie minogue, kylie, minogue
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: How many different Microsoft AI tools did I compare & review in my presentation?
+
+Answer: 5, five, 5 tools, 5 ai tools
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the cheaper method of buying Copilot Studio messages for use in your agents?
+
+Answer: message packs, packs, pack, buy a pack
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: At which event did Microsoft announce the new app "Copilot Studio"?
+
+Answer: msignite, microsoft ignite, ignite, ms ignite, ignite conference
+
+================================================================================

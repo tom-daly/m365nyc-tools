@@ -1,0 +1,37 @@
+{
+  "name": "faker-images",
+  "version": "1.0.0",
+  "description": "Generate fake portrait images using Faker.js",
+  "main": "generate-images.js",
+  "type": "module",
+  "scripts": {
+    "start": "node generate-images.js",
+    "download": "node download-images.js",
+    "download-dicebear": "node download-dicebear.js",
+    "dicebear:thumbs": "node dicebear-styles.js single thumbs 50",
+    "dicebear:avataaars": "node dicebear-styles.js single avataaars 50",
+    "dicebear:personas": "node dicebear-styles.js single personas 50",
+    "dicebear:multi": "node dicebear-styles.js multi thumbs avataaars personas",
+    "dicebear:list": "node dicebear-styles.js list",
+    "dicebear:convert": "node convert-dicebear-to-png.js",
+    "dicebear:redownload-png": "node redownload-dicebear-png.js",
+    "generate-test-data": "node generate-test-data.js",
+    "test-data:small": "node run-scenario.js small",
+    "test-data:medium": "node run-scenario.js medium",
+    "test-data:large": "node run-scenario.js large",
+    "test-data:xlarge": "node run-scenario.js xlarge",
+    "test-data:custom": "node run-scenario.js custom",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.3.0"
+  },
+  "keywords": [
+    "faker",
+    "images",
+    "portraits",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT"
+}

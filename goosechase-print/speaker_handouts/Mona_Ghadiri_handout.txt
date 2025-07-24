@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: MONA GHADIRI
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What kind of court case was I involved with at 17?
+
+Answer: civil rights, civil, civilrights
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: What data governance tool in Microsoft should be enabled alongside Security Copilot?
+
+Answer: purview, dspm, dspm for ai
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is first in a manifest?
+
+Answer: manifest version, version, the version, the manifest version, a version
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: Which out of the box security copilot agent helps with Entra?
+
+Answer: ca, conditional access, cond access, conditionalaccess
+
+================================================================================

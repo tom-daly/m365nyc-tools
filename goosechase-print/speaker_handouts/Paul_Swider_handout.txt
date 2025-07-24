@@ -1,0 +1,43 @@
+================================================================================
+M365 NYC GOOSECHASE - SPEAKER: PAUL SWIDER
+================================================================================
+
+FUN FACT:
+Points: 400
+Type: Text Answer
+
+Question: What gear did I use to sleep while trekking to Everest Base Camp, in sub-freezing weather in 2023?
+
+Answer: tent, sleeping bag, tent and sleeping bag
+
+------------------------------------------------------------
+
+QUIZ 1:
+Points: 400
+Type: Text Answer
+
+Question: Name two platforms in the Microsoft ecosystem you can use to create agents today?
+
+Answer: copilot studio, azure, power platform, copilot studio azure pp, copilot studio, azure, power platform
+
+------------------------------------------------------------
+
+QUIZ 2:
+Points: 400
+Type: Text Answer
+
+Question: What is the name of the open-sourced framework for creating agents, and supported by the Azure team?
+
+Answer: semantic kernel, kernel, semantic
+
+------------------------------------------------------------
+
+BONUS RESEARCH QUESTION:
+Points: 500
+Type: Text Answer
+
+Question: What year did Microsoft release the Semantic Kernel open-sourced repo for agents?
+
+Answer: march 17, 2023, 2023, mar 2023, in 2023, year 23, year 2023, yr 23, yr 2023, march 2023, march 23
+
+================================================================================
