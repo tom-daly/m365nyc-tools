@@ -1,0 +1,398 @@
+[
+  {
+    "id": "cf9d77bf-9d18-4074-a2e7-4020b392be2d",
+    "firstName": "Melissa",
+    "lastName": "Hubbard",
+    "fullName": "Melissa Hubbard",
+    "tagLine": "Teams Technical Specialist, Former Microsoft MVP, Author, Speaker",
+    "profilePicture": "https://sessionize.com/image/cfaf-400o400o1-bf-9d18-4074-a2e7-4020b392be2d.d6e4e675-b673-4897-bc9a-d53dcbde8d98.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "6e287134-6d74-4283-97ec-b16ffbf08176",
+    "firstName": "Kate",
+    "lastName": "Faaland",
+    "fullName": "Kate Faaland",
+    "tagLine": "SVP of Data and AI",
+    "profilePicture": "https://sessionize.com/image/bf37-400o400o1-BcD4w5ikD6tHvejGtyFQvQ.JPG",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "faf5e124-26b5-4118-8339-be0db7a6c65a",
+    "firstName": "Marie",
+    "lastName": "Roker-Jones",
+    "fullName": "Marie Roker-Jones",
+    "tagLine": "Connecting AI, Culture, and Curiosity to Build Game-Changing Communities",
+    "profilePicture": "https://sessionize.com/image/492e-400o400o1-WWxq8P7ugLvWQ1AtGJGX9o.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "e81c8217-8372-4492-aee6-f482e2f486a7",
+    "firstName": "Sounil ",
+    "lastName": "Yu",
+    "fullName": "Sounil Yu",
+    "tagLine": "CTO - Cofounder, creator of the Cyber Defense Matrix and the DIE Triad",
+    "profilePicture": "https://sessionize.com/image/8ef0-400o400o1-D59cVX5FoVEZFwy65S94Tj.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "8a0a650b-9853-483b-87b0-cafe51705310",
+    "firstName": "David",
+    "lastName": "Berry",
+    "fullName": "David Berry",
+    "tagLine": "Decoding M365 & AI | VP, Research | MCT Community Lead | Northern Virginia Technology Council  ",
+    "profilePicture": "https://sessionize.com/image/7197-400o400o1-RrU3oj3RdoFDH2LoBgcKWb.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "dcbf8f1b-a610-400e-b1fc-6174de31cf5e",
+    "firstName": "Brian",
+    "lastName": "Alderman",
+    "fullName": "Brian Alderman",
+    "tagLine": "Six-year MVP Alumni, 28-year MCT, Author, Speaker, Consultant",
+    "profilePicture": "https://sessionize.com/image/9917-400o400o1-1b-a610-400e-b1fc-6174de31cf5e.08f5746c-e673-4c51-9217-fff36ccfac29.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "1279dba4-ce8c-4674-b16a-83a3c723606d",
+    "firstName": "Matthew J.",
+    "lastName": "Bailey",
+    "fullName": "Matthew J. Bailey",
+    "tagLine": "Microsoft Certified Trainer and Microsoft AI Architect",
+    "profilePicture": "https://sessionize.com/image/7900-400o400o1-pEcQ2VM7B9cwfH2ybwmqnL.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "1991a5c2-39b1-44c2-8b58-c9ba5b328225",
+    "firstName": "Scott",
+    "lastName": "Shearer",
+    "fullName": "Scott Shearer",
+    "tagLine": "Microsoft Power Platform Evangelist and MVP",
+    "profilePicture": "https://sessionize.com/image/6bb2-400o400o1-DBmPKTtE3BHTDXTqTZ8z8s.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "0db4deab-cb6a-466e-977c-6b77bdd59ea0",
+    "firstName": "Richard",
+    "lastName": "Plantt",
+    "fullName": "Richard Plantt",
+    "tagLine": "Creative & Digital Workplace Consultant at 2toLead, Member of the RGD",
+    "profilePicture": "https://sessionize.com/image/144a-400o400o1-KEg9uhBHhUPUNyATtKtBJw.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "87c9c354-553b-453f-aadd-57c4b798b7cf",
+    "firstName": "Colin",
+    "lastName": "Britton",
+    "fullName": "Colin Britton",
+    "tagLine": "COO at Devicie | Championing secure, automated endpoint management for Microsoft 365",
+    "profilePicture": "https://sessionize.com/image/298d-400o400o1-Jgjjakqqu52AhQJftaqGk5.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "54de6440-9ae6-43c6-97c0-78b169c25c34",
+    "firstName": "Jared",
+    "lastName": "Matfess",
+    "fullName": "Jared Matfess",
+    "tagLine": "AI Architect @ AvePoint",
+    "profilePicture": "https://sessionize.com/image/50fa-400o400o1-Gv3tBVTXwghxC5jxVezUSc.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "fbec9d92-7b9a-4a39-ba63-c3778507413b",
+    "firstName": "Himanshu",
+    "lastName": "Goil",
+    "fullName": "Himanshu Goil",
+    "tagLine": "Chief Executive Officer, Ignatiuz Inc.",
+    "profilePicture": "https://sessionize.com/image/04a1-400o400o1-Jz2A1QgrgA6qzgxiqPioSJ.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "6018628a-2735-4bc6-962f-46e7ad346d39",
+    "firstName": "Sunny",
+    "lastName": "Eltepu",
+    "fullName": "Sunny Eltepu",
+    "tagLine": "Senior Solutions Engineer @ Microsoft | Power Platform",
+    "profilePicture": "https://sessionize.com/image/caf9-400o400o1-B8feFuTCQNnaFUd43uaQ9C.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "11040b88-bb53-4d2d-a9a5-f5cd646fa020",
+    "firstName": "Jamel",
+    "lastName": "Abed",
+    "fullName": "Jamel Abed",
+    "tagLine": "Microsoft 365 MVP | M365 Solutions Architect & Cloud Development Expert",
+    "profilePicture": "https://sessionize.com/image/3464-400o400o1-PLcpRVLQQKswhaAzJjDLp7.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "d0b0a6ca-ad0d-4c86-a7f0-e8d1b07a6091",
+    "firstName": "Deb",
+    "lastName": "Walther",
+    "fullName": "Deb Walther",
+    "tagLine": "SkyTerra Sr Engineer (Making Worklife easier)",
+    "profilePicture": "https://sessionize.com/image/9af6-400o400o1-DCwa7KSpxMR9uPGVMJQSLh.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "4280c4fb-e9f0-4ec5-a160-7582f1f8844c",
+    "firstName": "Jeff",
+    "lastName": "Gellman",
+    "fullName": "Jeff Gellman",
+    "tagLine": "National Director, Modern Workplace & Secure Productivity at Neudesic, an IBM Company",
+    "profilePicture": "https://sessionize.com/image/71c1-400o400o1-XRtps1Bru1FctyqY6QMM3A.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "033b0917-8f2a-43e0-b080-71a2fbd04ddc",
+    "firstName": "Charles",
+    "lastName": "Lakes II",
+    "fullName": "Charles Lakes II",
+    "tagLine": "Microsoft MVP | Creative Solution Architect @ The II Lakes Group",
+    "profilePicture": "https://sessionize.com/image/7c5b-400o400o1-3Yh6nHvdinzZTNRWEuDDb5.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "54ec9779-68e2-47dd-9915-b130243be19a",
+    "firstName": "Ed",
+    "lastName": "Williams",
+    "fullName": "Ed Williams",
+    "tagLine": " Power Platform Solutions Architect",
+    "profilePicture": "https://sessionize.com/image/4001-400o400o1-ER3s6G4E4zBtsg7VuzTLN7.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "63793d02-2451-42f9-9ce8-253757534f8d",
+    "firstName": "Sanjoy",
+    "lastName": "Ghosh",
+    "fullName": "Sanjoy Ghosh",
+    "tagLine": "Sanjoy Ghosh, Business & Engineering Leader, Apexon",
+    "profilePicture": "https://sessionize.com/image/7416-400o400o1-BUjTAL5RswMK3vWcqG6gQR.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "e143b67a-bebc-4343-aaa6-6dafb70f400b",
+    "firstName": "Shari",
+    "lastName": "Oswald",
+    "fullName": "Shari Oswald",
+    "tagLine": "Microsoft MVP | MCT Community Lead | Productivity and O365 Adoption Expert | Technology Evangelist | SharePoint Consultant | eLearning Author | International Speaker",
+    "profilePicture": "https://sessionize.com/image/ef69-400o400o1-MKgaMi5YbSqVHoyspiMyZV.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "1fb25ae7-3226-4bf5-9c79-aa600340a2d1",
+    "firstName": "David",
+    "lastName": "Patrick",
+    "fullName": "David Patrick",
+    "tagLine": "MCT, MVP @ www.DSAINC.com",
+    "profilePicture": "https://sessionize.com/image/3fc4-400o400o1-HtvxPR2wXMzo3Q91R5aDNA.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "a5ae6b00-2923-4e7f-bd82-60fa3eb6578f",
+    "firstName": "Sonal",
+    "lastName": "Bordia",
+    "fullName": "Sonal Bordia",
+    "tagLine": "Fostering AI Leadership- Transforming Industries with AI-Driven Business Applications and Copilot Extensibility",
+    "profilePicture": "https://sessionize.com/image/b525-400o400o1-ULwykbYrEcgWmTq87dMBUz.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "14325ce5-b217-4044-9b68-bae80ba4e657",
+    "firstName": "Mike",
+    "lastName": "Maadarani",
+    "fullName": "Mike Maadarani",
+    "tagLine": "Microsoft MVP, Cloud Solution Architect, MCM Consulting",
+    "profilePicture": "https://sessionize.com/image/fee3-400o400o1-JCEaSFcYNw97iCL3cR7wq2.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "ceefc774-41da-42ef-81d9-35e3db9daf2a",
+    "firstName": "Vanessa",
+    "lastName": "Toves",
+    "fullName": "Vanessa Toves",
+    "tagLine": "Microsoft 365 Solutions Architect | Data Security, Druva",
+    "profilePicture": "https://sessionize.com/image/c551-400o400o1-JvhNeBwbjU4qSRXV43vARe.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "a821edd0-eda1-4513-acf6-a068ce954ead",
+    "firstName": "Susan",
+    "lastName": "Hanley",
+    "fullName": "Susan Hanley",
+    "tagLine": "Information Architect/Business Analyst",
+    "profilePicture": "https://sessionize.com/image/74c5-400o400o1-4qzVEYjdQjxHoiCZYU5i4V.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "4de32db1-3a0f-473d-aba9-6b5e61fcab1d",
+    "firstName": "Dux",
+    "lastName": "Raymond Sy",
+    "fullName": "Dux Raymond Sy",
+    "tagLine": "Chief Brand Officer @ AvePoint | Microsoft RD and MVP",
+    "profilePicture": "https://sessionize.com/image/cc27-400o400o1-pBqApHTNMovD6Nk46BPJ9L.png",
+    "isTopSpeaker": true
+  },
+  {
+    "id": "f2c00804-52a1-440d-aa4b-a92801d5fc8a",
+    "firstName": "Norm",
+    "lastName": "Young",
+    "fullName": "Norm Young",
+    "tagLine": "Microsoft 365 and Power Platform Solution Architect | Microsoft MVP ",
+    "profilePicture": "https://sessionize.com/image/35dd-400o400o1-YEjHWJfys98XMX5kq7mbi2.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "6f2a2f9c-04fa-4f8c-9363-997d64dbdae7",
+    "firstName": "Jamie",
+    "lastName": "Willis-Rose",
+    "fullName": "Jamie Willis-Rose",
+    "tagLine": "Microsoft Federal - Senior Technical Specialist",
+    "profilePicture": "https://sessionize.com/image/f85a-400o400o1-9c-04fa-4f8c-9363-997d64dbdae7.d984a66c-6c3e-4090-b3fd-99cc16b0c8af.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "04c1ce2f-8a91-4d27-afe9-c13456082bf5",
+    "firstName": "CAT",
+    "lastName": "Susch",
+    "fullName": "CAT Susch",
+    "tagLine": "CAT @ NY Microsoft Innovation Hub",
+    "profilePicture": "https://sessionize.com/image/6485-400o400o1-9KcG1bNoxouefjkEWNBh8R.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "30a50a77-bd74-4b81-be4a-ae1580c795fe",
+    "firstName": "Kristopher",
+    "lastName": "Turner",
+    "fullName": "Kristopher Turner",
+    "tagLine": "Bridging the gap between Azure’s clouds and on-prem realities, one hybrid solution at a time!",
+    "profilePicture": "https://sessionize.com/image/e432-400o400o1-9k5MpXHcRJKqsXtx5mwWip.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "624f7e43-7a3c-4e75-ba65-a25e114ee3a4",
+    "firstName": "Melissa",
+    "lastName": "Jurkoic",
+    "fullName": "Melissa Jurkoic",
+    "tagLine": "Lifetime technologist devoted to improving the human experience through tech",
+    "profilePicture": "https://sessionize.com/image/33ff-400o400o1-DJCj6XzKf57bF4nbRtQMte.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "c3d7ba80-aa98-4cdc-a93d-3a1b3fb8bd57",
+    "firstName": "Samir",
+    "lastName": "Makwana",
+    "fullName": "Samir Makwana",
+    "tagLine": "MCT | Founder of Cloudtrify | Cloud Solution Architect | Angel Investor",
+    "profilePicture": "https://sessionize.com/image/3763-400o400o1-HUwkyeCCq75RtdA5njw1ny.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "95152183-b1f1-4abb-aca2-f188f284641d",
+    "firstName": "Diego",
+    "lastName": "Domingos da Silva",
+    "fullName": "Diego Domingos da Silva",
+    "tagLine": "Microsoft 365 SME | Solutions Architect | Community Speaker",
+    "profilePicture": "https://sessionize.com/image/0e00-400o400o1-SMc1PzqbTmngS45HWYGJfD.png",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "2946354f-fb06-45f5-8be4-7addeaddf0e8",
+    "firstName": "Kanwal",
+    "lastName": "Khipple",
+    "fullName": "Kanwal Khipple",
+    "tagLine": "Chief Executive Officer",
+    "profilePicture": "https://sessionize.com/image/8c49-400o400o1-RwFmEnPVTX8pEfNpLx9thp.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "e02bfe4c-a656-4677-bed6-6a4f8e1cae51",
+    "firstName": "Emily",
+    "lastName": "Mancini",
+    "fullName": "Emily Mancini",
+    "tagLine": "Founder & Executive Director, Left Uncharted",
+    "profilePicture": "https://sessionize.com/image/2933-400o400o1-V3gh5Emp9QVJqRWE4z1BPm.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "cb279d3e-62ff-469f-8b9f-9d9ef5e03a42",
+    "firstName": "Gina",
+    "lastName": "Montgomery",
+    "fullName": "Gina Montgomery",
+    "tagLine": "Director of AI, Automation & Analytics",
+    "profilePicture": "https://sessionize.com/image/5771-400o400o1-KSdVhQRLaQqUGrHv6oiToD.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "5835f54a-2d79-44be-9edb-30168dbe13d1",
+    "firstName": "Matt",
+    "lastName": "Wade",
+    "fullName": "Matt Wade",
+    "tagLine": "Microsoft MVP, co-founder of jumpto365",
+    "profilePicture": "https://sessionize.com/image/da1a-400o400o1-J5Twr2tVAMhJTofSZPtY93.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "610cd309-b528-4c63-a775-1d915066d347",
+    "firstName": "Nicholas",
+    "lastName": "Pinto",
+    "fullName": "Nicholas Pinto",
+    "tagLine": "Sr. Cloud Solution Architect, Microsoft",
+    "profilePicture": "https://sessionize.com/image/6e3f-400o400o1-7j281dvoUabt13RCrSw3Sf.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "0ad9f2ee-49b8-45ee-938e-db1176277a61",
+    "firstName": "Mona",
+    "lastName": "Ghadiri",
+    "fullName": "Mona Ghadiri",
+    "tagLine": "Microsoft Security MVP | SIEM & XDR",
+    "profilePicture": "https://sessionize.com/image/433d-400o400o1-XTSNefgxEqGiNy98KbFeSW.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "73ff65b0-bdcc-43d9-9c5a-64ff986ceac6",
+    "firstName": "Lenore",
+    "lastName": "Flower",
+    "fullName": "Lenore Flower",
+    "tagLine": "Data Plumber & Trainer - Data Plumber LLC",
+    "profilePicture": "https://sessionize.com/image/6fa1-400o400o1-TrJb6si4FGfduxS1RQM5Di.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "835cc377-acc7-4e32-9824-05ac2acba02f",
+    "firstName": "Karen",
+    "lastName": "Dredske",
+    "fullName": "Karen Dredske",
+    "tagLine": "Senior Solution Architect at NRI North America",
+    "profilePicture": "https://sessionize.com/image/9355-400o400o1-7sfDTr3sczGbPeFfD41ZLU.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "fb8d321d-b3f5-4964-9e53-df967d8c5575",
+    "firstName": "Scott",
+    "lastName": "Restivo",
+    "fullName": "Scott Restivo",
+    "tagLine": "CEO & Resident Business Automation Guru",
+    "profilePicture": "https://sessionize.com/image/7cca-400o400o1-UCYHCKq44vnbSBs9SgwHeH.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "ea58cf0c-6271-42bb-9e3a-e39dda302f11",
+    "firstName": "Paul",
+    "lastName": "Swider",
+    "fullName": "Paul Swider",
+    "tagLine": "Architecting AI-driven Healthcare Solutions | Strategic Partner & Thought Leader",
+    "profilePicture": "https://sessionize.com/image/5018-400o400o1-nTWk1KLigFjeUCrBuBwWNt.jpg",
+    "isTopSpeaker": false
+  },
+  {
+    "id": "new-speaker-46",
+    "firstName": "AvePoint",
+    "lastName": "Speaker",
+    "fullName": "AvePoint Speaker",
+    "tagLine": "Technology Solutions Expert",
+    "profilePicture": "/images/46.png",
+    "isTopSpeaker": false
+  }
+]

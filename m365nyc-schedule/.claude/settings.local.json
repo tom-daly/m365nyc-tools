@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(del parse_schedule.py)",
+      "Bash(rm:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(del handout_template.html printable-handout.html complete-printable-handout.html schedule_formatted.json)",
+      "Bash(node:*)",
+      "Bash(rg:*)",
+      "Bash(npm run generate:*)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "m365nyc-schedule-generator",
+  "version": "1.0.0",
+  "description": "Generate printable handouts from M365 NYC conference schedule JSON data",
+  "main": "generate-handout.js",
+  "scripts": {
+    "generate": "node generate-handout.js",
+    "dev": "node generate-handout.js && echo 'Open schedule-handout.html in your browser'"
+  },
+  "keywords": ["m365", "conference", "schedule", "handout", "generator"],
+  "author": "Conference Organizer",
+  "license": "MIT"
+}

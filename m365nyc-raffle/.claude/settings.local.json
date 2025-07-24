@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(rm:*)",
+      "Bash(npm run validate:*)",
+      "Bash(npm test)",
+      "Bash(timeout 30 npm run dev)",
+      "Bash(timeout 30 npm run build)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(mv:*)",
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(node:*)",
+      "Bash(cp:*)",
+      "Bash(npm run optimize:thumbnail:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run optimize:images:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run analyze:comprehensive:*)",
+      "Bash(npm run analyze:efficient:*)",
+      "Bash(npm run verify:raffle:*)",
+      "Bash(npm run verify:quick:*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:sessionize.com)"
+    ],
+    "deny": []
+  }
+}

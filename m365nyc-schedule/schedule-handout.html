@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M365 NYC Conference Schedule</title>
+    <style>
+        @media print {
+            body { font-size: 12px; margin: 0.1in; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+            .time-header { width: 65px !important; font-size: 11px !important; padding: 3px !important; background-color: #E3F2FD !important; }
+            .room-header { font-size: 11px !important; padding: 3px !important; }
+            .session-cell { padding: 6px !important; font-size: 11px !important; }
+            .session-title { font-size: 10px !important; line-height: 1.2 !important; }
+            .session-speaker { font-size: 10px !important; }
+            .session-meta { font-size: 8px !important; }
+            .tag { font-size: 7px !important; padding: 1px 4px !important; }
+            .level-pill { font-size: 10px !important; padding: 2px 6px !important; }
+            .qr-code { width: 40px !important; height: 40px !important; top: 0 !important; right: 0 !important; }
+            .qr-code-left { width: 40px !important; height: 40px !important; top: 0 !important; left: 0 !important; }
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+            background: white;
+            padding: 5px;
+            position: relative;
+        }
+        
+        .main-title {
+            text-align: center;
+            color: #4472C4;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .date-subtitle {
+            text-align: center;
+            color: black;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .session-block {
+            margin-bottom: 0px;
+        }
+        
+        .session-block:first-of-type {
+            margin-top: 10px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+            position: relative;
+        }
+        
+        .block-header {
+            background-color: #D9E2F3;
+            color: #4472C4;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 11px;
+            border: 1px solid black;
+            margin-bottom: 0;
+        }
+        
+        .session-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0px;
+            table-layout: fixed;
+        }
+        
+        .time-header {
+            background-color: #F2F2F2;
+            padding: 3px;
+            border: 1px solid black;
+            font-weight: bold;
+            font-size: 11px;
+            width: 65px;
+            vertical-align: top;
+        }
+        
+        .room-header {
+            background-color: #F2F2F2;
+            padding: 3px;
+            border: 1px solid black;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            width: calc((100% - 65px) / 8);
+        }
+        
+        .session-cell {
+            padding: 6px;
+            border: 1px solid black;
+            vertical-align: top;
+            font-size: 11px;
+            line-height: 1.2;
+            width: calc((100% - 65px) / 8);
+            height: 120px;
+        }
+        
+        .session-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .session-main {
+            flex-grow: 1;
+        }
+        
+        .session-title {
+            font-weight: bold;
+            color: black;
+            margin-bottom: 3px;
+            line-height: 1.2;
+            font-size: 10px;
+        }
+        
+        .session-speaker {
+            color: black;
+            font-style: italic;
+            font-size: 10px;
+        }
+        
+        .session-meta {
+            font-size: 10px;
+            line-height: 1.1;
+            flex-grow: 1;
+            margin-right: 8px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            margin-right: 4px;
+            margin-bottom: 2px;
+        }
+        
+        .tag-copilot { background-color: #E8F5E8; color: #2E7D32; }
+        .tag-sharepoint { background-color: #FFF3E0; color: #E65100; }
+        .tag-power-platform { background-color: #F3E5F5; color: #7B1FA2; }
+        .tag-teams { background-color: #E3F2FD; color: #1976D2; }
+        .tag-azure { background-color: #E0F2F1; color: #00695C; }
+        .tag-ai { background-color: #FCE4EC; color: #C2185B; }
+        .tag-config { background-color: #FFF8E1; color: #F57F17; }
+        .tag-apps { background-color: #F1F8E9; color: #558B2F; }
+        .tag-viva { background-color: #EDE7F6; color: #512DA8; }
+        .tag-business { background-color: #E8F0FE; color: #1565C0; }
+        
+        .qr-code {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .qr-code-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .session-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+        
+        .level-pill {
+            background-color: #4472C4;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .service-bg {
+            background-color: #FFF2CC;
+        }
+        
+        .service-session {
+            font-weight: bold;
+            color: black;
+        }
+        
+        .empty-cell {
+            color: #999;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .single-room-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0px;
+        }
+        
+        .single-room-header {
+            background-color: #F2F2F2;
+            padding: 2px 4px;
+            border: 1px solid black;
+            font-weight: bold;
+            font-size: 10px;
+            width: 120px;
+        }
+        
+        .single-room-time {
+            background-color: #F2F2F2;
+            padding: 2px 4px;
+            border: 1px solid black;
+            font-weight: bold;
+            font-size: 10px;
+            width: 120px;
+        }
+        
+        .icon {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <img src="schedule.png" alt="QR Code" class="qr-code">
+    <img src="schedule.png" alt="QR Code" class="qr-code-left">
+    <div class="main-title">M365 NYC Conference Schedule</div>
+    <div class="date-subtitle">Friday, July 25, 2025</div>
+
+    <div class="session-block">
+        <div class="block-header service-bg">Opening & Registration</div>
+        <table class="single-room-table">
+            <tr class="service-bg">
+                <td class="single-room-time">8:30 AM - 9:00 AM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🎟️</span>Registration
+                </td>
+            </tr>
+            <tr class="service-bg">
+                <td class="single-room-time">9:00 AM - 9:20 AM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🎤</span>Kick Off / Welcome Session
+                </td>
+            </tr>
+        </table>
+    </div><table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0;"><tr><td style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; color: black; font-style: italic;">10 minute Break</td></tr></table>    <div class="session-block">
+        <div class="block-header ">Morning Session Block 1 (9:30 AM - 10:20 AM)</div>
+        <table class="session-table">
+            <tr>
+                <th class="time-header">Time</th>
+                <th class="room-header">05 Broadway</th>
+                <th class="room-header">05 Marquis</th>
+                <th class="room-header">05 Music Box</th>
+                <th class="room-header">05 New Amsterdam</th>
+                <th class="room-header">05 Winter Garden</th>
+                <th class="room-header">06 Ambassador</th>
+                <th class="room-header">06 Belasco</th>
+                <th class="room-header">06 Radio City</th>
+            </tr>
+            <tr>
+                <td class="time-header">9:30 AM - 10:20 AM</td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Turn Up the Volume: How Viva Amplify Elevates Your Communications</div>
+                            <div class="session-speaker">Shari Oswald</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-viva">Viva</span><span class="tag tag-business">Business & Productivity</span><span class="tag tag-teams">MS Teams</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Empowering Internal Customer Service Roles with Copilot Agents</div>
+                            <div class="session-speaker">Emily Mancini</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Pilot to Copilot: You are not clear for takeoff!</div>
+                            <div class="session-speaker">David Berry</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Empowering corporate communications with Microsoft 365</div>
+                            <div class="session-speaker">Susan Hanley</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-viva">Viva</span><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Transforming Employee Engagement with AI-Driven Intranets</div>
+                            <div class="session-speaker">Kanwal Khipple, Richard Plantt</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Securing Modern Work: Automating Intune to Unlock Productivity Without Compromise</div>
+                            <div class="session-speaker">Colin Britton</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-config">M365 Config / Mgmt</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Biz Apps & Microsoft 365: Better Together, Customizing Copilot Agents with Copilot Studio & Azure AI</div>
+                            <div class="session-speaker">Sonal Bordia</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">300</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Building a Copilot-First Solution with Copilot Studio and AI Builder</div>
+                            <div class="session-speaker">Ed Williams</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">300</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div><table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0;"><tr><td style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; color: black; font-style: italic;">10 minute Break</td></tr></table>    <div class="session-block">
+        <div class="block-header ">Morning Session Block 2 (10:30 AM - 11:20 AM)</div>
+        <table class="session-table">
+            <tr>
+                <th class="time-header">Time</th>
+                <th class="room-header">05 Broadway</th>
+                <th class="room-header">05 Marquis</th>
+                <th class="room-header">05 Music Box</th>
+                <th class="room-header">05 New Amsterdam</th>
+                <th class="room-header">05 Winter Garden</th>
+                <th class="room-header">06 Ambassador</th>
+                <th class="room-header">06 Belasco</th>
+                <th class="room-header">06 Radio City</th>
+            </tr>
+            <tr>
+                <td class="time-header">10:30 AM - 11:20 AM</td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Securing AI Interactions: Building Data Security in Copilot Studio Agents</div>
+                            <div class="session-speaker">Samir Makwana</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span><span class="tag tag-config">M365 Config / Mgmt</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Using Copilot with Microsoft Office Apps</div>
+                            <div class="session-speaker">Deb Walther</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Microsoft 365 Copilot. Copilot Agents and What is to Come!</div>
+                            <div class="session-speaker">CAT Susch</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span><span class="tag tag-config">M365 Config / Mgmt</span><span class="tag tag-teams">MS Teams</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">From Tech Expert to Strategic Leader: Rethink How You Lead</div>
+                            <div class="session-speaker">Marie Roker-Jones</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Secure Microsoft 365, Dynamics 365, and Entra ID Data Against Cyber Threats</div>
+                            <div class="session-speaker">Vanessa Toves</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span><span class="tag tag-config">M365 Config / Mgmt</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Building Your First CRUD App using Dataverse for Teams with Copilot</div>
+                            <div class="session-speaker">David Patrick</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span><span class="tag tag-teams">MS Teams</span><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Using GenAI and Copilots with a Targeted Data Set</div>
+                            <div class="session-speaker">Scott Restivo</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Maximize your SharePoint content with no-code custom Copilots</div>
+                            <div class="session-speaker">Matt Wade</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div><table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0;"><tr><td style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; color: black; font-style: italic;">10 minute Break</td></tr></table>    <div class="session-block">
+        <div class="block-header ">Morning Session Block 3 (11:30 AM - 12:20 PM)</div>
+        <table class="session-table">
+            <tr>
+                <th class="time-header">Time</th>
+                <th class="room-header">05 Broadway</th>
+                <th class="room-header">05 Marquis</th>
+                <th class="room-header">05 Music Box</th>
+                <th class="room-header">05 New Amsterdam</th>
+                <th class="room-header">05 Winter Garden</th>
+                <th class="room-header">06 Ambassador</th>
+                <th class="room-header">06 Belasco</th>
+                <th class="room-header">06 Radio City</th>
+            </tr>
+            <tr>
+                <td class="time-header">11:30 AM - 12:20 PM</td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Automating Azure Virtual Desktop Deployment with VS Code and GitHub Copilot</div>
+                            <div class="session-speaker">Kristopher Turner</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-azure">Azure</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">How to build a Gen AI Chatbot in 3 steps</div>
+                            <div class="session-speaker">Kate Faaland</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-azure">Azure</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Exploring Microsoft 365 Copilot’s Out-of-the-box Agents</div>
+                            <div class="session-speaker">Melissa Hubbard</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Real World Microsoft 365 Governance in the Age of AI</div>
+                            <div class="session-speaker">Jared Matfess</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-config">M365 Config / Mgmt</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Let's Talk M365 Copilot Adoption, a Cosmic Copilot Adventure</div>
+                            <div class="session-speaker">Gina Montgomery</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">How the M365 community saved my life: finding purpose, belonging, and strength in tech</div>
+                            <div class="session-speaker">Diego Domingos da Silva</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Beyond Automation: Measuring AI Proficiency to Unlock True Business Value</div>
+                            <div class="session-speaker">Melissa Jurkoic</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">From CoPilot to Agentic AI: Unlocking Enterprise-Grade Autonomy in the Microsoft 365 Ecosystem</div>
+                            <div class="session-speaker">Sanjoy Ghosh</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>    <div class="page-break">
+        <img src="schedule.png" alt="QR Code" class="qr-code">
+        <img src="schedule.png" alt="QR Code" class="qr-code-left">
+        <div class="main-title">M365 NYC Conference Schedule</div>
+        <div class="date-subtitle">Friday, July 25, 2025</div>
+    </div>
+
+    <div class="session-block">
+        <div class="block-header service-bg">Lunch Break</div>
+        <table class="single-room-table">
+            <tr class="service-bg">
+                <td class="single-room-time">12:20 PM - 1:10 PM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🍽️</span>Lunch [Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell]
+                </td>
+            </tr>
+        </table>
+    </div>    <div class="session-block">
+        <div class="block-header ">Afternoon Session Block 1 (1:10 PM - 2:00 PM)</div>
+        <table class="session-table">
+            <tr>
+                <th class="time-header">Time</th>
+                <th class="room-header">05 Broadway</th>
+                <th class="room-header">05 Marquis</th>
+                <th class="room-header">05 Music Box</th>
+                <th class="room-header">05 New Amsterdam</th>
+                <th class="room-header">05 Winter Garden</th>
+                <th class="room-header">06 Ambassador</th>
+                <th class="room-header">06 Belasco</th>
+                <th class="room-header">06 Radio City</th>
+            </tr>
+            <tr>
+                <td class="time-header">1:10 PM - 2:00 PM</td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Absolute Beginner’s Guide to Power Automate</div>
+                            <div class="session-speaker">Scott Shearer</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Fast Tracking Data Governance for Copilot Using Copilot</div>
+                            <div class="session-speaker">Sounil Yu</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">From Code to Intelligence – Building NextGen AI Agents</div>
+                            <div class="session-speaker">Paul Swider</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-azure">Azure</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">400</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Dataverse: Everything, Everywhere, Here and There</div>
+                            <div class="session-speaker">Charles Lakes II</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Next-Gen SharePoint: Elevating Collaboration with Copilot & Premium Integration</div>
+                            <div class="session-speaker">Mike Maadarani</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">What's new and exciting in Microsoft 365 Copilot for FY26</div>
+                            <div class="session-speaker">Jeff Gellman, Nicholas Pinto</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-config">M365 Config / Mgmt</span><span class="tag tag-business">Business & Productivity</span><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Security Copilot Agents: building the future of agentic AI for security</div>
+                            <div class="session-speaker">Mona Ghadiri</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-azure">Azure</span><span class="tag tag-copilot">Copilot</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">When to use which AI tool in the Microsoft Cloud</div>
+                            <div class="session-speaker">Matthew J. Bailey</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div><table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0;"><tr><td style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; color: black; font-style: italic;">10 minute Break</td></tr></table>    <div class="session-block">
+        <div class="block-header ">Afternoon Session Block 2 (2:10 PM - 3:00 PM)</div>
+        <table class="session-table">
+            <tr>
+                <th class="time-header">Time</th>
+                <th class="room-header">05 Broadway</th>
+                <th class="room-header">05 Marquis</th>
+                <th class="room-header">05 Music Box</th>
+                <th class="room-header">05 New Amsterdam</th>
+                <th class="room-header">05 Winter Garden</th>
+                <th class="room-header">06 Ambassador</th>
+                <th class="room-header">06 Belasco</th>
+                <th class="room-header">06 Radio City</th>
+            </tr>
+            <tr>
+                <td class="time-header">2:10 PM - 3:00 PM</td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Project Management in Microsoft 365</div>
+                            <div class="session-speaker">Karen Dredske</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-teams">MS Teams</span><span class="tag tag-sharepoint">SharePoint</span></div>
+                            <span class="level-pill">100</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio</div>
+                            <div class="session-speaker">Himanshu Goil</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-apps">M365 Apps</span><span class="tag tag-copilot">Copilot</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Revolutionizing SharePoint Workflows with Power Automate and Copilot</div>
+                            <div class="session-speaker">Norm Young</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">300</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">No Degree Necessary - Building AI-Infused Low-code Power Apps</div>
+                            <div class="session-speaker">Sunny Eltepu</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-power-platform">Power Platform</span><span class="tag tag-ai">Artificial Intelligence</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Exploring Microsoft 365 Migration Options and Tools</div>
+                            <div class="session-speaker">Brian Alderman</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-config">M365 Config / Mgmt</span><span class="tag tag-teams">MS Teams</span><span class="tag tag-sharepoint">SharePoint</span></div>
+                            <span class="level-pill">300</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Mastering the BI Mullet – Managed Self Service BI</div>
+                            <div class="session-speaker">Lenore Flower</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-business">Business & Productivity</span><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Choosing the Right Storage Solution for Modern Cloud Applications</div>
+                            <div class="session-speaker">Jamel Abed</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-azure">Azure</span><span class="tag tag-sharepoint">SharePoint</span><span class="tag tag-apps">M365 Apps</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="session-cell">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <div class="session-title">Transcription Magic: Simplify Your Workflow with Azure and Power Platform</div>
+                            <div class="session-speaker">Jamie Willis-Rose</div>
+                        </div>
+                        <div class="session-footer">
+                            <div class="session-meta"><span class="tag tag-azure">Azure</span><span class="tag tag-power-platform">Power Platform</span></div>
+                            <span class="level-pill">200</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div><table style="width: 100%; border-collapse: collapse; margin: 0; padding: 0;"><tr><td style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; color: black; font-style: italic;">10 minute Break</td></tr></table>    <div class="session-block">
+        <div class="block-header service-bg">Keynote & Closing</div>
+        <table class="single-room-table">
+            <tr class="service-bg">
+                <td class="single-room-time">3:10 PM - 4:00 PM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🎯</span>Keynote - Dux Raymond Sy - From Copilot to Catalyst: 3 Steps to Accelerate Agentic AI Success in Your Modern Workplace
+                </td>
+            </tr>
+            <tr class="service-bg">
+                <td class="single-room-time">4:00 PM - 4:30 PM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🎁</span>Closing Raffle
+                </td>
+            </tr>
+            <tr class="service-bg">
+                <td class="single-room-time">5:00 PM - 6:00 PM</td>
+                <td class="single-room-header">06 Radio City Room</td>
+                <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
+                    <span class="icon">🍻</span>Microsoft Mingle [Sponsored by AvePoint, Hosted @ Beer Authority]
+                </td>
+            </tr>
+        </table>
+    </div>    </div>
+</body>
+</html>

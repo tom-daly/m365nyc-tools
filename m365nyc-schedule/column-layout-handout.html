@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M365 NYC Conference Schedule</title>
+    <style>
+        @media print {
+            body { font-size: 9px; margin: 0.3in; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.1;
+            margin: 10px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0078d4;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #0078d4;
+            padding-bottom: 5px;
+        }
+        
+        .conference-info {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 5px;
+            background-color: #f3f2f1;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .time-slot {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        
+        .time-header {
+            background-color: #0078d4;
+            color: white;
+            padding: 6px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1em;
+        }
+        
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 1px;
+            background-color: #ddd;
+        }
+        
+        .room-column {
+            background-color: white;
+            padding: 6px;
+            min-height: 100px;
+        }
+        
+        .room-name {
+            font-weight: bold;
+            color: #0078d4;
+            font-size: 0.7em;
+            margin-bottom: 4px;
+            text-align: center;
+            border-bottom: 1px solid #0078d4;
+            padding-bottom: 2px;
+        }
+        
+        .session-title {
+            font-size: 0.65em;
+            font-weight: bold;
+            color: #323130;
+            margin-bottom: 2px;
+            line-height: 1.1;
+        }
+        
+        .session-speakers {
+            color: #605e5c;
+            font-style: italic;
+            font-size: 0.6em;
+            line-height: 1.1;
+        }
+        
+        .service-session {
+            background-color: #f0f8ff;
+            font-weight: bold;
+            text-align: center;
+            color: #0066cc;
+        }
+        
+        .keynote-session {
+            background-color: #fff5cc;
+            font-weight: bold;
+            color: #cc6600;
+        }
+        
+        .empty-room {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            font-size: 0.65em;
+        }
+        
+        .legend {
+            margin-top: 10px;
+            padding: 6px;
+            background-color: #f3f2f1;
+            border-radius: 4px;
+            font-size: 0.75em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="conference-info">
+        <h1>Microsoft 365 NYC Conference 2025</h1>
+        <p><strong>Complete Schedule - All Rooms & Time Slots</strong></p>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">8:30 AM - 9:00 AM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column service-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Registration</div>
+                <div class="session-speakers">Check-in & Breakfast</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">9:00 AM - 9:20 AM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column service-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Kick Off / Welcome Session</div>
+                <div class="session-speakers">Conference Opening</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">9:30 AM - 10:20 AM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="session-title">Turn Up the Volume: How Viva Amplify Elevates Your Communications</div>
+                <div class="session-speakers">Shari Oswald</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="session-title">Empowering Internal Customer Service Roles with Copilot Agents</div>
+                <div class="session-speakers">Emily Mancini</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="session-title">Pilot to Copilot: You are not clear for takeoff!</div>
+                <div class="session-speakers">David Berry</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="session-title">Empowering corporate communications with Microsoft 365</div>
+                <div class="session-speakers">Susan Hanley</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="session-title">Transforming Employee Engagement with AI-Driven Intranets</div>
+                <div class="session-speakers">Kanwal Khipple, Richard Plantt</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="session-title">Securing Modern Work: Automating Intune to Unlock Productivity Without Compromise</div>
+                <div class="session-speakers">Colin Britton</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="session-title">Biz Apps & Microsoft 365: Better Together, Customizing Copilot Agents with Copilot Studio & Azure AI</div>
+                <div class="session-speakers">Sonal Bordia</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Building a Copilot-First Solution with Copilot Studio and AI Builder</div>
+                <div class="session-speakers">Ed Williams</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">10:30 AM - 11:20 AM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="session-title">Securing AI Interactions: Building Data Security in Copilot Studio Agents</div>
+                <div class="session-speakers">Samir Makwana</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="session-title">Using Copilot with Microsoft Office Apps</div>
+                <div class="session-speakers">Deb Walther</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="session-title">Microsoft 365 Copilot. Copilot Agents and What is to Come!</div>
+                <div class="session-speakers">CAT Susch</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="session-title">From Tech Expert to Strategic Leader: Rethink How You Lead</div>
+                <div class="session-speakers">Marie Roker-Jones</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="session-title">Secure Microsoft 365, Dynamics 365, and Entra ID Data Against Cyber Threats</div>
+                <div class="session-speakers">Vanessa Toves</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="session-title">Building Your First CRUD App using Dataverse for Teams with Copilot</div>
+                <div class="session-speakers">David Patrick</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="session-title">Using GenAI and Copilots with a Targeted Data Set</div>
+                <div class="session-speakers">Scott Restivo</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Maximize your SharePoint content with no-code custom Copilots</div>
+                <div class="session-speakers">Matt Wade</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">11:30 AM - 12:20 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="session-title">Automating Azure Virtual Desktop Deployment with VS Code and GitHub Copilot</div>
+                <div class="session-speakers">Kristopher Turner</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="session-title">How to build a Gen AI Chatbot in 3 steps</div>
+                <div class="session-speakers">Kate Faaland</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="session-title">Exploring Microsoft 365 Copilot's Out-of-the-box Agents</div>
+                <div class="session-speakers">Melissa Hubbard</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="session-title">Real World Microsoft 365 Governance in the Age of AI</div>
+                <div class="session-speakers">Jared Matfess</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="session-title">Let's Talk M365 Copilot Adoption, a Cosmic Copilot Adventure</div>
+                <div class="session-speakers">Gina Montgomery</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="session-title">How the M365 community saved my life: finding purpose, belonging, and strength in tech</div>
+                <div class="session-speakers">Diego Domingos da Silva</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="session-title">Beyond Automation: Measuring AI Proficiency to Unlock True Business Value</div>
+                <div class="session-speakers">Melissa Jurkoic</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">From CoPilot to Agentic AI: Unlocking Enterprise-Grade Autonomy in the Microsoft 365 Ecosystem</div>
+                <div class="session-speakers">Sanjoy Ghosh</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">12:20 PM - 1:10 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column service-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Lunch</div>
+                <div class="session-speakers">Lunch Break</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">1:10 PM - 2:00 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="session-title">Absolute Beginner's Guide to Power Automate</div>
+                <div class="session-speakers">Scott Shearer</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="session-title">Fast Tracking Data Governance for Copilot Using Copilot</div>
+                <div class="session-speakers">Sounil Yu</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="session-title">From Code to Intelligence – Building NextGen AI Agents</div>
+                <div class="session-speakers">Paul Swider</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="session-title">Dataverse: Everything, Everywhere, Here and There</div>
+                <div class="session-speakers">Charles Lakes II</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="session-title">Next-Gen SharePoint: Elevating Collaboration with Copilot & Premium Integration</div>
+                <div class="session-speakers">Mike Maadarani</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="session-title">What's new and exciting in Microsoft 365 Copilot for FY26</div>
+                <div class="session-speakers">Jeff Gellman, Nicholas Pinto</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="session-title">Security Copilot Agents: building the future of agentic AI for security</div>
+                <div class="session-speakers">Mona Ghadiri</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">When to use which AI tool in the Microsoft Cloud</div>
+                <div class="session-speakers">Matthew J. Bailey</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">2:10 PM - 3:00 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="session-title">Project Management in Microsoft 365</div>
+                <div class="session-speakers">Karen Dredske</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="session-title">Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio</div>
+                <div class="session-speakers">Himanshu Goil</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="session-title">Revolutionizing SharePoint Workflows with Power Automate and Copilot</div>
+                <div class="session-speakers">Norm Young</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="session-title">No Degree Necessary - Building AI-Infused Low-code Power Apps</div>
+                <div class="session-speakers">Sunny Eltepu</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="session-title">Exploring Microsoft 365 Migration Options and Tools</div>
+                <div class="session-speakers">Brian Alderman</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="session-title">Mastering the BI Mullet – Managed Self Service BI</div>
+                <div class="session-speakers">Lenore Flower</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="session-title">Choosing the Right Storage Solution for Modern Cloud Applications</div>
+                <div class="session-speakers">Jamel Abed</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Transcription Magic: Simplify Your Workflow with Azure and Power Platform</div>
+                <div class="session-speakers">Jamie Willis-Rose</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">3:10 PM - 4:00 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column keynote-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">KEYNOTE: From Copilot to Catalyst: 3 Steps to Accelerate Agentic AI Success in Your Modern Workplace</div>
+                <div class="session-speakers">Dux Raymond Sy</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">4:00 PM - 4:30 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column service-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Closing Raffle</div>
+                <div class="session-speakers">Conference Closing & Prizes</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-header">5:00 PM - 6:00 PM</div>
+        <div class="rooms-grid">
+            <div class="room-column">
+                <div class="room-name">05 Broadway</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Marquis</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Music Box</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 New Amsterdam</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">05 Winter Garden</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Ambassador</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column">
+                <div class="room-name">06 Belasco</div>
+                <div class="empty-room">—</div>
+            </div>
+            <div class="room-column service-session">
+                <div class="room-name">06 Radio City</div>
+                <div class="session-title">Microsoft Mingle [Sponsored by AvePoint, Hosted @ Beer Authority]</div>
+                <div class="session-speakers">Networking Event</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <strong>Microsoft 365 NYC Conference 2025</strong> | 48 Sessions + Service Events<br>
+        <span style="background:#f0f8ff; padding:2px;">Service Sessions</span> • 
+        <span style="background:#fff5cc; padding:2px;">Keynote</span> • 
+        Rooms: Broadway → Marquis → Music Box → New Amsterdam → Winter Garden → Ambassador → Belasco → Radio City
+    </div>
+</body>
+</html>
