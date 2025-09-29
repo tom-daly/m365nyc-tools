@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { TeamData } from '@/types/raffle';
 import SquidGameUserPhoto from './SquidGameUserPhoto';
-import { getSquidGamePhotoPath, getFallbackAvatar } from '@/utils/photoUtils';
+import { getSquidGamePhotoPath } from '@/utils/photoUtils';
 import seedrandom from 'seedrandom';
 
 /**
@@ -327,7 +327,13 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
           resolve();
         };
         
-        img.src = photoPath || getFallbackAvatar(teamName);
+        if (photoPath) {
+          img.src = photoPath;
+        } else {
+          // Skip players without photos - don't show any fallback
+          resolve();
+          return;
+        }
       });
     };
 

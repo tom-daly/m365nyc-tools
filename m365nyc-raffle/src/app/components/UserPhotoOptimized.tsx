@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { getSquidGamePhotoPath, getFallbackAvatar } from '@/utils/photoUtils';
+import { getSquidGamePhotoPath } from '@/utils/photoUtils';
 
 interface UserPhotoOptimizedProps {
   name: string;
@@ -17,9 +17,8 @@ const UserPhotoOptimized: React.FC<UserPhotoOptimizedProps> = React.memo(({
   const [imageError, setImageError] = useState(false);
 
   // Memoize paths to prevent recalculation
-  const { photoPath, fallbackAvatar, sizeClass } = useMemo(() => {
+  const { photoPath, sizeClass } = useMemo(() => {
     const photoPath = getSquidGamePhotoPath(name); // Use optimized thumbnails
-    const fallbackAvatar = getFallbackAvatar(name);
     
     const sizeClasses = {
       sm: 'w-8 h-8',
@@ -29,7 +28,6 @@ const UserPhotoOptimized: React.FC<UserPhotoOptimizedProps> = React.memo(({
     
     return {
       photoPath,
-      fallbackAvatar,
       sizeClass: sizeClasses[size]
     };
   }, [name, size]);
@@ -52,14 +50,9 @@ const UserPhotoOptimized: React.FC<UserPhotoOptimizedProps> = React.memo(({
           loading="lazy" // Lazy load for better performance
         />
       ) : (
-        <Image
-          src={fallbackAvatar}
-          alt={`${name}'s avatar`}
-          width={32}
-          height={32}
-          className="rounded-full border-2 border-gray-200 dark:border-gray-600"
-          priority={false}
-        />
+        <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center">
+          <span className="text-gray-500 dark:text-gray-400 text-xs">?</span>
+        </div>
       )}
     </div>
   );

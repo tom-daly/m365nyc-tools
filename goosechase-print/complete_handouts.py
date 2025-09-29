@@ -34,18 +34,29 @@ def extract_speaker_name(title):
     return None
 
 def extract_sponsor_name(title):
-    """Extract sponsor name from title"""
-    # Pattern to match "Sponsor [Type] - Name" 
+    """Extract sponsor name from title - improved patterns for all 7 sponsors"""
+    # Patterns to match various sponsor formats
     patterns = [
-        r'^Sponsor\s+(Photo|Fun Fact|Services|Bonus Research Ques)\s*-\s*(.+?)(?:\s+📸|\s+😃|\s+❓|\s+🔍❓)?$',
-        r'^Sponsor\s+(.+?)\s*-\s*(.+?)(?:\s+📸|\s+😃|\s+❓|\s+🔍❓)?$'
+        r'Sponsor\s+Photo\s*-\s*(.+?)\s*📸',                    # Photo format
+        r'Sponsor\s+Fun\s+Fact\s*-\s*(.+?)\s*😃',              # Fun fact format  
+        r'Sponsor\s+Services\s*-\s*(.+?)\s*-\s*Q[12]',         # Services Q1/Q2 format
+        r'Sponsor\s+Bonus\s+Research.*?-\s*(.+?)\s*🔍❓',       # Bonus research format
+        r'Sponsor.*?-\s*(.+?)\s*-\s*Q[12]',                    # Generic Q1/Q2 format
+        r'Sponsor.*?-\s*(.+?)\s*📸',                           # Generic photo
+        r'Sponsor.*?-\s*(.+?)\s*😃',                           # Generic fun fact
+        r'Sponsor.*?-\s*(.+?)\s*❓',                           # Generic question
+        r'Sponsor.*?-\s*(.+?)\s*🔍',                           # Generic research
+        r'Sponsor.*?-\s*(.+?)$'                                # Fallback pattern
     ]
     
     for pattern in patterns:
-        match = re.match(pattern, title)
+        match = re.search(pattern, title)
         if match:
-            if len(match.groups()) == 2:
-                return match.group(2).strip()
+            sponsor = match.group(1).strip()
+            # Clean up common suffixes and extra spaces
+            sponsor = re.sub(r'\s*(Q[12]|Photo|Fun Fact|Services|Bonus Research).*$', '', sponsor)
+            sponsor = re.sub(r'\s*-\s*$', '', sponsor)  # Remove trailing dash
+            return sponsor.strip()
     
     return None
 
@@ -85,6 +96,11 @@ def parse_csv_for_speakers_and_sponsors(csv_path):
                     sponsor_name = extract_sponsor_name(name)
                     if sponsor_name:
                         sponsor_missions[sponsor_name].append(mission_data)
+    
+    # Debug: Print found sponsors
+    print(f"Debug: Found {len(sponsor_missions)} sponsors:")
+    for sponsor in sorted(sponsor_missions.keys()):
+        print(f"  - {sponsor} ({len(sponsor_missions[sponsor])} questions)")
     
     return speaker_missions, sponsor_missions
 
@@ -212,7 +228,7 @@ def create_master_file(missions_dict, filename, is_sponsor=False):
     return filename
 
 def main():
-    csv_path = Path(r"C:\Users\thoma\Downloads\M365 NYC Goosechase's missions.csv")
+    csv_path = Path("M365 NYC Goosechase's missions (6).csv")
     
     if not csv_path.exists():
         print(f"Error: CSV file not found at {csv_path}")

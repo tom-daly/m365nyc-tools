@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { getOptimalPhotoPath, getFallbackAvatar } from '@/utils/photoUtils';
+import { getOptimalPhotoPath } from '@/utils/photoUtils';
 
 interface SquidGameUserPhotoProps {
   name: string;
@@ -17,7 +17,6 @@ const SquidGameUserPhoto: React.FC<SquidGameUserPhotoProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   const photoPath = getOptimalPhotoPath(name, size);
-  const fallbackAvatar = getFallbackAvatar(name);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -65,14 +64,9 @@ const SquidGameUserPhoto: React.FC<SquidGameUserPhotoProps> = ({
           />
         </>
       ) : (
-        <Image
-          src={fallbackAvatar}
-          alt={`${name}'s avatar`}
-          width={size}
-          height={size}
-          className="object-cover w-full h-full opacity-100 transition-opacity duration-300"
-          unoptimized
-        />
+        <div className="w-full h-full bg-gray-600 flex items-center justify-center">
+          <span className="text-white text-xs">No Photo</span>
+        </div>
       )}
     </div>
   );

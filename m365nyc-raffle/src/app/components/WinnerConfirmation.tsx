@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import Image from 'next/image';
-import { getUserAvatarPath, getFallbackAvatar } from '@/utils/photoUtils';
+import { getUserAvatarPath } from '@/utils/photoUtils';
 
 interface WinnerConfirmationProps {
     winner: string;
@@ -26,7 +26,6 @@ const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
     const [isLoading, setIsLoading] = useState(true);
 
     const avatarPath = getUserAvatarPath(winner);
-    const fallbackAvatar = getFallbackAvatar(winner);
 
     const handleImageLoad = () => {
         setIsLoading(false);
@@ -174,12 +173,9 @@ const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
                                         />
                                     </>
                                 ) : (
-                                    <Image
-                                        src={fallbackAvatar}
-                                        alt={`${winner}'s avatar`}
-                                        fill
-                                        className="rounded-full border-4 border-gray-200 dark:border-gray-600"
-                                    />
+                                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full border-4 border-gray-200 dark:border-gray-600 flex items-center justify-center">
+                                        <span className="text-gray-500 dark:text-gray-400 text-xl font-medium">No Photo</span>
+                                    </div>
                                 )}
                             </div>
                             <div>

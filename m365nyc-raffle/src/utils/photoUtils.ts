@@ -12,7 +12,7 @@ export const getUserAvatarPath = (name: string): string | null => {
   
   try {
     // Convert name to lowercase with underscores (e.g., "John Doe" → "john_doe")
-    const sanitizedName = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '_').replace(/^_+|_+$/g, '');
     const avatarPath = `/users/${sanitizedName}/avatar.webp`;
     return avatarPath;
   } catch (error) {
@@ -30,7 +30,7 @@ export const getUserLargePhotoPath = (name: string): string | null => {
   if (!name) return null;
   
   try {
-    const sanitizedName = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '_').replace(/^_+|_+$/g, '');
     const largePath = `/users/${sanitizedName}/lg.webp`;
     return largePath;
   } catch (error) {
@@ -48,7 +48,7 @@ export const getUserSmallPhotoPath = (name: string): string | null => {
   if (!name) return null;
   
   try {
-    const sanitizedName = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '_').replace(/^_+|_+$/g, '');
     const smallPath = `/users/${sanitizedName}/sm.webp`;
     return smallPath;
   } catch (error) {
@@ -67,7 +67,7 @@ export const getUserThumbnailPath = (name: string): string | null => {
   
   try {
     // Convert name to lowercase with underscores (e.g., "John Doe" → "john_doe")
-    const sanitizedName = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '_').replace(/^_+|_+$/g, '');
     const thumbnailPath = `/users/${sanitizedName}/thumbnail.webp`;
     return thumbnailPath;
   } catch (error) {
@@ -82,53 +82,6 @@ export const getUserThumbnailPath = (name: string): string | null => {
  */
 export const getUserPhotoPath = getUserAvatarPath;
 
-// Pre-defined solid colors for fast avatar generation (matching the reference image)
-const AVATAR_COLORS = [
-  '#4ab3ff', // Pilot Blue
-  '#d8beff', // Voice Code Lilac
-  '#3b82f6', // Blue
-  '#8b5cf6', // Violet
-  '#06b6d4', // Cyan
-  '#10b981', // Emerald
-  '#f59e0b', // Amber
-  '#ef4444', // Red
-];
-
-/**
- * Generate a fast, simple fallback avatar for users without photos
- * Ultra-fast generation using solid colors and minimal SVG
- * @param name - The user's name
- * @returns A data URL for a simple circle avatar with initials
- */
-export const getFallbackAvatar = (name: string): string => {
-  if (!name) return getDefaultAvatar();
-  
-  // Extract initials (max 2 characters)
-  const initials = name
-    .split(' ')
-    .filter(word => word.length > 0)
-    .map(word => word.charAt(0).toUpperCase())
-    .join('')
-    .slice(0, 2);
-
-  // Fast color selection based on simple hash
-  const colorIndex = name.length % AVATAR_COLORS.length;
-  const bgColor = AVATAR_COLORS[colorIndex];
-
-  // Match the reference image style: clean circle with centered white initials
-  const svg = `<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="${bgColor}"/><text x="20" y="27" text-anchor="middle" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="500">${initials}</text></svg>`;
-
-  return `data:image/svg+xml;base64,${btoa(svg)}`;
-};
-
-/**
- * Get a simple default avatar (fallback for empty names)
- * @returns SVG data URL with question mark
- */
-const getDefaultAvatar = (): string => {
-  const svg = `<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#6b7280"/><text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial" font-size="18" font-weight="600">?</text></svg>`;
-  return `data:image/svg+xml;base64,${btoa(svg)}`;
-};
 
 /**
  * Get the best photo size for a given cell size in the Squid Game grid

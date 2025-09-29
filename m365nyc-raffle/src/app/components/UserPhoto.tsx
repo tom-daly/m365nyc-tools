@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { getUserThumbnailPath, getFallbackAvatar } from '@/utils/photoUtils';
+import { getUserThumbnailPath } from '@/utils/photoUtils';
 
 interface UserPhotoProps {
   name: string;
@@ -17,7 +17,6 @@ const UserPhoto: React.FC<UserPhotoProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   const photoPath = getUserThumbnailPath(name);
-  const fallbackAvatar = getFallbackAvatar(name);
 
   const sizeClasses = {
     sm: 'w-8 h-8',
@@ -57,12 +56,9 @@ const UserPhoto: React.FC<UserPhotoProps> = ({
           />
         </>
       ) : (
-        <Image
-          src={fallbackAvatar}
-          alt={`${name}'s avatar`}
-          fill
-          className="rounded-full border-2 border-gray-200 dark:border-gray-600"
-        />
+        <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center">
+          <span className="text-gray-500 dark:text-gray-400 text-xs font-medium">No Photo</span>
+        </div>
       )}
     </div>
   );

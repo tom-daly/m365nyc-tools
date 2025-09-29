@@ -34,7 +34,7 @@ def extract_speaker_name(title):
     return None
 
 def parse_csv_for_speakers(csv_path):
-    """Parse CSV and group speaker questions"""
+    """Parse CSV and group speaker questions - includes ALL speakers even with incomplete sets"""
     speaker_missions = defaultdict(list)
     
     with open(csv_path, 'r', encoding='utf-8') as file:
@@ -55,10 +55,15 @@ def parse_csv_for_speakers(csv_path):
                     mission_data = {
                         'title': name,
                         'question': description,
-                        'answer': accepted_answers,
+                        'answer': accepted_answers if accepted_answers else "[Any answer accepted]",
                         'points': points
                     }
                     speaker_missions[speaker_name].append(mission_data)
+    
+    # Debug: Print all found speakers
+    print(f"Debug: Found {len(speaker_missions)} speakers:")
+    for speaker in sorted(speaker_missions.keys()):
+        print(f"  - {speaker} ({len(speaker_missions[speaker])} questions)")
     
     return speaker_missions
 
@@ -137,7 +142,7 @@ def create_all_handouts(speaker_missions):
     return created_files
 
 def main():
-    csv_path = Path(r"C:\Users\thoma\Downloads\M365 NYC Goosechase's missions.csv")
+    csv_path = Path("M365 NYC Goosechase's missions (6).csv")
     
     if not csv_path.exists():
         print(f"Error: CSV file not found at {csv_path}")

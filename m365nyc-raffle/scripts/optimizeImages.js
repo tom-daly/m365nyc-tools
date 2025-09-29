@@ -108,7 +108,9 @@ class ImageOptimizer {
       const files = await fs.readdir(dirPath);
       return files.filter(file => {
         const ext = path.extname(file).toLowerCase();
-        return this.config.supportedFormats.includes(ext);
+        const fileName = file.toLowerCase();
+        return this.config.supportedFormats.includes(ext) && 
+               fileName.includes('believe in your selfie');
       });
     } catch (error) {
       console.warn(`⚠️  Could not read directory ${dirPath}: ${error.message}`);
@@ -206,11 +208,11 @@ class ImageOptimizer {
   }
 
   sanitizeUserDir(userDir) {
-    return userDir.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    return userDir.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '').replace(/^_+|_+$/g, '');
   }
 
-  async createFallbackImage(userDir, outputUserDir) {
-    console.log(`  🎨 Creating fallback image for ${userDir}`);
+  async createThumbsFallback(userDir, outputUserDir) {
+    console.log(`  🎲 Using random thumb for ${userDir}`);
     
     try {
       // Get random SVG from thumbs directory
@@ -219,7 +221,7 @@ class ImageOptimizer {
       const svgFiles = thumbFiles.filter(file => file.endsWith('.svg'));
       
       if (svgFiles.length === 0) {
-        throw new Error('No SVG thumbs found in public/thumbs directory');
+        throw new Error('No SVG files found in public/thumbs directory');
       }
       
       // Select random SVG based on user directory name (deterministic but appears random)
@@ -230,57 +232,72 @@ class ImageOptimizer {
       // Read and process the SVG
       const svgContent = await fs.readFile(svgPath);
       
-      // Create fallback images for all sizes
+      // Create optimized images for all sizes using the random SVG
       const createdFiles = [];
+      
       for (const [sizeName, sizeConfig] of Object.entries(this.config.sizes)) {
         const fileName = sizeName === 'md' ? 'avatar.webp' : `${sizeName}.webp`;
         const imagePath = path.join(outputUserDir, fileName);
         
         await sharp(svgContent)
-          .resize(sizeConfig.width, sizeConfig.height)
+          .resize({
+            width: sizeConfig.width,
+            height: sizeConfig.height,
+            fit: this.config.fit,
+            withoutEnlargement: this.config.withoutEnlargement
+          })
           .webp(this.config.webp)
           .toFile(imagePath);
           
-        createdFiles.push({ name: sizeName, fileName });
+        const fileSize = await this.getFileSize(imagePath);
+        this.totalSizeAfter += fileSize;
+        
+        createdFiles.push({ name: sizeName, fileName, size: fileSize });
       }
       
-      console.log(`  ✅ Created ${createdFiles.length} fallback sizes from: ${selectedSvg}`);
+      console.log(`  ✅ Created ${createdFiles.length} sizes from thumb: ${selectedSvg}`);
       createdFiles.forEach(file => {
-        console.log(`    ${file.name}: ${file.fileName}`);
+        console.log(`    ${file.name}: ${this.formatFileSize(file.size)}`);
       });
       this.processedCount += createdFiles.length;
       
     } catch (error) {
-      console.error(`  ❌ Error creating fallback for ${userDir}: ${error.message}`);
+      console.error(`  ❌ Error creating thumb fallback for ${userDir}: ${error.message}`);
       this.errorCount++;
     }
   }
+
+
 
   async processUserDirectory(userDir) {
     const userDirPath = path.join(this.config.sourceDir, userDir);
     const sanitizedUserDir = this.sanitizeUserDir(userDir);
     const outputUserDir = path.join(this.config.outputDir, sanitizedUserDir);
     
-    // Create output user directory with sanitized name
-    await fs.mkdir(outputUserDir, { recursive: true });
-
-    // Check if source directory exists
+    // Check if source directory exists and has images
     let images = [];
     try {
       images = await this.findImagesInDirectory(userDirPath);
     } catch (error) {
-      console.log(`📁 ${userDir} → ${sanitizedUserDir}: Source directory not found, creating fallback`);
-      await this.createFallbackImage(userDir, outputUserDir);
+      console.log(`📁 ${userDir} → ${sanitizedUserDir}: Source directory not found, using random thumb`);
+      // Create output user directory with sanitized name
+      await fs.mkdir(outputUserDir, { recursive: true });
+      await this.createThumbsFallback(userDir, outputUserDir);
       console.log('');
       return;
     }
     
     if (images.length === 0) {
-      console.log(`📁 ${userDir} → ${sanitizedUserDir}: No images found, creating fallback`);
-      await this.createFallbackImage(userDir, outputUserDir);
+      console.log(`📁 ${userDir} → ${sanitizedUserDir}: No "Believe in Your Selfie" images found, using random thumb`);
+      // Create output user directory with sanitized name
+      await fs.mkdir(outputUserDir, { recursive: true });
+      await this.createThumbsFallback(userDir, outputUserDir);
       console.log('');
       return;
     }
+
+    // Create output user directory with sanitized name
+    await fs.mkdir(outputUserDir, { recursive: true });
 
     console.log(`📁 ${userDir} → ${sanitizedUserDir}: Processing ${images.length} image(s)`);
     
@@ -294,6 +311,34 @@ class ImageOptimizer {
     console.log('');
   }
 
+  async getTeamsFromCSV() {
+    try {
+      const csvPath = path.join(process.cwd(), 'data', 'M365 NYC Goosechase\'s leaderboard (3).csv');
+      const csvContent = await fs.readFile(csvPath, 'utf-8');
+      const lines = csvContent.split('\n');
+      
+      // Skip header, get team names
+      const teams = lines.slice(1)
+        .filter(line => line.trim())
+        .map(line => {
+          // Parse CSV line (handle quoted values with commas)
+          const matches = line.match(/(?:^|,)("(?:[^"]+|"")*"|[^,]*)/g);
+          if (matches && matches.length > 0) {
+            let teamName = matches[0].replace(/^,/, '').replace(/^"/, '').replace(/"$/, '');
+            return teamName.trim();
+          }
+          return null;
+        })
+        .filter(team => team);
+        
+      console.log(`📊 Found ${teams.length} teams in CSV`);
+      return teams;
+    } catch (error) {
+      console.warn(`⚠️  Could not read CSV file: ${error.message}`);
+      return [];
+    }
+  }
+
   async run() {
     // Clear output directory first
     console.log('🧹 Clearing output directory...');
@@ -305,18 +350,44 @@ class ImageOptimizer {
       console.log(`ℹ️  Output directory created: ${this.config.outputDir}\n`);
     }
 
+    // Get teams from CSV for complete coverage
+    const csvTeams = await this.getTeamsFromCSV();
+
     console.log('🔍 Scanning for user directories...');
     const userDirectories = await this.findUserDirectories();
-    console.log(`📂 Found ${userDirectories.length} user directories\n`);
+    console.log(`📂 Found ${userDirectories.length} user directories in raw data\n`);
 
-    if (userDirectories.length === 0) {
-      console.log('❌ No user directories found to process');
-      return;
-    }
-
-    // Process each user directory
+    // Process each user directory from raw data
     for (const userDir of userDirectories) {
       await this.processUserDirectory(userDir);
+    }
+
+    // Find missing users from CSV and create fallback images
+    if (csvTeams.length > 0) {
+      console.log('🔍 Checking for missing CSV users...');
+      const processedSet = new Set(userDirectories.map(dir => this.sanitizeUserDir(dir)));
+      const missingUsers = [];
+      
+      for (const team of csvTeams) {
+        const sanitized = this.sanitizeUserDir(team);
+        if (!processedSet.has(sanitized)) {
+          missingUsers.push({ original: team, sanitized });
+        }
+      }
+      
+      if (missingUsers.length > 0) {
+        console.log(`📝 Found ${missingUsers.length} missing users from CSV, creating fallback images...\n`);
+        
+        for (const user of missingUsers) {
+          const outputDir = path.join(this.config.outputDir, user.sanitized);
+          await fs.mkdir(outputDir, { recursive: true });
+          console.log(`📁 ${user.original} → ${user.sanitized}: Creating fallback from random thumb`);
+          await this.createThumbsFallback(user.original, outputDir);
+          console.log('');
+        }
+      } else {
+        console.log(`✅ All ${csvTeams.length} CSV teams have corresponding directories\n`);
+      }
     }
 
     // Print summary
