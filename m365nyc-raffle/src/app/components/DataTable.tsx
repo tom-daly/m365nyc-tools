@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TeamData } from '@/types/raffle';
 import UserPhotoOptimized from './UserPhotoOptimized';
+import TeamNameDisplay from './TeamNameDisplay';
 
 interface DataTableProps {
   teams: TeamData[];
@@ -60,7 +61,7 @@ const TeamRow = React.memo(({
     }
 
     return { statusColor, statusText, statusTooltip, oddValue };
-  }, [team.status, showOdds, currentRoundOdds, index]);
+  }, [team.status, team.Points, showOdds, currentRoundOdds, index]);
 
   // Use stable key based on team name only
   return (
@@ -73,8 +74,8 @@ const TeamRow = React.memo(({
       </td>
       <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
         <div className="flex items-center space-x-3">
-          <UserPhotoOptimized name={team.Team} size="sm" />
-          <span>{team.Team}</span>
+          <UserPhotoOptimized name={team.displayName ?? team.Team} size="sm" avatarSrc={team.avatarSrc} />
+          <TeamNameDisplay name={team.displayName ?? team.Team} disambiguator={team.disambiguator} />
         </div>
       </td>
       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">

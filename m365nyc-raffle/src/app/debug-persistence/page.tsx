@@ -3,18 +3,19 @@
 import { useState, useEffect } from 'react';
 import { ConfigurationManager } from '@/utils/configurationManager';
 import { RaffleModelType } from '@/types/raffleModels';
+import { TeamData } from '@/types/raffle';
 
 interface TestResult {
   id: string;
   name: string;
   status: 'pending' | 'success' | 'error';
   message: string;
-  details?: any;
+  details?: unknown;
 }
 
 export default function DebugPersistencePage() {
   const [results, setResults] = useState<TestResult[]>([]);
-  const [csvData, setCsvData] = useState<any[]>([]);
+  const [csvData, setCsvData] = useState<TeamData[]>([]);
 
   const addResult = (result: TestResult) => {
     setResults(prev => [...prev, result]);
@@ -30,9 +31,9 @@ export default function DebugPersistencePage() {
       // Simple CSV parsing
       const lines = text.trim().split('\n');
       const headers = lines[0].split(',');
-      const data = lines.slice(1).map(line => {
+      const data: TeamData[] = lines.slice(1).map(line => {
         const values = line.split(',');
-        const row: any = {};
+        const row: Record<string, string | number> = {};
         headers.forEach((header, index) => {
           const value = values[index];
           if (header === 'Points' || header === 'Submissions') {
@@ -41,7 +42,7 @@ export default function DebugPersistencePage() {
             row[header] = value;
           }
         });
-        return row;
+        return row as unknown as TeamData;
       });
 
       setCsvData(data);
@@ -198,7 +199,7 @@ export default function DebugPersistencePage() {
     try {
       addResult({ id: 'inspect-storage', name: 'Inspect localStorage', status: 'pending', message: 'Inspecting...' });
       
-      const storage: Record<string, any> = {};
+      const storage: Record<string, { size: number; preview: string }> = {};
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key) {
@@ -295,7 +296,7 @@ export default function DebugPersistencePage() {
                 <h3 className="font-semibold">{result.name}</h3>
               </div>
               <p className="text-sm opacity-90">{result.message}</p>
-              {result.details && (
+              {result.details !== undefined && (
                 <details className="mt-2">
                   <summary className="cursor-pointer text-sm opacity-75">Show Details</summary>
                   <pre className="mt-2 text-xs bg-black bg-opacity-30 p-2 rounded overflow-auto">

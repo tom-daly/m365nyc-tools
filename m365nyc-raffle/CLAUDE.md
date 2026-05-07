@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Workflow Rules
+
+- **Do not run `npm run build`.** The user runs the build themselves. Use `npm run lint` and/or `npx tsc --noEmit` to verify changes instead.
+
 ## Development Commands
 
 ### Core Development

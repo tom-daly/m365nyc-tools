@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useRaffleState } from '@/hooks/useRaffleState';
@@ -14,8 +14,9 @@ import PrizeWheel from './components/PrizeWheel';
 import SquidGameAnimation from './components/SquidGameAnimation';
 import WinnersDisplay from './components/WinnersDisplay';
 import WinnerConfirmation from './components/WinnerConfirmation';
+import PageLoadingFallback from './components/PageLoadingFallback';
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { state, actions, computed } = useRaffleState();
@@ -43,38 +44,6 @@ export default function Home() {
       }
     }
   }, []); // Remove isMounted dependency to prevent infinite loops
-
-  // Handle raffle model change
-  const handleRaffleModelChange = (model: RaffleModelType) => {
-    // Prevent updates if raffle is running
-    if (state.raffleStarted && state.currentRound > 0) {
-      console.warn('Cannot change raffle model after rounds have started');
-      return;
-    }
-
-    // Prevent duplicate calls with the same model
-    if (currentRaffleModel === model) {
-      return;
-    }
-
-    setCurrentRaffleModel(model);
-    actions.updateRaffleModel(model);
-    
-    // Update the current configuration if it exists - do this after a short delay to avoid conflicts
-    setTimeout(() => {
-      if (currentConfig) {
-        const updatedConfig = {
-          ...currentConfig,
-          roundSettings: {
-            ...currentConfig.roundSettings,
-            raffleModel: model
-          }
-        };
-        updateCurrentConfig(updatedConfig);
-        ConfigurationManager.saveConfiguration(updatedConfig);
-      }
-    }, 0);
-  };
 
   // Set mounted state to prevent hydration mismatch
   useEffect(() => {
@@ -216,42 +185,49 @@ export default function Home() {
 
   // Calculate odds for current round only (odds change after each winner)
   useEffect(() => {
-    // Calculate odds if we have teams loaded and either:
-    // 1. Raffle has started with current round data, OR
-    // 2. Teams are loaded (for initial odds display before raffle starts)
+    // Cancel flag prevents an in-flight import from overwriting state after the
+    // effect has re-run with newer inputs (otherwise two pending promises race
+    // to call setOddsPerRound and the older result can win).
+    let cancelled = false;
+
     if (!state.teams.length) {
       setOddsPerRound([]);
       return;
     }
-    
-    // If raffle hasn't started yet, calculate odds for first round (round 0)
+
     if (!state.raffleStarted) {
-      // Calculate initial odds for all loaded teams
+      const teamsSnapshot = state.teams;
       import('@/utils/oddsCalculation').then(({ calculateOdds }) => {
-        const participantsWithOdds = calculateOdds(state.teams);
-        // Extract just the odds percentages in the same order as state.teams
+        if (cancelled) return;
+        const participantsWithOdds = calculateOdds(teamsSnapshot);
         const odds = participantsWithOdds.map(p => p.odds);
-        console.log('📊 Initial odds calculation result:', odds.map((odd, i) => `${state.teams[i]?.Team}: ${odd.toFixed(2)}%`));
+        console.log('📊 Initial odds calculation result:', odds.map((odd, i) => `${teamsSnapshot[i]?.Team}: ${odd.toFixed(2)}%`));
         setOddsPerRound(odds);
       });
-      return;
+      return () => {
+        cancelled = true;
+      };
     }
-    
-    // If raffle has started, only calculate if we have current round data
+
     if (!computed.currentRoundData || !computed.eligibleTeamsForCurrentRound.length) {
       setOddsPerRound([]);
       return;
     }
-    
-    // Import the odds calculation utility
+
+    // Snapshot the inputs so the async calculation uses the same values the
+    // effect was scheduled with, even if `computed` re-references between now
+    // and when the dynamic import resolves.
+    const currentRound = computed.currentRoundData;
+    const eligibleTeams = computed.eligibleTeamsForCurrentRound;
+    const teamsSnapshot = state.teams;
+
     import('@/utils/oddsCalculation').then(({ calculateOdds }) => {
-      console.log(`📊 Calculating odds for current round: ${computed.currentRoundData.name}`);
-      console.log(`Eligible teams: ${computed.eligibleTeamsForCurrentRound.length}`);
-      
-      // Calculate odds only for current round and eligible teams
-      const currentRoundOdds = calculateOdds(computed.eligibleTeamsForCurrentRound);
-      
-      // Create a map for faster lookup
+      if (cancelled) return;
+      console.log(`📊 Calculating odds for current round: ${currentRound.name}`);
+      console.log(`Eligible teams: ${eligibleTeams.length}`);
+
+      const currentRoundOdds = calculateOdds(eligibleTeams);
+
       const oddsMap = new Map<string, number>();
       currentRoundOdds.forEach(teamOdds => {
         const teamName = (teamOdds as { Team?: string; team?: string }).Team || (teamOdds as { Team?: string; team?: string }).team;
@@ -259,20 +235,19 @@ export default function Home() {
           oddsMap.set(teamName, teamOdds.odds);
         }
       });
-      
-      // Create odds array matching team order in state.teams
-      const odds: number[] = state.teams.map((team) => {
-        // Check if team is eligible for current round
-        const isEligible = computed.eligibleTeamsForCurrentRound.some(t => t.Team === team.Team);
-        if (isEligible) {
-          return oddsMap.get(team.Team) || 0;
-        }
-        return 0; // Not eligible for current round
-      });
-      
-      console.log('📊 Odds calculation result:', odds.map((odd, i) => `${state.teams[i]?.Team}: ${odd.toFixed(2)}%`));
+
+      const eligibleSet = new Set(eligibleTeams.map(t => t.Team));
+      const odds: number[] = teamsSnapshot.map(team =>
+        eligibleSet.has(team.Team) ? (oddsMap.get(team.Team) || 0) : 0
+      );
+
+      console.log('📊 Odds calculation result:', odds.map((odd, i) => `${teamsSnapshot[i]?.Team}: ${odd.toFixed(2)}%`));
       setOddsPerRound(odds);
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [state.raffleStarted, computed.currentRoundData, computed.eligibleTeamsForCurrentRound, state.teams]);
 
   const scrollToTop = () => {
@@ -393,16 +368,22 @@ export default function Home() {
   return (
     <>
       {/* Winner Confirmation Modal - Outside main container */}
-      {state.pendingWinner && computed.currentRoundData && (
-        <WinnerConfirmation
-          winner={state.pendingWinner}
-          roundName={computed.currentRoundData.name}
-          onConfirm={handleConfirmWinner}
-          onReject={handleRejectWinner}
-          onClose={handleCloseWinnerModal}
-          isVisible={modalVisible}
-        />
-      )}
+      {state.pendingWinner && computed.currentRoundData && (() => {
+        const pendingTeamData = state.teams.find(t => t.Team === state.pendingWinner);
+        return (
+          <WinnerConfirmation
+            winner={state.pendingWinner}
+            winnerDisplayName={pendingTeamData?.displayName}
+            winnerDisambiguator={pendingTeamData?.disambiguator}
+            avatarSrc={pendingTeamData?.avatarSrc}
+            roundName={computed.currentRoundData.name}
+            onConfirm={handleConfirmWinner}
+            onReject={handleRejectWinner}
+            onClose={handleCloseWinnerModal}
+            isVisible={modalVisible}
+          />
+        );
+      })()}
 
       {/* Transition Overlay */}
       {isTransitioning && (
@@ -695,5 +676,17 @@ export default function Home() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function Home() {
+  // Force the dark theme on the home page only. The Tailwind `dark:` variants
+  // already styled throughout this tree light up against this wrapper.
+  return (
+    <div className="dark bg-gray-900 min-h-screen">
+      <Suspense fallback={<PageLoadingFallback />}>
+        <HomeContent />
+      </Suspense>
+    </div>
   );
 }

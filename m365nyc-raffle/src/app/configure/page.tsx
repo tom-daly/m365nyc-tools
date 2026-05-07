@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ConfigurationManager, RaffleConfiguration, RoundConfigurationSettings } from '@/utils/configurationManager';
@@ -9,8 +9,9 @@ import RoundConfigurationSettingsComponent from '../components/RoundConfiguratio
 import AnimationSelector from '../components/AnimationSelector';
 import CSVUploader from '../components/CSVUploader';
 import BackToTopButton from '@/components/BackToTopButton';
+import PageLoadingFallback from '../components/PageLoadingFallback';
 
-export default function ConfigurePage() {
+function ConfigurePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const configId = searchParams.get('configId');
@@ -266,5 +267,13 @@ export default function ConfigurePage() {
       </div>
       <BackToTopButton threshold={500} />
     </div>
+  );
+}
+
+export default function ConfigurePage() {
+  return (
+    <Suspense fallback={<PageLoadingFallback />}>
+      <ConfigurePageContent />
+    </Suspense>
   );
 }

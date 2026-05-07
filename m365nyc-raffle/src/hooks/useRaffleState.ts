@@ -93,11 +93,15 @@ const saveStateToStorage = (state: RaffleState) => {
     }
   } catch (error) {
     console.error('❌ SAVE: Exception during save:', error);
-    console.error('❌ SAVE: Error details:', {
-      name: error.name,
-      message: error.message,
-      stack: error.stack
-    });
+    if (error instanceof Error) {
+      console.error('❌ SAVE: Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error('❌ SAVE: Unknown error type:', String(error));
+    }
   }
 };
 
@@ -138,11 +142,15 @@ const loadStateFromStorage = (): RaffleState | null => {
     }
   } catch (error) {
     console.error('❌ LOAD: Exception during load:', error);
-    console.error('❌ LOAD: Error details:', {
-      name: error.name,
-      message: error.message,
-      stack: error.stack
-    });
+    if (error instanceof Error) {
+      console.error('❌ LOAD: Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error('❌ LOAD: Unknown error type:', String(error));
+    }
   }
   return null;
 };
@@ -277,7 +285,7 @@ export const useRaffleState = () => {
         console.log('📥 LOAD_TEAMS: Preserving raffle state - merging team data with existing statuses');
         
         // Create a map of existing team statuses
-        const existingStatuses = new Map<string, any>();
+        const existingStatuses = new Map<string, TeamData['status']>();
         prev.teams.forEach(team => {
           existingStatuses.set(team.Team, team.status);
         });
@@ -501,27 +509,46 @@ export const useRaffleState = () => {
     return filterTeamsForRound(eligibleTeams, currentRoundData);
   }, [state.remainingTeams, currentRoundData, filterTeamsForRound]);
 
-  return {
-    state,
-    actions: {
-      loadTeamData,
-      startRaffle,
-      startDraw,
-      stopDraw,
-      conductDraw,
-      selectWinner,
-      confirmWinner,
-      rejectWinner,
-      clearPendingWinner,
-      resetRaffle,
-      updateRounds,
-      updateRaffleModel
-    },
-    computed: {
-      canStartRound,
-      isRaffleComplete,
-      currentRoundData,
-      eligibleTeamsForCurrentRound
-    }
-  };
+  // The action functions are all useCallback'd, so memoizing the wrapper keeps
+  // the `actions` object reference stable across renders. Without this, every
+  // consumer that includes `actions` in a useEffect dep array re-runs on every
+  // render — which causes infinite loops in effects that themselves trigger
+  // state updates (the load-from-URL effect in src/app/page.tsx is the one
+  // that bites).
+  const actions = useMemo(() => ({
+    loadTeamData,
+    startRaffle,
+    startDraw,
+    stopDraw,
+    conductDraw,
+    selectWinner,
+    confirmWinner,
+    rejectWinner,
+    clearPendingWinner,
+    resetRaffle,
+    updateRounds,
+    updateRaffleModel
+  }), [
+    loadTeamData,
+    startRaffle,
+    startDraw,
+    stopDraw,
+    conductDraw,
+    selectWinner,
+    confirmWinner,
+    rejectWinner,
+    clearPendingWinner,
+    resetRaffle,
+    updateRounds,
+    updateRaffleModel
+  ]);
+
+  const computed = useMemo(() => ({
+    canStartRound,
+    isRaffleComplete,
+    currentRoundData,
+    eligibleTeamsForCurrentRound
+  }), [canStartRound, isRaffleComplete, currentRoundData, eligibleTeamsForCurrentRound]);
+
+  return { state, actions, computed };
 };

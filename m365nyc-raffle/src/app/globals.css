@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 @import "tailwindcss";
 
+/* Enable class-based dark variant in addition to the system preference media
+ * query. Adding `class="dark"` to any ancestor activates `dark:` Tailwind
+ * variants on its descendants, so individual pages can opt in regardless of OS
+ * theme. */
+@custom-variant dark (&:where(.dark, .dark *), @media (prefers-color-scheme: dark));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

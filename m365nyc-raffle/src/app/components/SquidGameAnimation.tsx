@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { TeamData } from '@/types/raffle';
 import SquidGameUserPhoto from './SquidGameUserPhoto';
-import { getSquidGamePhotoPath } from '@/utils/photoUtils';
+import { getOptimalCatalogPhotoPath, userHasCatalogPhoto } from '@/utils/photoUtils';
+import { usePhotoCatalog } from '@/utils/photoCatalog';
 import seedrandom from 'seedrandom';
 
 /**
@@ -11,11 +12,13 @@ import seedrandom from 'seedrandom';
 interface Ticket {
   id: string; // Unique identifier for the ticket (team name)
   teamName: string; // Display name of the team/player
+  displayName: string;
   playerNumber: string; // 3-digit formatted player number for display
   position: { row: number; col: number }; // Grid position for display layout
   ticketCount?: number; // Number of tickets this person has (for weighted selection)
   isEliminated?: boolean; // Whether this player has been eliminated from current session
   isWinner?: boolean; // Track winners separately from elimination status
+  avatarSrc?: string;
 }
 
 /**
@@ -64,6 +67,7 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
   onSpinComplete,
   onClose
 }) => {
+  const photoCatalog = usePhotoCatalog();
   // =============================================================================
   // STATE MANAGEMENT
   // =============================================================================
@@ -109,6 +113,22 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
   /** Sound throttling to prevent audio overlap */
   const [lastBeepTime, setLastBeepTime] = useState<number>(0);
 
+  const preloadCellSize = useMemo(() => {
+    if (gridSize.cols === 0 || gridSize.rows === 0) {
+      return 50;
+    }
+
+    const headerHeight = 60;
+    const padding = 16;
+    const gap = 4;
+    const availableWidth = (typeof window !== 'undefined' ? window.innerWidth : 1920) - padding;
+    const availableHeight = (typeof window !== 'undefined' ? window.innerHeight : 1080) - headerHeight - padding;
+    const cellWidth = Math.floor((availableWidth - (gridSize.cols - 1) * gap) / gridSize.cols);
+    const cellHeight = Math.floor((availableHeight - (gridSize.rows - 1) * gap) / gridSize.rows);
+
+    return Math.min(cellWidth, cellHeight);
+  }, [gridSize.cols, gridSize.rows]);
+
   // =============================================================================
   // AUDIO UTILITIES
   // =============================================================================
@@ -118,39 +138,36 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
    * Pre-load audio files for better performance during animation
    */
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Initialize click sound for raffle cycling
-      const click = new Audio('/sounds/beep.mp3');
-      click.volume = 0.6; // Increased volume for better audibility
-      click.preload = 'auto';
-      click.load(); // Force load
-      setClickSound(click);
+    if (typeof window === 'undefined') return;
 
-      // Initialize winner sound for final selection (same beep as cycling)
-      const winner = new Audio('/sounds/beep.mp3');
-      winner.volume = 0.64; // 20% reduction from 0.8 (0.8 * 0.8 = 0.64)
-      winner.preload = 'auto';
-      winner.load(); // Force load
-      setWinnerSound(winner);
+    // Initialize click sound for raffle cycling
+    const click = new Audio('/sounds/beep.mp3');
+    click.volume = 0.6;
+    click.preload = 'auto';
+    click.load();
+    setClickSound(click);
 
-      console.log('🔊 Audio initialized:', { 
-        beepSrc: click.src, 
-        beepVolume: click.volume,
-        winnerSrc: winner.src,
-        winnerVolume: winner.volume
-      });
-    }
+    // Initialize winner sound for final selection (same beep as cycling)
+    const winner = new Audio('/sounds/beep.mp3');
+    winner.volume = 0.64;
+    winner.preload = 'auto';
+    winner.load();
+    setWinnerSound(winner);
 
-    // Cleanup audio elements on unmount
+    console.log('🔊 Audio initialized:', {
+      beepSrc: click.src,
+      beepVolume: click.volume,
+      winnerSrc: winner.src,
+      winnerVolume: winner.volume
+    });
+
+    // Cleanup uses the locals, not state — state is null on first render and
+    // referencing it via closure would freeze the old `null` value.
     return () => {
-      if (clickSound) {
-        clickSound.pause();
-        clickSound.src = '';
-      }
-      if (winnerSound) {
-        winnerSound.pause();
-        winnerSound.src = '';
-      }
+      click.pause();
+      click.src = '';
+      winner.pause();
+      winner.src = '';
     };
   }, []);
 
@@ -308,60 +325,97 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
    * Tracks individual image load states and updates allImagesLoaded flag
    */
   useEffect(() => {
-    if (!allTeams || allTeams.length === 0) return;
+    if (!photoCatalog.loaded) {
+      return;
+    }
+
+    const displayTeams = allTeams ?? teams;
+
+    if (displayTeams.length === 0) {
+      setImagesLoaded(new Set());
+      setAllImagesLoaded(true);
+      return;
+    }
+
+    const teamsWithPhotos = displayTeams.filter((team) => userHasCatalogPhoto(team.Team, photoCatalog));
+
+    if (teamsWithPhotos.length === 0) {
+      console.log('🖼️ No participant photos found. Showing gradient avatars immediately.');
+      setImagesLoaded(new Set());
+      setAllImagesLoaded(true);
+      return;
+    }
+
+    setImagesLoaded(new Set());
+    setAllImagesLoaded(false);
+
+    let cancelled = false;
 
     const loadImage = (teamName: string): Promise<void> => {
       return new Promise((resolve) => {
         const img = new Image();
-        const photoPath = getSquidGamePhotoPath(teamName);
-        
-        img.onload = () => {
-          setImagesLoaded(prev => new Set(prev.add(teamName)));
+        const photoPath = getOptimalCatalogPhotoPath(teamName, Math.max(preloadCellSize, 50), photoCatalog);
+
+        const markLoaded = () => {
+          if (cancelled) {
+            resolve();
+            return;
+          }
+
+          setImagesLoaded((prev) => {
+            const next = new Set(prev);
+            next.add(teamName);
+            return next;
+          });
           resolve();
         };
         
+        img.onload = markLoaded;
+        
         img.onerror = () => {
-          // Even on error, mark as "loaded" so we don't block the raffle
-          // Fallback avatars will be shown instead
-          setImagesLoaded(prev => new Set(prev.add(teamName)));
-          resolve();
+          console.warn('🖼️ Preload failed, falling back to gradients for player', { teamName, photoPath });
+          markLoaded();
         };
         
         if (photoPath) {
           img.src = photoPath;
         } else {
-          // Skip players without photos - don't show any fallback
           resolve();
-          return;
         }
       });
     };
 
     // Start loading all images
     const loadAllImages = async () => {
-      console.log('🖼️ Starting to preload all participant images...');
-      const loadPromises = allTeams.map(team => loadImage(team.Team));
+        console.log('🖼️ Starting to preload participant images...', {
+          teamCount: displayTeams.length,
+          photoCount: teamsWithPhotos.length,
+          preloadCellSize,
+        });
+      const loadPromises = teamsWithPhotos.map(team => loadImage(team.Team));
       
       try {
         await Promise.all(loadPromises);
-        console.log('✅ All participant images loaded successfully');
+        if (cancelled) {
+          return;
+        }
+        console.log('✅ Participant image preload complete');
         setAllImagesLoaded(true);
       } catch (error) {
+        if (cancelled) {
+          return;
+        }
         console.error('❌ Error loading some images, but continuing anyway:', error);
         setAllImagesLoaded(true); // Continue anyway
       }
     };
 
-    loadAllImages();
-  }, [allTeams]);
+    void loadAllImages();
 
-  /**
-   * Reset image loading state when teams change
-   */
-  useEffect(() => {
-    setImagesLoaded(new Set());
-    setAllImagesLoaded(false);
-  }, [teams, allTeams]);
+    return () => {
+      cancelled = true;
+    };
+  }, [allTeams, photoCatalog, preloadCellSize, teams]);
 
   /**
    * Main effect for generating tickets and calculating optimal grid layout
@@ -417,11 +471,13 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
       allTickets.push({
         id: team.Team,
         teamName: team.Team,
+        displayName: team.displayName ?? team.Team,
         playerNumber: playerNumber,
         position: { row: 0, col: 0 },
         ticketCount: actualTicketCount, // Use actual ticket count, not minimum 1
         isWinner: isCurrentWinner,
-        isEliminated: isCurrentEliminated || isCurrentWithdrawn || isAutoWithdrawn // Include auto-withdrawn
+        isEliminated: isCurrentEliminated || isCurrentWithdrawn || isAutoWithdrawn, // Include auto-withdrawn
+        avatarSrc: team.avatarSrc,
       });
     });
 
@@ -722,7 +778,7 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     };
 
     animate();
-  }, [tickets, teams, rng, onWinner, onSpinComplete, shuffleArray, winners, withdrawn, withdrawnPlayers, eliminated, raffleState, playWinnerSound]);
+  }, [tickets, teams, rng, onWinner, onSpinComplete, shuffleArray, winners, withdrawn, withdrawnPlayers, eliminated, raffleState, playWinnerSound, playClickSound]);
 
   /**
    * Effect to trigger raffle animation when spinning begins
@@ -749,130 +805,6 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
       console.log('SquidGame: Waiting for images to load before starting raffle...');
     }
   }, [isSpinning, tickets.length, gridSize.rows, gridSize.cols, raffleState, startLotteryAnimation, winners, eliminated, withdrawn, allImagesLoaded]);
-
-  // =============================================================================
-  // USER INTERACTION HANDLERS
-  // =============================================================================
-
-  /**
-   * Manual winner selection function (fallback/testing)
-   * Performs immediate weighted random selection without animation
-   * Used when automatic animation fails or for testing purposes
-   */
-  const handlePickWinner = useCallback(() => {
-    if (tickets.length === 0) return;
-    
-    // Create weighted selection based on eligible teams only (not previous winners, withdrawn, or eliminated)
-    const eligibleTeamNames = teams.map(t => t.Team);
-    const activeTickets = tickets.filter(ticket => 
-      eligibleTeamNames.includes(ticket.teamName) && 
-      !winners.includes(ticket.teamName) && 
-      !withdrawn.includes(ticket.teamName) && 
-      !withdrawnPlayers.includes(ticket.teamName) && 
-      !eliminated.includes(ticket.teamName) &&
-      ticket.ticketCount && ticket.ticketCount > 0 // Exclude players with 0 tickets
-    );
-    const weightedTickets: string[] = [];
-    activeTickets.forEach(ticket => {
-      const count = ticket.ticketCount || 1;
-      for (let i = 0; i < count; i++) {
-        weightedTickets.push(ticket.teamName);
-      }
-    });
-    
-    if (weightedTickets.length === 0) return;
-    
-    // Enhanced 10x shuffle and select random winner from weighted array
-    let shuffledWeightedTickets = shuffleArray(weightedTickets);
-    for (let i = 0; i < 10; i++) {
-      shuffledWeightedTickets = shuffleArray(shuffledWeightedTickets);
-      console.log(`🔀 Manual selection shuffle pass ${i + 1}/10: First 5 tickets: [${shuffledWeightedTickets.slice(0, 5).join(', ')}]`);
-    }
-    let winnerName = shuffledWeightedTickets[Math.floor(rng() * shuffledWeightedTickets.length)];
-    
-    // Check if this winner was already a winner (previous winner drawn again)
-    if (winners.includes(winnerName)) {
-      // This is a previous winner being drawn again - mark as withdrawn/eliminated
-      console.log(`${winnerName} was already a winner - marking as withdrawn`);
-      setEliminated(prev => [...prev, winnerName]);
-      // Note: No need to update tickets directly since we compute status from state arrays during render
-      
-      // Continue drawing until we get a new winner (not a previous winner)
-      let attempts = 0;
-      const maxAttempts = 50; // Prevent infinite loop
-      while (winners.includes(winnerName) && attempts < maxAttempts) {
-        winnerName = shuffledWeightedTickets[Math.floor(rng() * shuffledWeightedTickets.length)];
-        attempts++;
-      }
-      
-      if (attempts >= maxAttempts) {
-        console.log('No new winners available - all eligible participants are previous winners');
-        return;
-      }
-    }
-    
-    // Set the final winner (guaranteed to be a new winner)
-    setSelectedWinner(winnerName);
-    
-    console.log(`🏆 MANUAL WINNER SELECTION 🏆`);
-    console.log(`Previous winners:`, winners);
-    console.log(`Selected winner: "${winnerName}"`);
-    
-    // Add new winner to winners list
-    setWinners(prev => {
-      const newWinners = [...prev, winnerName];
-      console.log(`Updated winners array (manual):`, newWinners);
-      return newWinners;
-    });
-    // Note: No need to update tickets directly since we compute isWinner from winners array during render
-    
-    // Call winner callback after delay
-    setTimeout(() => {
-      onWinner(winnerName);
-      setTimeout(() => {
-        onSpinComplete();
-      }, 2000);
-    }, 1000);
-  }, [tickets, teams, rng, onWinner, onSpinComplete, shuffleArray, winners, withdrawn, withdrawnPlayers, eliminated]);
-
-  /**
-   * Handles winner withdrawal and automatic re-drawing
-   * Called when a selected winner is not present and needs to be replaced
-   * 
-   * Process:
-   * 1. Adds winner to withdrawn list (triggers red X overlay)
-   * 2. Clears current selection state
-   * 3. Automatically triggers new lottery animation after delay
-   * 
-   * @param winnerName - Name of the winner to withdraw
-   */
-  const handleWithdrawWinner = useCallback((winnerName: string) => {
-    console.log(`🚫 MARKING WINNER AS WITHDRAWN 🚫`);
-    console.log(`Withdrawn winner: "${winnerName}"`);
-    console.log(`Current withdrawn array before update:`, withdrawn);
-    console.log(`Current eliminated array before update:`, eliminated);
-    console.log(`Current winners array:`, winners);
-    
-    // Add to withdrawn list
-    setWithdrawn(prev => {
-      const newWithdrawn = [...prev, winnerName];
-      console.log(`✅ Updated withdrawn array:`, newWithdrawn);
-      console.log(`🔴 Should now show RED X overlay for: "${winnerName}"`);
-      console.log(`🔴 isWithdrawn check: ${newWithdrawn.includes(winnerName)}`);
-      return newWithdrawn;
-    });
-    
-    // Remove from current winner selection
-    setSelectedWinner(null);
-    setCurrentHighlight(null);
-    
-    console.log(`🔄 Will auto-redraw in 1 second...`);
-    // Trigger a new drawing automatically
-    setTimeout(() => {
-      console.log(`🎰 Starting new lottery animation after withdrawal`);
-      startLotteryAnimation();
-    }, 1000); // 1 second delay to show the withdrawal
-  }, [startLotteryAnimation, withdrawn, eliminated, winners]);
 
   // =============================================================================
   // LAYOUT AND STYLING CALCULATIONS
@@ -997,8 +929,10 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
             </div>
           )}
 
-          {/* Image loading indicator */}
-          {isSpinning && !allImagesLoaded && tickets.length > 0 && (
+          {/* Image loading indicator — show as soon as the grid is loading,
+              regardless of spin state, so the counter starts in sync with
+              the cells fading in. */}
+          {!allImagesLoaded && tickets.length > 0 && (
             <div className="text-blue-400 text-sm font-medium digital-font">
               🖼️ Loading Images... ({imagesLoaded.size}/{allTeams?.length || 0})
             </div>
@@ -1074,8 +1008,9 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
                 {/* ========================================================= */}
                 <div className="absolute inset-0 w-full h-full overflow-hidden">
                   <SquidGameUserPhoto 
-                    name={ticket.teamName} 
+                    name={ticket.displayName}
                     size={cellSize}
+                    avatarSrc={ticket.avatarSrc}
                     className={`w-full h-full ${
                       isEliminated || isWithdrawn || isAutoWithdrawn 
                         ? 'grayscale opacity-30' // Faded for eliminated/withdrawn/auto-withdrawn

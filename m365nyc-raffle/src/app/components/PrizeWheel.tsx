@@ -64,6 +64,8 @@ const PrizeWheel: React.FC<PrizeWheelProps> = ({
       
       return {
         team: team.Team,
+        displayName: team.displayName ?? team.Team,
+        avatarSrc: team.avatarSrc,
         tickets: Math.max(1, Math.floor(team.Points / 100)),
         angle,
         nextAngle,
@@ -116,9 +118,14 @@ const PrizeWheel: React.FC<PrizeWheelProps> = ({
                   }}
                 >
                   <div className="flex flex-col items-center space-y-1">
-                    <UserPhoto name={segment.team} size="sm" className="ring-2 ring-white" />
+                    <UserPhoto
+                      name={segment.displayName}
+                      size="sm"
+                      className="ring-2 ring-white"
+                      avatarSrc={segment.avatarSrc}
+                    />
                     <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-20">
-                      {segment.team.split(' ')[0]} {/* Show first name only due to space */}
+                      {segment.displayName.split(' ')[0]} {/* Show first name only due to space */}
                     </div>
                     <div className="text-xs opacity-80">
                       {segment.tickets} tickets

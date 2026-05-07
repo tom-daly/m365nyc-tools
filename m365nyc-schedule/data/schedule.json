@@ -4,6 +4,655 @@
     "isDefault": true,
     "rooms": [
       {
+        "id": 61747,
+        "name": "06 Central Park West",
+        "sessions": [
+          {
+            "id": "e50e9f71-6b7e-425d-84d7-2dce0aead282",
+            "title": "Registration",
+            "description": null,
+            "startsAt": "2025-07-25T08:30:00",
+            "endsAt": "2025-07-25T09:00:00",
+            "isServiceSession": true,
+            "isPlenumSession": true,
+            "speakers": [],
+            "categories": [],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null,
+            "isInformed": false,
+            "isConfirmed": false
+          },
+          {
+            "id": "ece8895f-432e-48cd-8374-675773ad9898",
+            "title": "Kick Off / Welcome Session",
+            "description": null,
+            "startsAt": "2025-07-25T09:00:00",
+            "endsAt": "2025-07-25T09:20:00",
+            "isServiceSession": true,
+            "isPlenumSession": true,
+            "speakers": [],
+            "categories": [],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null,
+            "isInformed": false,
+            "isConfirmed": false
+          },
+          {
+            "id": "919658",
+            "title": "Empowering corporate communications with Microsoft 365",
+            "description": "Creating and delivering compelling and consistent corporate communications messages across multiple channels can be challenging, especially in the fast-paced and dynamic business environment. In this session, you will learn tips and best practices to improve internal communications. We will talk about new and emerging capabilities in SharePoint News and Viva Engage along with premium capabilities available with Viva Amplify and Copilot. Whether you’re a seasoned communicator or a curious novice, this session promises actionable insights, practical tips, and a dash of innovation.",
+            "startsAt": "2025-07-25T09:30:00",
+            "endsAt": "2025-07-25T10:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "a821edd0-eda1-4513-acf6-a068ce954ead",
+                "name": "Susan Hanley"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349457,
+                    "name": "Viva"
+                  },
+                  {
+                    "id": 349452,
+                    "name": "SharePoint"
+                  },
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377277,
+                    "name": "100"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "890330",
+            "title": "From Tech Expert to Strategic Leader: Rethink How You Lead",
+            "description": "Most IT professionals are great at solving problems and rolling out new features. But being a strategic leader means thinking beyond quick fixes and running systems smoothly. It’s about building solutions that make sense for the long haul.\r\nThe real challenge is shifting your mindset from managing tasks to driving strategy. It means asking more thoughtful questions, making intentional choices, and guiding your team to think beyond the daily grind.\r\n\r\nThis session will explain how to move from a tech expert to a strategic leader. You’ll learn how to build a culture that encourages curiosity and critical thinking and how to make decisions that connect today’s work to long-term goals.\r\nTakeaways:",
+            "startsAt": "2025-07-25T10:30:00",
+            "endsAt": "2025-07-25T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "faf5e124-26b5-4118-8339-be0db7a6c65a",
+                "name": "Marie Roker-Jones"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349455,
+                    "name": "Business & Productivity"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377277,
+                    "name": "100"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "900581",
+            "title": "Real World Microsoft 365 Governance in the Age of AI",
+            "description": "In a time where everyone is expected to innovate faster, deliver more value, and do it all under tight budget constraints, effective governance is more critical than ever. Microsoft is at the forefront of driving this innovation with their Copilot “GenAI-as-a-Service” offering and creating custom agents with Copilot Studio & Azure AI Foundry. However, these benefits are not without their challenges, including:\r\n\r\n• Ensuring AI doesn’t expose sensitive data to those who should not have access to it\r\n• Improving data quality to ensure AI returns accurate answers\r\n• Balancing operational costs while embracing innovation\r\n\r\nJoin us for a deep dive into best practices for governing Microsoft 365 in this new world of AI & Copilots. We’ll explore some of the tools that Microsoft makes available while also pointing out some gaps. Whether you’re facing complex compliance requirements, struggling with data sprawl, or simply looking for ways to do more with less, this session will provide the real-world strategies needed to thrive in today’s AI-driven landscape.\r\n",
+            "startsAt": "2025-07-25T11:30:00",
+            "endsAt": "2025-07-25T12:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "54de6440-9ae6-43c6-97c0-78b169c25c34",
+                "name": "Jared Matfess"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349454,
+                    "name": "M365 Config / Mgmt"
+                  },
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  },
+                  {
+                    "id": 349460,
+                    "name": "Artificial Intelligence"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377278,
+                    "name": "200"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "d39f661d-2b27-4942-89f0-fd78b4914d9f",
+            "title": "Lunch",
+            "description": "Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell",
+            "startsAt": "2025-07-25T12:20:00",
+            "endsAt": "2025-07-25T13:10:00",
+            "isServiceSession": true,
+            "isPlenumSession": true,
+            "speakers": [],
+            "categories": [],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null,
+            "isInformed": false,
+            "isConfirmed": false
+          },
+          {
+            "id": "922167",
+            "title": "Dataverse: Everything, Everywhere, Here and There",
+            "description": "Are you building Power Platform solutions, and still storing your data in SQL Server, SharePoint Online, and/ or Excel? If so, then you may need to reevaluate and consider Microsoft Dataverse, the native data solution of the Power Platform. For many of your low-code initiatives, Dataverse is likely a better data storage offering. Designed to be a secure, low-code solution, Microsoft built Dataverse to help organizations increase their return on investment (ROI), better scale their in-house applications, and promote rapid innovation, even leveraging Microsoft Copilot. Let’s deep dive into Microsoft Dataverse and explore jumpstarting your team's productivity.",
+            "startsAt": "2025-07-25T13:10:00",
+            "endsAt": "2025-07-25T14:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "033b0917-8f2a-43e0-b080-71a2fbd04ddc",
+                "name": "Charles Lakes II"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349450,
+                    "name": "Power Platform"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377277,
+                    "name": "100"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "927989",
+            "title": "No Degree Necessary - Building AI-Infused Low-code Power Apps",
+            "description": "Infusing Low-Code Apps with Powerful AI Models\r\n\r\nIn the age of AI, it’s no longer enough to build apps that respond—they must think. In this session, I’ll showcase how I built a resume screening solution using Power Apps and AI Builder, demonstrating how any maker can turn traditional forms and processes into intelligent, responsive experiences.\r\n\r\nYou’ll learn how to:\r\n\t•\tUse AI Builder’s form processing to extract data from resumes (PDF/Word)\r\n\t•\tCreate AI prompts that analyze and rank candidates based on job criteria\r\n\t•\tBuild a sleek Power App UI for managing applicant workflows\r\n\t•\tLeverage Power Automate for scoring & notifications\r\n\t•\tAdd a Copilot Studio chatbot to answer recruiter questions about applicants in natural language\r\n\r\nWhether you’re in HR tech, operations, or just exploring how AI can elevate your apps, this session will leave you with a blueprint—and inspiration—for bringing intelligence to your low-code solutions.\r\n\r\nWhat Attendees Will Walk Away With:\r\n\t•\tA real-world example of AI Builder + Power Apps integration\r\n\t•\tPrompt engineering tips for non-developers\r\n\t•\tIdeas for extending your low-code solutions with Copilot Studio and Power Automate\r\n\t•\tConfidence to bring AI into your next Power Platform project—no data science degree needed",
+            "startsAt": "2025-07-25T14:10:00",
+            "endsAt": "2025-07-25T15:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "6018628a-2735-4bc6-962f-46e7ad346d39",
+                "name": "Sunny Eltepu"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349450,
+                    "name": "Power Platform"
+                  },
+                  {
+                    "id": 349460,
+                    "name": "Artificial Intelligence"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377278,
+                    "name": "200"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "945860",
+            "title": "From Copilot to Catalyst: 3 Steps to Accelerate Agentic AI Success in Your Modern Workplace",
+            "description": "AI is no longer on the horizon — it’s at the heart of how we work. From Microsoft Copilot to a new wave of agentic technologies, we’re entering a workplace revolution where intelligent systems don’t just assist — they act, adapt, and accelerate value.\r\nJoin Microsoft RD & MVP Dux Raymond Sy as he unpacks how agentic AI is evolving from copilots into catalysts that are transforming the way we communicate, collaborate, and create. With the rapid adoption of Microsoft 365 Copilot, organizations now face both incredible opportunities and urgent challenges.\r\nYou’ll walk away with:\r\n•\tA clear understanding of how the AI landscape — from copilots to agents — is impacting the modern workplace\r\n•\tA practical framework for building a robust data foundation that ensures AI success through strong data quality, governance, and security\r\n•\tReal-world use cases showing how Copilot and agentic AI are streamlining communication, enhancing collaboration, and automating complex business processes\r\n•\tA roadmap for how to lead change in your organization — and avoid being left behind\r\nWhether you're a business leader, IT pro, or solution builder, this keynote will inspire you to move beyond experimentation and confidently harness agentic AI to drive meaningful outcomes.",
+            "startsAt": "2025-07-25T15:10:00",
+            "endsAt": "2025-07-25T16:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": true,
+            "speakers": [
+              {
+                "id": "4de32db1-3a0f-473d-aba9-6b5e61fcab1d",
+                "name": "Dux Raymond Sy"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [],
+                "sort": 2
+              }
+            ],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "32afaf87-a9fc-4943-841c-520264fd2434",
+            "title": "Closing Raffle",
+            "description": null,
+            "startsAt": "2025-07-25T16:00:00",
+            "endsAt": "2025-07-25T16:30:00",
+            "isServiceSession": true,
+            "isPlenumSession": true,
+            "speakers": [],
+            "categories": [],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null,
+            "isInformed": false,
+            "isConfirmed": false
+          },
+          {
+            "id": "45893954-a1ab-4d62-848f-c9ff8b2354ec",
+            "title": "Microsoft Mingle [Sponsored by AvePoint, Hosted @ Beer Authority]",
+            "description": "[This event is OFF-SITE]\nThis networking session will take place across the street at Beer Authority. AvePoint will be sponsoring food and drinks after the event.",
+            "startsAt": "2025-07-25T17:00:00",
+            "endsAt": "2025-07-25T18:00:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 61747,
+            "room": "06 Central Park West",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null,
+            "isInformed": false,
+            "isConfirmed": false
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 61748,
+        "name": "06 Central Park East",
+        "sessions": [
+          {
+            "id": "888502",
+            "title": "Empowering Internal Customer Service Roles with Copilot Agents",
+            "description": "Internal customer service roles often face the challenge of managing repetitive and interrupt-driven tasks. Microsoft 365’s custom Copilots provide a powerful solution by automating routine processes, allowing professionals to focus more on strategic initiatives and more meaningful work.\r\n\r\nJoin us as we explore how to develop and implement Copilot Agents tailored to support internal customer service roles. We will cover use cases in Human Resources where Copilot can streamline tasks like onboarding, supporting hiring, and addressing benefits questions. Discover how these intelligent assistants can efficiently handle routine inquiries, reducing interruptions and free up valuable time to build deeper connections across the organization. Empower your team with the tools to transform their workflow and enhance their impact.",
+            "startsAt": "2025-07-25T09:30:00",
+            "endsAt": "2025-07-25T10:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "e02bfe4c-a656-4677-bed6-6a4f8e1cae51",
+                "name": "Emily Mancini"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349455,
+                    "name": "Business & Productivity"
+                  },
+                  {
+                    "id": 349452,
+                    "name": "SharePoint"
+                  },
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377277,
+                    "name": "100"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61748,
+            "room": "06 Central Park East",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "933739",
+            "title": "Using Copilot with Microsoft Office Apps",
+            "description": "Deb will present top tips for using Copilot with M365 Apps: Word, Excel, Power Point, Business Chat, One Note, Teams and Whiteboard. We will review prompts that work and best practices.",
+            "startsAt": "2025-07-25T10:30:00",
+            "endsAt": "2025-07-25T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "d0b0a6ca-ad0d-4c86-a7f0-e8d1b07a6091",
+                "name": "Deb Walther"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349455,
+                    "name": "Business & Productivity"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377277,
+                    "name": "100"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61748,
+            "room": "06 Central Park East",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "925807",
+            "title": "How to build a Gen AI Chatbot in 3 steps",
+            "description": "Are you looking to see how Generative AI can help your company? This session will provide an in-depth look into key learnings from a real-life pioneering journey of developing a generative AI chatbot for employees, powered by Microsoft's cutting-edge technologies. We will explore the challenges encountered, the strategic decisions made, and the creative solutions devised during this transformative 3 step process.  \r\n\r\nThe discussion will underscore how to harness power of Microsoft's AI and cloud technologies to create a chatbot that improved communication, streamlined workflows, and enhanced employee productivity. Attendees will gain a comprehensive understanding of a journey, from the initial conceptualization to the final deployment and ongoing improvements. This session will serve as a resource for organizations planning to leverage AI chatbots, offering insights, best practices, and lessons learned.",
+            "startsAt": "2025-07-25T11:30:00",
+            "endsAt": "2025-07-25T12:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "6e287134-6d74-4283-97ec-b16ffbf08176",
+                "name": "Kate Faaland"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349455,
+                    "name": "Business & Productivity"
+                  },
+                  {
+                    "id": 349458,
+                    "name": "Azure"
+                  },
+                  {
+                    "id": 349460,
+                    "name": "Artificial Intelligence"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377278,
+                    "name": "200"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61748,
+            "room": "06 Central Park East",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "969813",
+            "title": "Fast Tracking Data Governance for Copilot Using Copilot",
+            "description": "Are you stuck in your M365 Copilot journey because of oversharing concerns and data governance issues? You're not alone. Fortunately, it turns out that Copilot itself can come to the rescue. This session shows how we've leveraged Copilot to rapidly gain visibility into what is overshared, jumpstart our ability to use SharePoint Advancement Management and Purview, and ultimately accelerate our data governance journey so that we can deploy Copilot with confidence.",
+            "startsAt": "2025-07-25T13:10:00",
+            "endsAt": "2025-07-25T14:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "e81c8217-8372-4492-aee6-f482e2f486a7",
+                "name": "Sounil Yu"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377278,
+                    "name": "200"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61748,
+            "room": "06 Central Park East",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          },
+          {
+            "id": "920119",
+            "title": "Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio",
+            "description": "AI is evolving — and it’s time to think beyond simple chatbots.\r\n\r\nIn this session, learn how to design Autonomous AI Agents using Microsoft Copilot Studio that not only respond to user queries, but also proactively complete tasks, orchestrate workflows, and act with context and purpose.\r\n\r\nWe’ll explore how Copilot Studio now supports multi-step reasoning, adaptive planning, and integrations across Microsoft 365 and external APIs — unlocking a new generation of agents that go beyond conversations to drive real action.\r\n\r\nTopics we’ll cover:\r\n\r\nWhat makes an AI Agent autonomous (vs a traditional chatbot)\r\n\r\nBuilding multi-step reasoning and action planning into your Copilot workflows\r\n\r\nIntegrating Copilot Agents with Power Platform, Dataverse, and external systems\r\n\r\nReal-world examples of Autonomous Agents in enterprises and government\r\n\r\nWhether you're looking to automate internal processes, client services, or complex decision-making, this session will help you move from reactive chatbots to proactive AI agents.",
+            "startsAt": "2025-07-25T14:10:00",
+            "endsAt": "2025-07-25T15:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "fbec9d92-7b9a-4a39-ba63-c3778507413b",
+                "name": "Himanshu Goil"
+              }
+            ],
+            "categories": [
+              {
+                "id": 96969,
+                "name": "Track",
+                "categoryItems": [
+                  {
+                    "id": 349453,
+                    "name": "M365 Apps"
+                  },
+                  {
+                    "id": 349459,
+                    "name": "Copilot"
+                  },
+                  {
+                    "id": 349460,
+                    "name": "Artificial Intelligence"
+                  }
+                ],
+                "sort": 1
+              },
+              {
+                "id": 104628,
+                "name": "Level",
+                "categoryItems": [
+                  {
+                    "id": 377278,
+                    "name": "200"
+                  }
+                ],
+                "sort": 2
+              }
+            ],
+            "roomId": 61748,
+            "room": "06 Central Park East",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted",
+            "isInformed": true,
+            "isConfirmed": true
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
         "id": 61751,
         "name": "06 Belasco",
         "sessions": [
@@ -542,42 +1191,6 @@
         "name": "06 Radio City",
         "sessions": [
           {
-            "id": "e50e9f71-6b7e-425d-84d7-2dce0aead282",
-            "title": "Registration",
-            "description": null,
-            "startsAt": "2025-07-25T08:30:00",
-            "endsAt": "2025-07-25T09:00:00",
-            "isServiceSession": true,
-            "isPlenumSession": true,
-            "speakers": [],
-            "categories": [],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": null,
-            "isInformed": false,
-            "isConfirmed": false
-          },
-          {
-            "id": "ece8895f-432e-48cd-8374-675773ad9898",
-            "title": "Kick Off / Welcome Session",
-            "description": null,
-            "startsAt": "2025-07-25T09:00:00",
-            "endsAt": "2025-07-25T09:20:00",
-            "isServiceSession": true,
-            "isPlenumSession": true,
-            "speakers": [],
-            "categories": [],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": null,
-            "isInformed": false,
-            "isConfirmed": false
-          },
-          {
             "id": "886484",
             "title": "Building a Copilot-First Solution with Copilot Studio and AI Builder",
             "description": "AI-powered copilots are transforming the way we build solutions, but how do you create one from scratch? In this live build session, we'll walk through the process of designing a Copilot-first solution using Copilot Studio and AI Builder.\r\n\r\nYou'll learn:\r\n✅ How to structure a Copilot-first approach for real-world applications\r\n✅ How to integrate AI Builder to enhance Copilot’s capabilities\r\n✅ Best practices for optimizing prompts and AI interactions\r\n\r\nWhether you're new to Copilot Studio or looking to level up your AI-powered solutions, this session will give you practical, hands-on experience and insights into the power of low-code AI.",
@@ -736,24 +1349,6 @@
             "isConfirmed": true
           },
           {
-            "id": "d39f661d-2b27-4942-89f0-fd78b4914d9f",
-            "title": "Lunch [Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell]",
-            "description": "Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell",
-            "startsAt": "2025-07-25T12:20:00",
-            "endsAt": "2025-07-25T13:10:00",
-            "isServiceSession": true,
-            "isPlenumSession": true,
-            "speakers": [],
-            "categories": [],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": null,
-            "isInformed": false,
-            "isConfirmed": false
-          },
-          {
             "id": "914959",
             "title": "When to use which AI tool in the Microsoft Cloud",
             "description": "Microsoft has created many AI tools across Azure and Microsoft 365. With so many choices how do you know which tool is the best choice for your needs? Cost, existing usage, approval, complexity, and security & compliance capabilities all come into play to make an informed decision. In this session we will compare custom Copilots, Agent Builder, SharePoint AI, Copilot Studio, AI Builder, and Azure AI Foundry to understand the differences of each and when you should choose which one for your project.",
@@ -848,83 +1443,6 @@
             "status": "Accepted",
             "isInformed": true,
             "isConfirmed": true
-          },
-          {
-            "id": "945860",
-            "title": "From Copilot to Catalyst: 3 Steps to Accelerate Agentic AI Success in Your Modern Workplace",
-            "description": "AI is no longer on the horizon — it’s at the heart of how we work. From Microsoft Copilot to a new wave of agentic technologies, we’re entering a workplace revolution where intelligent systems don’t just assist — they act, adapt, and accelerate value.\r\nJoin Microsoft RD & MVP Dux Raymond Sy as he unpacks how agentic AI is evolving from copilots into catalysts that are transforming the way we communicate, collaborate, and create. With the rapid adoption of Microsoft 365 Copilot, organizations now face both incredible opportunities and urgent challenges.\r\nYou’ll walk away with:\r\n•\tA clear understanding of how the AI landscape — from copilots to agents — is impacting the modern workplace\r\n•\tA practical framework for building a robust data foundation that ensures AI success through strong data quality, governance, and security\r\n•\tReal-world use cases showing how Copilot and agentic AI are streamlining communication, enhancing collaboration, and automating complex business processes\r\n•\tA roadmap for how to lead change in your organization — and avoid being left behind\r\nWhether you're a business leader, IT pro, or solution builder, this keynote will inspire you to move beyond experimentation and confidently harness agentic AI to drive meaningful outcomes.",
-            "startsAt": "2025-07-25T15:10:00",
-            "endsAt": "2025-07-25T16:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": true,
-            "speakers": [
-              {
-                "id": "4de32db1-3a0f-473d-aba9-6b5e61fcab1d",
-                "name": "Dux Raymond Sy"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [],
-                "sort": 2
-              }
-            ],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "32afaf87-a9fc-4943-841c-520264fd2434",
-            "title": "Closing Raffle",
-            "description": null,
-            "startsAt": "2025-07-25T16:00:00",
-            "endsAt": "2025-07-25T16:30:00",
-            "isServiceSession": true,
-            "isPlenumSession": true,
-            "speakers": [],
-            "categories": [],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": null,
-            "isInformed": false,
-            "isConfirmed": false
-          },
-          {
-            "id": "45893954-a1ab-4d62-848f-c9ff8b2354ec",
-            "title": "Microsoft Mingle [Sponsored by AvePoint, Hosted @ Beer Authority]",
-            "description": "This networking session will take place across the street at Beer Authority. AvePoint will be sponsoring food and drinks after the event.",
-            "startsAt": "2025-07-25T17:00:00",
-            "endsAt": "2025-07-25T18:00:00",
-            "isServiceSession": true,
-            "isPlenumSession": false,
-            "speakers": [],
-            "categories": [],
-            "roomId": 61749,
-            "room": "06 Radio City",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": null,
-            "isInformed": false,
-            "isConfirmed": false
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -1770,524 +2288,6 @@
           }
         ],
         "hasOnlyPlenumSessions": false
-      },
-      {
-        "id": 61748,
-        "name": "05 Marquis",
-        "sessions": [
-          {
-            "id": "888502",
-            "title": "Empowering Internal Customer Service Roles with Copilot Agents",
-            "description": "Internal customer service roles often face the challenge of managing repetitive and interrupt-driven tasks. Microsoft 365’s custom Copilots provide a powerful solution by automating routine processes, allowing professionals to focus more on strategic initiatives and more meaningful work.\r\n\r\nJoin us as we explore how to develop and implement Copilot Agents tailored to support internal customer service roles. We will cover use cases in Human Resources where Copilot can streamline tasks like onboarding, supporting hiring, and addressing benefits questions. Discover how these intelligent assistants can efficiently handle routine inquiries, reducing interruptions and free up valuable time to build deeper connections across the organization. Empower your team with the tools to transform their workflow and enhance their impact.",
-            "startsAt": "2025-07-25T09:30:00",
-            "endsAt": "2025-07-25T10:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "e02bfe4c-a656-4677-bed6-6a4f8e1cae51",
-                "name": "Emily Mancini"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349455,
-                    "name": "Business & Productivity"
-                  },
-                  {
-                    "id": 349452,
-                    "name": "SharePoint"
-                  },
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377277,
-                    "name": "100"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61748,
-            "room": "05 Marquis",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "933739",
-            "title": "Using Copilot with Microsoft Office Apps",
-            "description": "Deb will present top tips for using Copilot with M365 Apps: Word, Excel, Power Point, Business Chat, One Note, Teams and Whiteboard. We will review prompts that work and best practices.",
-            "startsAt": "2025-07-25T10:30:00",
-            "endsAt": "2025-07-25T11:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "d0b0a6ca-ad0d-4c86-a7f0-e8d1b07a6091",
-                "name": "Deb Walther"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349455,
-                    "name": "Business & Productivity"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377277,
-                    "name": "100"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61748,
-            "room": "05 Marquis",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "925807",
-            "title": "How to build a Gen AI Chatbot in 3 steps",
-            "description": "Are you looking to see how Generative AI can help your company? This session will provide an in-depth look into key learnings from a real-life pioneering journey of developing a generative AI chatbot for employees, powered by Microsoft's cutting-edge technologies. We will explore the challenges encountered, the strategic decisions made, and the creative solutions devised during this transformative 3 step process.  \r\n\r\nThe discussion will underscore how to harness power of Microsoft's AI and cloud technologies to create a chatbot that improved communication, streamlined workflows, and enhanced employee productivity. Attendees will gain a comprehensive understanding of a journey, from the initial conceptualization to the final deployment and ongoing improvements. This session will serve as a resource for organizations planning to leverage AI chatbots, offering insights, best practices, and lessons learned.",
-            "startsAt": "2025-07-25T11:30:00",
-            "endsAt": "2025-07-25T12:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "6e287134-6d74-4283-97ec-b16ffbf08176",
-                "name": "Kate Faaland"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349455,
-                    "name": "Business & Productivity"
-                  },
-                  {
-                    "id": 349458,
-                    "name": "Azure"
-                  },
-                  {
-                    "id": 349460,
-                    "name": "Artificial Intelligence"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377278,
-                    "name": "200"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61748,
-            "room": "05 Marquis",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "969813",
-            "title": "Fast Tracking Data Governance for Copilot Using Copilot",
-            "description": "Are you stuck in your M365 Copilot journey because of oversharing concerns and data governance issues? You're not alone. Fortunately, it turns out that Copilot itself can come to the rescue. This session shows how we've leveraged Copilot to rapidly gain visibility into what is overshared, jumpstart our ability to use SharePoint Advancement Management and Purview, and ultimately accelerate our data governance journey so that we can deploy Copilot with confidence.",
-            "startsAt": "2025-07-25T13:10:00",
-            "endsAt": "2025-07-25T14:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "e81c8217-8372-4492-aee6-f482e2f486a7",
-                "name": "Sounil Yu"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377278,
-                    "name": "200"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61748,
-            "room": "05 Marquis",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "920119",
-            "title": "Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio",
-            "description": "AI is evolving — and it’s time to think beyond simple chatbots.\r\n\r\nIn this session, learn how to design Autonomous AI Agents using Microsoft Copilot Studio that not only respond to user queries, but also proactively complete tasks, orchestrate workflows, and act with context and purpose.\r\n\r\nWe’ll explore how Copilot Studio now supports multi-step reasoning, adaptive planning, and integrations across Microsoft 365 and external APIs — unlocking a new generation of agents that go beyond conversations to drive real action.\r\n\r\nTopics we’ll cover:\r\n\r\nWhat makes an AI Agent autonomous (vs a traditional chatbot)\r\n\r\nBuilding multi-step reasoning and action planning into your Copilot workflows\r\n\r\nIntegrating Copilot Agents with Power Platform, Dataverse, and external systems\r\n\r\nReal-world examples of Autonomous Agents in enterprises and government\r\n\r\nWhether you're looking to automate internal processes, client services, or complex decision-making, this session will help you move from reactive chatbots to proactive AI agents.",
-            "startsAt": "2025-07-25T14:10:00",
-            "endsAt": "2025-07-25T15:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "fbec9d92-7b9a-4a39-ba63-c3778507413b",
-                "name": "Himanshu Goil"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349453,
-                    "name": "M365 Apps"
-                  },
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  },
-                  {
-                    "id": 349460,
-                    "name": "Artificial Intelligence"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377278,
-                    "name": "200"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61748,
-            "room": "05 Marquis",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          }
-        ],
-        "hasOnlyPlenumSessions": false
-      },
-      {
-        "id": 61747,
-        "name": "05 New Amsterdam",
-        "sessions": [
-          {
-            "id": "919658",
-            "title": "Empowering corporate communications with Microsoft 365",
-            "description": "Creating and delivering compelling and consistent corporate communications messages across multiple channels can be challenging, especially in the fast-paced and dynamic business environment. In this session, you will learn tips and best practices to improve internal communications. We will talk about new and emerging capabilities in SharePoint News and Viva Engage along with premium capabilities available with Viva Amplify and Copilot. Whether you’re a seasoned communicator or a curious novice, this session promises actionable insights, practical tips, and a dash of innovation.",
-            "startsAt": "2025-07-25T09:30:00",
-            "endsAt": "2025-07-25T10:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "a821edd0-eda1-4513-acf6-a068ce954ead",
-                "name": "Susan Hanley"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349457,
-                    "name": "Viva"
-                  },
-                  {
-                    "id": 349452,
-                    "name": "SharePoint"
-                  },
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377277,
-                    "name": "100"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61747,
-            "room": "05 New Amsterdam",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "890330",
-            "title": "From Tech Expert to Strategic Leader: Rethink How You Lead",
-            "description": "Most IT professionals are great at solving problems and rolling out new features. But being a strategic leader means thinking beyond quick fixes and running systems smoothly. It’s about building solutions that make sense for the long haul.\r\nThe real challenge is shifting your mindset from managing tasks to driving strategy. It means asking more thoughtful questions, making intentional choices, and guiding your team to think beyond the daily grind.\r\n\r\nThis session will explain how to move from a tech expert to a strategic leader. You’ll learn how to build a culture that encourages curiosity and critical thinking and how to make decisions that connect today’s work to long-term goals.\r\nTakeaways:",
-            "startsAt": "2025-07-25T10:30:00",
-            "endsAt": "2025-07-25T11:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "faf5e124-26b5-4118-8339-be0db7a6c65a",
-                "name": "Marie Roker-Jones"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349455,
-                    "name": "Business & Productivity"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377277,
-                    "name": "100"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61747,
-            "room": "05 New Amsterdam",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "900581",
-            "title": "Real World Microsoft 365 Governance in the Age of AI",
-            "description": "In a time where everyone is expected to innovate faster, deliver more value, and do it all under tight budget constraints, effective governance is more critical than ever. Microsoft is at the forefront of driving this innovation with their Copilot “GenAI-as-a-Service” offering and creating custom agents with Copilot Studio & Azure AI Foundry. However, these benefits are not without their challenges, including:\r\n\r\n• Ensuring AI doesn’t expose sensitive data to those who should not have access to it\r\n• Improving data quality to ensure AI returns accurate answers\r\n• Balancing operational costs while embracing innovation\r\n\r\nJoin us for a deep dive into best practices for governing Microsoft 365 in this new world of AI & Copilots. We’ll explore some of the tools that Microsoft makes available while also pointing out some gaps. Whether you’re facing complex compliance requirements, struggling with data sprawl, or simply looking for ways to do more with less, this session will provide the real-world strategies needed to thrive in today’s AI-driven landscape.\r\n",
-            "startsAt": "2025-07-25T11:30:00",
-            "endsAt": "2025-07-25T12:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "54de6440-9ae6-43c6-97c0-78b169c25c34",
-                "name": "Jared Matfess"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349454,
-                    "name": "M365 Config / Mgmt"
-                  },
-                  {
-                    "id": 349459,
-                    "name": "Copilot"
-                  },
-                  {
-                    "id": 349460,
-                    "name": "Artificial Intelligence"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377278,
-                    "name": "200"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61747,
-            "room": "05 New Amsterdam",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "922167",
-            "title": "Dataverse: Everything, Everywhere, Here and There",
-            "description": "Are you building Power Platform solutions, and still storing your data in SQL Server, SharePoint Online, and/ or Excel? If so, then you may need to reevaluate and consider Microsoft Dataverse, the native data solution of the Power Platform. For many of your low-code initiatives, Dataverse is likely a better data storage offering. Designed to be a secure, low-code solution, Microsoft built Dataverse to help organizations increase their return on investment (ROI), better scale their in-house applications, and promote rapid innovation, even leveraging Microsoft Copilot. Let’s deep dive into Microsoft Dataverse and explore jumpstarting your team's productivity.",
-            "startsAt": "2025-07-25T13:10:00",
-            "endsAt": "2025-07-25T14:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "033b0917-8f2a-43e0-b080-71a2fbd04ddc",
-                "name": "Charles Lakes II"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349450,
-                    "name": "Power Platform"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377277,
-                    "name": "100"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61747,
-            "room": "05 New Amsterdam",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          },
-          {
-            "id": "927989",
-            "title": "No Degree Necessary - Building AI-Infused Low-code Power Apps",
-            "description": "Infusing Low-Code Apps with Powerful AI Models\r\n\r\nIn the age of AI, it’s no longer enough to build apps that respond—they must think. In this session, I’ll showcase how I built a resume screening solution using Power Apps and AI Builder, demonstrating how any maker can turn traditional forms and processes into intelligent, responsive experiences.\r\n\r\nYou’ll learn how to:\r\n\t•\tUse AI Builder’s form processing to extract data from resumes (PDF/Word)\r\n\t•\tCreate AI prompts that analyze and rank candidates based on job criteria\r\n\t•\tBuild a sleek Power App UI for managing applicant workflows\r\n\t•\tLeverage Power Automate for scoring & notifications\r\n\t•\tAdd a Copilot Studio chatbot to answer recruiter questions about applicants in natural language\r\n\r\nWhether you’re in HR tech, operations, or just exploring how AI can elevate your apps, this session will leave you with a blueprint—and inspiration—for bringing intelligence to your low-code solutions.\r\n\r\nWhat Attendees Will Walk Away With:\r\n\t•\tA real-world example of AI Builder + Power Apps integration\r\n\t•\tPrompt engineering tips for non-developers\r\n\t•\tIdeas for extending your low-code solutions with Copilot Studio and Power Automate\r\n\t•\tConfidence to bring AI into your next Power Platform project—no data science degree needed",
-            "startsAt": "2025-07-25T14:10:00",
-            "endsAt": "2025-07-25T15:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "6018628a-2735-4bc6-962f-46e7ad346d39",
-                "name": "Sunny Eltepu"
-              }
-            ],
-            "categories": [
-              {
-                "id": 96969,
-                "name": "Track",
-                "categoryItems": [
-                  {
-                    "id": 349450,
-                    "name": "Power Platform"
-                  },
-                  {
-                    "id": 349460,
-                    "name": "Artificial Intelligence"
-                  }
-                ],
-                "sort": 1
-              },
-              {
-                "id": 104628,
-                "name": "Level",
-                "categoryItems": [
-                  {
-                    "id": 377278,
-                    "name": "200"
-                  }
-                ],
-                "sort": 2
-              }
-            ],
-            "roomId": 61747,
-            "room": "05 New Amsterdam",
-            "liveUrl": null,
-            "recordingUrl": null,
-            "status": "Accepted",
-            "isInformed": true,
-            "isConfirmed": true
-          }
-        ],
-        "hasOnlyPlenumSessions": false
       }
     ],
     "timeSlots": [
@@ -2295,8 +2295,8 @@
         "slotStart": "08:30:00",
         "rooms": [
           {
-            "id": 61749,
-            "name": "06 Radio City",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
               "id": "e50e9f71-6b7e-425d-84d7-2dce0aead282",
               "title": "Registration",
@@ -2307,15 +2307,15 @@
               "isPlenumSession": true,
               "speakers": [],
               "categories": [],
-              "roomId": 61749,
-              "room": "06 Radio City",
+              "roomId": 61747,
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": null,
               "isInformed": false,
               "isConfirmed": false
             },
-            "index": 2
+            "index": 0
           }
         ]
       },
@@ -2323,8 +2323,8 @@
         "slotStart": "09:00:00",
         "rooms": [
           {
-            "id": 61749,
-            "name": "06 Radio City",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
               "id": "ece8895f-432e-48cd-8374-675773ad9898",
               "title": "Kick Off / Welcome Session",
@@ -2335,21 +2335,139 @@
               "isPlenumSession": true,
               "speakers": [],
               "categories": [],
-              "roomId": 61749,
-              "room": "06 Radio City",
+              "roomId": 61747,
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": null,
               "isInformed": false,
               "isConfirmed": false
             },
-            "index": 2
+            "index": 0
           }
         ]
       },
       {
         "slotStart": "09:30:00",
         "rooms": [
+          {
+            "id": 61747,
+            "name": "06 Central Park West",
+            "session": {
+              "id": "919658",
+              "title": "Empowering corporate communications with Microsoft 365",
+              "description": "Creating and delivering compelling and consistent corporate communications messages across multiple channels can be challenging, especially in the fast-paced and dynamic business environment. In this session, you will learn tips and best practices to improve internal communications. We will talk about new and emerging capabilities in SharePoint News and Viva Engage along with premium capabilities available with Viva Amplify and Copilot. Whether you’re a seasoned communicator or a curious novice, this session promises actionable insights, practical tips, and a dash of innovation.",
+              "startsAt": "2025-07-25T09:30:00",
+              "endsAt": "2025-07-25T10:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "a821edd0-eda1-4513-acf6-a068ce954ead",
+                  "name": "Susan Hanley"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349457,
+                      "name": "Viva"
+                    },
+                    {
+                      "id": 349452,
+                      "name": "SharePoint"
+                    },
+                    {
+                      "id": 349459,
+                      "name": "Copilot"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377277,
+                      "name": "100"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61747,
+              "room": "06 Central Park West",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 0
+          },
+          {
+            "id": 61748,
+            "name": "06 Central Park East",
+            "session": {
+              "id": "888502",
+              "title": "Empowering Internal Customer Service Roles with Copilot Agents",
+              "description": "Internal customer service roles often face the challenge of managing repetitive and interrupt-driven tasks. Microsoft 365’s custom Copilots provide a powerful solution by automating routine processes, allowing professionals to focus more on strategic initiatives and more meaningful work.\r\n\r\nJoin us as we explore how to develop and implement Copilot Agents tailored to support internal customer service roles. We will cover use cases in Human Resources where Copilot can streamline tasks like onboarding, supporting hiring, and addressing benefits questions. Discover how these intelligent assistants can efficiently handle routine inquiries, reducing interruptions and free up valuable time to build deeper connections across the organization. Empower your team with the tools to transform their workflow and enhance their impact.",
+              "startsAt": "2025-07-25T09:30:00",
+              "endsAt": "2025-07-25T10:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "e02bfe4c-a656-4677-bed6-6a4f8e1cae51",
+                  "name": "Emily Mancini"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349455,
+                      "name": "Business & Productivity"
+                    },
+                    {
+                      "id": 349452,
+                      "name": "SharePoint"
+                    },
+                    {
+                      "id": 349459,
+                      "name": "Copilot"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377277,
+                      "name": "100"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61748,
+              "room": "06 Central Park East",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 1
+          },
           {
             "id": 61751,
             "name": "06 Belasco",
@@ -2399,7 +2517,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 0
+            "index": 2
           },
           {
             "id": 61750,
@@ -2450,7 +2568,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 1
+            "index": 3
           },
           {
             "id": 61749,
@@ -2513,7 +2631,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 4
           },
           {
             "id": 61752,
@@ -2563,7 +2681,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 3
+            "index": 5
           },
           {
             "id": 61753,
@@ -2622,7 +2740,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 4
+            "index": 6
           },
           {
             "id": 61754,
@@ -2689,23 +2807,28 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 5
-          },
+            "index": 7
+          }
+        ]
+      },
+      {
+        "slotStart": "10:30:00",
+        "rooms": [
           {
-            "id": 61748,
-            "name": "05 Marquis",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
-              "id": "888502",
-              "title": "Empowering Internal Customer Service Roles with Copilot Agents",
-              "description": "Internal customer service roles often face the challenge of managing repetitive and interrupt-driven tasks. Microsoft 365’s custom Copilots provide a powerful solution by automating routine processes, allowing professionals to focus more on strategic initiatives and more meaningful work.\r\n\r\nJoin us as we explore how to develop and implement Copilot Agents tailored to support internal customer service roles. We will cover use cases in Human Resources where Copilot can streamline tasks like onboarding, supporting hiring, and addressing benefits questions. Discover how these intelligent assistants can efficiently handle routine inquiries, reducing interruptions and free up valuable time to build deeper connections across the organization. Empower your team with the tools to transform their workflow and enhance their impact.",
-              "startsAt": "2025-07-25T09:30:00",
-              "endsAt": "2025-07-25T10:20:00",
+              "id": "890330",
+              "title": "From Tech Expert to Strategic Leader: Rethink How You Lead",
+              "description": "Most IT professionals are great at solving problems and rolling out new features. But being a strategic leader means thinking beyond quick fixes and running systems smoothly. It’s about building solutions that make sense for the long haul.\r\nThe real challenge is shifting your mindset from managing tasks to driving strategy. It means asking more thoughtful questions, making intentional choices, and guiding your team to think beyond the daily grind.\r\n\r\nThis session will explain how to move from a tech expert to a strategic leader. You’ll learn how to build a culture that encourages curiosity and critical thinking and how to make decisions that connect today’s work to long-term goals.\r\nTakeaways:",
+              "startsAt": "2025-07-25T10:30:00",
+              "endsAt": "2025-07-25T11:20:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "e02bfe4c-a656-4677-bed6-6a4f8e1cae51",
-                  "name": "Emily Mancini"
+                  "id": "faf5e124-26b5-4118-8339-be0db7a6c65a",
+                  "name": "Marie Roker-Jones"
                 }
               ],
               "categories": [
@@ -2716,73 +2839,6 @@
                     {
                       "id": 349455,
                       "name": "Business & Productivity"
-                    },
-                    {
-                      "id": 349452,
-                      "name": "SharePoint"
-                    },
-                    {
-                      "id": 349459,
-                      "name": "Copilot"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377277,
-                      "name": "100"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61748,
-              "room": "05 Marquis",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
-            "index": 6
-          },
-          {
-            "id": 61747,
-            "name": "05 New Amsterdam",
-            "session": {
-              "id": "919658",
-              "title": "Empowering corporate communications with Microsoft 365",
-              "description": "Creating and delivering compelling and consistent corporate communications messages across multiple channels can be challenging, especially in the fast-paced and dynamic business environment. In this session, you will learn tips and best practices to improve internal communications. We will talk about new and emerging capabilities in SharePoint News and Viva Engage along with premium capabilities available with Viva Amplify and Copilot. Whether you’re a seasoned communicator or a curious novice, this session promises actionable insights, practical tips, and a dash of innovation.",
-              "startsAt": "2025-07-25T09:30:00",
-              "endsAt": "2025-07-25T10:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "a821edd0-eda1-4513-acf6-a068ce954ead",
-                  "name": "Susan Hanley"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349457,
-                      "name": "Viva"
-                    },
-                    {
-                      "id": 349452,
-                      "name": "SharePoint"
-                    },
-                    {
-                      "id": 349459,
-                      "name": "Copilot"
                     }
                   ],
                   "sort": 1
@@ -2800,20 +2856,66 @@
                 }
               ],
               "roomId": 61747,
-              "room": "05 New Amsterdam",
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": "Accepted",
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 7
-          }
-        ]
-      },
-      {
-        "slotStart": "10:30:00",
-        "rooms": [
+            "index": 0
+          },
+          {
+            "id": 61748,
+            "name": "06 Central Park East",
+            "session": {
+              "id": "933739",
+              "title": "Using Copilot with Microsoft Office Apps",
+              "description": "Deb will present top tips for using Copilot with M365 Apps: Word, Excel, Power Point, Business Chat, One Note, Teams and Whiteboard. We will review prompts that work and best practices.",
+              "startsAt": "2025-07-25T10:30:00",
+              "endsAt": "2025-07-25T11:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "d0b0a6ca-ad0d-4c86-a7f0-e8d1b07a6091",
+                  "name": "Deb Walther"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349455,
+                      "name": "Business & Productivity"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377277,
+                      "name": "100"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61748,
+              "room": "06 Central Park East",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 1
+          },
           {
             "id": 61751,
             "name": "06 Belasco",
@@ -2863,7 +2965,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 0
+            "index": 2
           },
           {
             "id": 61750,
@@ -2938,7 +3040,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 1
+            "index": 3
           },
           {
             "id": 61749,
@@ -2997,7 +3099,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 4
           },
           {
             "id": 61752,
@@ -3072,7 +3174,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 3
+            "index": 5
           },
           {
             "id": 61753,
@@ -3151,7 +3253,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 4
+            "index": 6
           },
           {
             "id": 61754,
@@ -3214,108 +3316,6 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 5
-          },
-          {
-            "id": 61748,
-            "name": "05 Marquis",
-            "session": {
-              "id": "933739",
-              "title": "Using Copilot with Microsoft Office Apps",
-              "description": "Deb will present top tips for using Copilot with M365 Apps: Word, Excel, Power Point, Business Chat, One Note, Teams and Whiteboard. We will review prompts that work and best practices.",
-              "startsAt": "2025-07-25T10:30:00",
-              "endsAt": "2025-07-25T11:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "d0b0a6ca-ad0d-4c86-a7f0-e8d1b07a6091",
-                  "name": "Deb Walther"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349455,
-                      "name": "Business & Productivity"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377277,
-                      "name": "100"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61748,
-              "room": "05 Marquis",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
-            "index": 6
-          },
-          {
-            "id": 61747,
-            "name": "05 New Amsterdam",
-            "session": {
-              "id": "890330",
-              "title": "From Tech Expert to Strategic Leader: Rethink How You Lead",
-              "description": "Most IT professionals are great at solving problems and rolling out new features. But being a strategic leader means thinking beyond quick fixes and running systems smoothly. It’s about building solutions that make sense for the long haul.\r\nThe real challenge is shifting your mindset from managing tasks to driving strategy. It means asking more thoughtful questions, making intentional choices, and guiding your team to think beyond the daily grind.\r\n\r\nThis session will explain how to move from a tech expert to a strategic leader. You’ll learn how to build a culture that encourages curiosity and critical thinking and how to make decisions that connect today’s work to long-term goals.\r\nTakeaways:",
-              "startsAt": "2025-07-25T10:30:00",
-              "endsAt": "2025-07-25T11:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "faf5e124-26b5-4118-8339-be0db7a6c65a",
-                  "name": "Marie Roker-Jones"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349455,
-                      "name": "Business & Productivity"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377277,
-                      "name": "100"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61747,
-              "room": "05 New Amsterdam",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
             "index": 7
           }
         ]
@@ -3323,6 +3323,124 @@
       {
         "slotStart": "11:30:00",
         "rooms": [
+          {
+            "id": 61747,
+            "name": "06 Central Park West",
+            "session": {
+              "id": "900581",
+              "title": "Real World Microsoft 365 Governance in the Age of AI",
+              "description": "In a time where everyone is expected to innovate faster, deliver more value, and do it all under tight budget constraints, effective governance is more critical than ever. Microsoft is at the forefront of driving this innovation with their Copilot “GenAI-as-a-Service” offering and creating custom agents with Copilot Studio & Azure AI Foundry. However, these benefits are not without their challenges, including:\r\n\r\n• Ensuring AI doesn’t expose sensitive data to those who should not have access to it\r\n• Improving data quality to ensure AI returns accurate answers\r\n• Balancing operational costs while embracing innovation\r\n\r\nJoin us for a deep dive into best practices for governing Microsoft 365 in this new world of AI & Copilots. We’ll explore some of the tools that Microsoft makes available while also pointing out some gaps. Whether you’re facing complex compliance requirements, struggling with data sprawl, or simply looking for ways to do more with less, this session will provide the real-world strategies needed to thrive in today’s AI-driven landscape.\r\n",
+              "startsAt": "2025-07-25T11:30:00",
+              "endsAt": "2025-07-25T12:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "54de6440-9ae6-43c6-97c0-78b169c25c34",
+                  "name": "Jared Matfess"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349454,
+                      "name": "M365 Config / Mgmt"
+                    },
+                    {
+                      "id": 349459,
+                      "name": "Copilot"
+                    },
+                    {
+                      "id": 349460,
+                      "name": "Artificial Intelligence"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377278,
+                      "name": "200"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61747,
+              "room": "06 Central Park West",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 0
+          },
+          {
+            "id": 61748,
+            "name": "06 Central Park East",
+            "session": {
+              "id": "925807",
+              "title": "How to build a Gen AI Chatbot in 3 steps",
+              "description": "Are you looking to see how Generative AI can help your company? This session will provide an in-depth look into key learnings from a real-life pioneering journey of developing a generative AI chatbot for employees, powered by Microsoft's cutting-edge technologies. We will explore the challenges encountered, the strategic decisions made, and the creative solutions devised during this transformative 3 step process.  \r\n\r\nThe discussion will underscore how to harness power of Microsoft's AI and cloud technologies to create a chatbot that improved communication, streamlined workflows, and enhanced employee productivity. Attendees will gain a comprehensive understanding of a journey, from the initial conceptualization to the final deployment and ongoing improvements. This session will serve as a resource for organizations planning to leverage AI chatbots, offering insights, best practices, and lessons learned.",
+              "startsAt": "2025-07-25T11:30:00",
+              "endsAt": "2025-07-25T12:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "6e287134-6d74-4283-97ec-b16ffbf08176",
+                  "name": "Kate Faaland"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349455,
+                      "name": "Business & Productivity"
+                    },
+                    {
+                      "id": 349458,
+                      "name": "Azure"
+                    },
+                    {
+                      "id": 349460,
+                      "name": "Artificial Intelligence"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377278,
+                      "name": "200"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61748,
+              "room": "06 Central Park East",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 1
+          },
           {
             "id": 61751,
             "name": "06 Belasco",
@@ -3380,7 +3498,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 0
+            "index": 2
           },
           {
             "id": 61750,
@@ -3431,7 +3549,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 1
+            "index": 3
           },
           {
             "id": 61749,
@@ -3482,7 +3600,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 4
           },
           {
             "id": 61752,
@@ -3533,7 +3651,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 3
+            "index": 5
           },
           {
             "id": 61753,
@@ -3584,7 +3702,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 4
+            "index": 6
           },
           {
             "id": 61754,
@@ -3643,23 +3761,56 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 5
-          },
+            "index": 7
+          }
+        ]
+      },
+      {
+        "slotStart": "12:20:00",
+        "rooms": [
           {
-            "id": 61748,
-            "name": "05 Marquis",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
-              "id": "925807",
-              "title": "How to build a Gen AI Chatbot in 3 steps",
-              "description": "Are you looking to see how Generative AI can help your company? This session will provide an in-depth look into key learnings from a real-life pioneering journey of developing a generative AI chatbot for employees, powered by Microsoft's cutting-edge technologies. We will explore the challenges encountered, the strategic decisions made, and the creative solutions devised during this transformative 3 step process.  \r\n\r\nThe discussion will underscore how to harness power of Microsoft's AI and cloud technologies to create a chatbot that improved communication, streamlined workflows, and enhanced employee productivity. Attendees will gain a comprehensive understanding of a journey, from the initial conceptualization to the final deployment and ongoing improvements. This session will serve as a resource for organizations planning to leverage AI chatbots, offering insights, best practices, and lessons learned.",
-              "startsAt": "2025-07-25T11:30:00",
-              "endsAt": "2025-07-25T12:20:00",
+              "id": "d39f661d-2b27-4942-89f0-fd78b4914d9f",
+              "title": "Lunch",
+              "description": "Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell",
+              "startsAt": "2025-07-25T12:20:00",
+              "endsAt": "2025-07-25T13:10:00",
+              "isServiceSession": true,
+              "isPlenumSession": true,
+              "speakers": [],
+              "categories": [],
+              "roomId": 61747,
+              "room": "06 Central Park West",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": null,
+              "isInformed": false,
+              "isConfirmed": false
+            },
+            "index": 0
+          }
+        ]
+      },
+      {
+        "slotStart": "13:10:00",
+        "rooms": [
+          {
+            "id": 61747,
+            "name": "06 Central Park West",
+            "session": {
+              "id": "922167",
+              "title": "Dataverse: Everything, Everywhere, Here and There",
+              "description": "Are you building Power Platform solutions, and still storing your data in SQL Server, SharePoint Online, and/ or Excel? If so, then you may need to reevaluate and consider Microsoft Dataverse, the native data solution of the Power Platform. For many of your low-code initiatives, Dataverse is likely a better data storage offering. Designed to be a secure, low-code solution, Microsoft built Dataverse to help organizations increase their return on investment (ROI), better scale their in-house applications, and promote rapid innovation, even leveraging Microsoft Copilot. Let’s deep dive into Microsoft Dataverse and explore jumpstarting your team's productivity.",
+              "startsAt": "2025-07-25T13:10:00",
+              "endsAt": "2025-07-25T14:00:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "6e287134-6d74-4283-97ec-b16ffbf08176",
-                  "name": "Kate Faaland"
+                  "id": "033b0917-8f2a-43e0-b080-71a2fbd04ddc",
+                  "name": "Charles Lakes II"
                 }
               ],
               "categories": [
@@ -3668,16 +3819,59 @@
                   "name": "Track",
                   "categoryItems": [
                     {
-                      "id": 349455,
-                      "name": "Business & Productivity"
-                    },
+                      "id": 349450,
+                      "name": "Power Platform"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
                     {
-                      "id": 349458,
-                      "name": "Azure"
-                    },
+                      "id": 377277,
+                      "name": "100"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61747,
+              "room": "06 Central Park West",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 0
+          },
+          {
+            "id": 61748,
+            "name": "06 Central Park East",
+            "session": {
+              "id": "969813",
+              "title": "Fast Tracking Data Governance for Copilot Using Copilot",
+              "description": "Are you stuck in your M365 Copilot journey because of oversharing concerns and data governance issues? You're not alone. Fortunately, it turns out that Copilot itself can come to the rescue. This session shows how we've leveraged Copilot to rapidly gain visibility into what is overshared, jumpstart our ability to use SharePoint Advancement Management and Purview, and ultimately accelerate our data governance journey so that we can deploy Copilot with confidence.",
+              "startsAt": "2025-07-25T13:10:00",
+              "endsAt": "2025-07-25T14:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "e81c8217-8372-4492-aee6-f482e2f486a7",
+                  "name": "Sounil Yu"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
                     {
-                      "id": 349460,
-                      "name": "Artificial Intelligence"
+                      "id": 349459,
+                      "name": "Copilot"
                     }
                   ],
                   "sort": 1
@@ -3695,107 +3889,15 @@
                 }
               ],
               "roomId": 61748,
-              "room": "05 Marquis",
+              "room": "06 Central Park East",
               "liveUrl": null,
               "recordingUrl": null,
               "status": "Accepted",
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 6
+            "index": 1
           },
-          {
-            "id": 61747,
-            "name": "05 New Amsterdam",
-            "session": {
-              "id": "900581",
-              "title": "Real World Microsoft 365 Governance in the Age of AI",
-              "description": "In a time where everyone is expected to innovate faster, deliver more value, and do it all under tight budget constraints, effective governance is more critical than ever. Microsoft is at the forefront of driving this innovation with their Copilot “GenAI-as-a-Service” offering and creating custom agents with Copilot Studio & Azure AI Foundry. However, these benefits are not without their challenges, including:\r\n\r\n• Ensuring AI doesn’t expose sensitive data to those who should not have access to it\r\n• Improving data quality to ensure AI returns accurate answers\r\n• Balancing operational costs while embracing innovation\r\n\r\nJoin us for a deep dive into best practices for governing Microsoft 365 in this new world of AI & Copilots. We’ll explore some of the tools that Microsoft makes available while also pointing out some gaps. Whether you’re facing complex compliance requirements, struggling with data sprawl, or simply looking for ways to do more with less, this session will provide the real-world strategies needed to thrive in today’s AI-driven landscape.\r\n",
-              "startsAt": "2025-07-25T11:30:00",
-              "endsAt": "2025-07-25T12:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "54de6440-9ae6-43c6-97c0-78b169c25c34",
-                  "name": "Jared Matfess"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349454,
-                      "name": "M365 Config / Mgmt"
-                    },
-                    {
-                      "id": 349459,
-                      "name": "Copilot"
-                    },
-                    {
-                      "id": 349460,
-                      "name": "Artificial Intelligence"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377278,
-                      "name": "200"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61747,
-              "room": "05 New Amsterdam",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
-            "index": 7
-          }
-        ]
-      },
-      {
-        "slotStart": "12:20:00",
-        "rooms": [
-          {
-            "id": 61749,
-            "name": "06 Radio City",
-            "session": {
-              "id": "d39f661d-2b27-4942-89f0-fd78b4914d9f",
-              "title": "Lunch",
-              "description": "Sponsored by Devicie, Knostic, TierPoint, Crow Canyon Software, SoHo Dragon / Orchestry, & Cloudwell",
-              "startsAt": "2025-07-25T12:20:00",
-              "endsAt": "2025-07-25T13:10:00",
-              "isServiceSession": true,
-              "isPlenumSession": true,
-              "speakers": [],
-              "categories": [],
-              "roomId": 61749,
-              "room": "06 Radio City",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": null,
-              "isInformed": false,
-              "isConfirmed": false
-            },
-            "index": 2
-          }
-        ]
-      },
-      {
-        "slotStart": "13:10:00",
-        "rooms": [
           {
             "id": 61751,
             "name": "06 Belasco",
@@ -3849,7 +3951,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 0
+            "index": 2
           },
           {
             "id": 61750,
@@ -3912,7 +4014,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 1
+            "index": 3
           },
           {
             "id": 61749,
@@ -3963,7 +4065,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 4
           },
           {
             "id": 61752,
@@ -4022,7 +4124,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 3
+            "index": 5
           },
           {
             "id": 61753,
@@ -4081,7 +4183,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 4
+            "index": 6
           },
           {
             "id": 61754,
@@ -4132,23 +4234,28 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 5
-          },
+            "index": 7
+          }
+        ]
+      },
+      {
+        "slotStart": "14:10:00",
+        "rooms": [
           {
-            "id": 61748,
-            "name": "05 Marquis",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
-              "id": "969813",
-              "title": "Fast Tracking Data Governance for Copilot Using Copilot",
-              "description": "Are you stuck in your M365 Copilot journey because of oversharing concerns and data governance issues? You're not alone. Fortunately, it turns out that Copilot itself can come to the rescue. This session shows how we've leveraged Copilot to rapidly gain visibility into what is overshared, jumpstart our ability to use SharePoint Advancement Management and Purview, and ultimately accelerate our data governance journey so that we can deploy Copilot with confidence.",
-              "startsAt": "2025-07-25T13:10:00",
-              "endsAt": "2025-07-25T14:00:00",
+              "id": "927989",
+              "title": "No Degree Necessary - Building AI-Infused Low-code Power Apps",
+              "description": "Infusing Low-Code Apps with Powerful AI Models\r\n\r\nIn the age of AI, it’s no longer enough to build apps that respond—they must think. In this session, I’ll showcase how I built a resume screening solution using Power Apps and AI Builder, demonstrating how any maker can turn traditional forms and processes into intelligent, responsive experiences.\r\n\r\nYou’ll learn how to:\r\n\t•\tUse AI Builder’s form processing to extract data from resumes (PDF/Word)\r\n\t•\tCreate AI prompts that analyze and rank candidates based on job criteria\r\n\t•\tBuild a sleek Power App UI for managing applicant workflows\r\n\t•\tLeverage Power Automate for scoring & notifications\r\n\t•\tAdd a Copilot Studio chatbot to answer recruiter questions about applicants in natural language\r\n\r\nWhether you’re in HR tech, operations, or just exploring how AI can elevate your apps, this session will leave you with a blueprint—and inspiration—for bringing intelligence to your low-code solutions.\r\n\r\nWhat Attendees Will Walk Away With:\r\n\t•\tA real-world example of AI Builder + Power Apps integration\r\n\t•\tPrompt engineering tips for non-developers\r\n\t•\tIdeas for extending your low-code solutions with Copilot Studio and Power Automate\r\n\t•\tConfidence to bring AI into your next Power Platform project—no data science degree needed",
+              "startsAt": "2025-07-25T14:10:00",
+              "endsAt": "2025-07-25T15:00:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "e81c8217-8372-4492-aee6-f482e2f486a7",
-                  "name": "Sounil Yu"
+                  "id": "6018628a-2735-4bc6-962f-46e7ad346d39",
+                  "name": "Sunny Eltepu"
                 }
               ],
               "categories": [
@@ -4157,8 +4264,71 @@
                   "name": "Track",
                   "categoryItems": [
                     {
+                      "id": 349450,
+                      "name": "Power Platform"
+                    },
+                    {
+                      "id": 349460,
+                      "name": "Artificial Intelligence"
+                    }
+                  ],
+                  "sort": 1
+                },
+                {
+                  "id": 104628,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 377278,
+                      "name": "200"
+                    }
+                  ],
+                  "sort": 2
+                }
+              ],
+              "roomId": 61747,
+              "room": "06 Central Park West",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted",
+              "isInformed": true,
+              "isConfirmed": true
+            },
+            "index": 0
+          },
+          {
+            "id": 61748,
+            "name": "06 Central Park East",
+            "session": {
+              "id": "920119",
+              "title": "Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio",
+              "description": "AI is evolving — and it’s time to think beyond simple chatbots.\r\n\r\nIn this session, learn how to design Autonomous AI Agents using Microsoft Copilot Studio that not only respond to user queries, but also proactively complete tasks, orchestrate workflows, and act with context and purpose.\r\n\r\nWe’ll explore how Copilot Studio now supports multi-step reasoning, adaptive planning, and integrations across Microsoft 365 and external APIs — unlocking a new generation of agents that go beyond conversations to drive real action.\r\n\r\nTopics we’ll cover:\r\n\r\nWhat makes an AI Agent autonomous (vs a traditional chatbot)\r\n\r\nBuilding multi-step reasoning and action planning into your Copilot workflows\r\n\r\nIntegrating Copilot Agents with Power Platform, Dataverse, and external systems\r\n\r\nReal-world examples of Autonomous Agents in enterprises and government\r\n\r\nWhether you're looking to automate internal processes, client services, or complex decision-making, this session will help you move from reactive chatbots to proactive AI agents.",
+              "startsAt": "2025-07-25T14:10:00",
+              "endsAt": "2025-07-25T15:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "fbec9d92-7b9a-4a39-ba63-c3778507413b",
+                  "name": "Himanshu Goil"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 96969,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 349453,
+                      "name": "M365 Apps"
+                    },
+                    {
                       "id": 349459,
                       "name": "Copilot"
+                    },
+                    {
+                      "id": 349460,
+                      "name": "Artificial Intelligence"
                     }
                   ],
                   "sort": 1
@@ -4176,71 +4346,15 @@
                 }
               ],
               "roomId": 61748,
-              "room": "05 Marquis",
+              "room": "06 Central Park East",
               "liveUrl": null,
               "recordingUrl": null,
               "status": "Accepted",
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 6
+            "index": 1
           },
-          {
-            "id": 61747,
-            "name": "05 New Amsterdam",
-            "session": {
-              "id": "922167",
-              "title": "Dataverse: Everything, Everywhere, Here and There",
-              "description": "Are you building Power Platform solutions, and still storing your data in SQL Server, SharePoint Online, and/ or Excel? If so, then you may need to reevaluate and consider Microsoft Dataverse, the native data solution of the Power Platform. For many of your low-code initiatives, Dataverse is likely a better data storage offering. Designed to be a secure, low-code solution, Microsoft built Dataverse to help organizations increase their return on investment (ROI), better scale their in-house applications, and promote rapid innovation, even leveraging Microsoft Copilot. Let’s deep dive into Microsoft Dataverse and explore jumpstarting your team's productivity.",
-              "startsAt": "2025-07-25T13:10:00",
-              "endsAt": "2025-07-25T14:00:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "033b0917-8f2a-43e0-b080-71a2fbd04ddc",
-                  "name": "Charles Lakes II"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349450,
-                      "name": "Power Platform"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377277,
-                      "name": "100"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61747,
-              "room": "05 New Amsterdam",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
-            "index": 7
-          }
-        ]
-      },
-      {
-        "slotStart": "14:10:00",
-        "rooms": [
           {
             "id": 61751,
             "name": "06 Belasco",
@@ -4298,7 +4412,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 0
+            "index": 2
           },
           {
             "id": 61750,
@@ -4353,7 +4467,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 1
+            "index": 3
           },
           {
             "id": 61749,
@@ -4408,7 +4522,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 4
           },
           {
             "id": 61752,
@@ -4463,7 +4577,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 3
+            "index": 5
           },
           {
             "id": 61753,
@@ -4522,7 +4636,7 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 4
+            "index": 6
           },
           {
             "id": 61754,
@@ -4581,120 +4695,6 @@
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 5
-          },
-          {
-            "id": 61748,
-            "name": "05 Marquis",
-            "session": {
-              "id": "920119",
-              "title": "Beyond Chatbots: Create Autonomous AI Agents Using Microsoft Copilot Studio",
-              "description": "AI is evolving — and it’s time to think beyond simple chatbots.\r\n\r\nIn this session, learn how to design Autonomous AI Agents using Microsoft Copilot Studio that not only respond to user queries, but also proactively complete tasks, orchestrate workflows, and act with context and purpose.\r\n\r\nWe’ll explore how Copilot Studio now supports multi-step reasoning, adaptive planning, and integrations across Microsoft 365 and external APIs — unlocking a new generation of agents that go beyond conversations to drive real action.\r\n\r\nTopics we’ll cover:\r\n\r\nWhat makes an AI Agent autonomous (vs a traditional chatbot)\r\n\r\nBuilding multi-step reasoning and action planning into your Copilot workflows\r\n\r\nIntegrating Copilot Agents with Power Platform, Dataverse, and external systems\r\n\r\nReal-world examples of Autonomous Agents in enterprises and government\r\n\r\nWhether you're looking to automate internal processes, client services, or complex decision-making, this session will help you move from reactive chatbots to proactive AI agents.",
-              "startsAt": "2025-07-25T14:10:00",
-              "endsAt": "2025-07-25T15:00:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "fbec9d92-7b9a-4a39-ba63-c3778507413b",
-                  "name": "Himanshu Goil"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349453,
-                      "name": "M365 Apps"
-                    },
-                    {
-                      "id": 349459,
-                      "name": "Copilot"
-                    },
-                    {
-                      "id": 349460,
-                      "name": "Artificial Intelligence"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377278,
-                      "name": "200"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61748,
-              "room": "05 Marquis",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
-            "index": 6
-          },
-          {
-            "id": 61747,
-            "name": "05 New Amsterdam",
-            "session": {
-              "id": "927989",
-              "title": "No Degree Necessary - Building AI-Infused Low-code Power Apps",
-              "description": "Infusing Low-Code Apps with Powerful AI Models\r\n\r\nIn the age of AI, it’s no longer enough to build apps that respond—they must think. In this session, I’ll showcase how I built a resume screening solution using Power Apps and AI Builder, demonstrating how any maker can turn traditional forms and processes into intelligent, responsive experiences.\r\n\r\nYou’ll learn how to:\r\n\t•\tUse AI Builder’s form processing to extract data from resumes (PDF/Word)\r\n\t•\tCreate AI prompts that analyze and rank candidates based on job criteria\r\n\t•\tBuild a sleek Power App UI for managing applicant workflows\r\n\t•\tLeverage Power Automate for scoring & notifications\r\n\t•\tAdd a Copilot Studio chatbot to answer recruiter questions about applicants in natural language\r\n\r\nWhether you’re in HR tech, operations, or just exploring how AI can elevate your apps, this session will leave you with a blueprint—and inspiration—for bringing intelligence to your low-code solutions.\r\n\r\nWhat Attendees Will Walk Away With:\r\n\t•\tA real-world example of AI Builder + Power Apps integration\r\n\t•\tPrompt engineering tips for non-developers\r\n\t•\tIdeas for extending your low-code solutions with Copilot Studio and Power Automate\r\n\t•\tConfidence to bring AI into your next Power Platform project—no data science degree needed",
-              "startsAt": "2025-07-25T14:10:00",
-              "endsAt": "2025-07-25T15:00:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "6018628a-2735-4bc6-962f-46e7ad346d39",
-                  "name": "Sunny Eltepu"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 96969,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 349450,
-                      "name": "Power Platform"
-                    },
-                    {
-                      "id": 349460,
-                      "name": "Artificial Intelligence"
-                    }
-                  ],
-                  "sort": 1
-                },
-                {
-                  "id": 104628,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 377278,
-                      "name": "200"
-                    }
-                  ],
-                  "sort": 2
-                }
-              ],
-              "roomId": 61747,
-              "room": "05 New Amsterdam",
-              "liveUrl": null,
-              "recordingUrl": null,
-              "status": "Accepted",
-              "isInformed": true,
-              "isConfirmed": true
-            },
             "index": 7
           }
         ]
@@ -4703,8 +4703,8 @@
         "slotStart": "15:10:00",
         "rooms": [
           {
-            "id": 61749,
-            "name": "06 Radio City",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
               "id": "945860",
               "title": "From Copilot to Catalyst: 3 Steps to Accelerate Agentic AI Success in Your Modern Workplace",
@@ -4738,15 +4738,15 @@
                   "sort": 2
                 }
               ],
-              "roomId": 61749,
-              "room": "06 Radio City",
+              "roomId": 61747,
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": "Accepted",
               "isInformed": true,
               "isConfirmed": true
             },
-            "index": 2
+            "index": 0
           }
         ]
       },
@@ -4754,8 +4754,8 @@
         "slotStart": "16:00:00",
         "rooms": [
           {
-            "id": 61749,
-            "name": "06 Radio City",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
               "id": "32afaf87-a9fc-4943-841c-520264fd2434",
               "title": "Closing Raffle",
@@ -4766,15 +4766,15 @@
               "isPlenumSession": true,
               "speakers": [],
               "categories": [],
-              "roomId": 61749,
-              "room": "06 Radio City",
+              "roomId": 61747,
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": null,
               "isInformed": false,
               "isConfirmed": false
             },
-            "index": 2
+            "index": 0
           }
         ]
       },
@@ -4782,27 +4782,27 @@
         "slotStart": "17:00:00",
         "rooms": [
           {
-            "id": 61749,
-            "name": "06 Radio City",
+            "id": 61747,
+            "name": "06 Central Park West",
             "session": {
               "id": "45893954-a1ab-4d62-848f-c9ff8b2354ec",
               "title": "Microsoft Mingle [Sponsored by AvePoint, Hosted @ Beer Authority]",
-              "description": "This networking session will take place across the street at Beer Authority. AvePoint will be sponsoring food and drinks after the event.",
+              "description": "[This event is OFF-SITE]\nThis networking session will take place across the street at Beer Authority. AvePoint will be sponsoring food and drinks after the event.",
               "startsAt": "2025-07-25T17:00:00",
               "endsAt": "2025-07-25T18:00:00",
               "isServiceSession": true,
               "isPlenumSession": false,
               "speakers": [],
               "categories": [],
-              "roomId": 61749,
-              "room": "06 Radio City",
+              "roomId": 61747,
+              "room": "06 Central Park West",
               "liveUrl": null,
               "recordingUrl": null,
               "status": null,
               "isInformed": false,
               "isConfirmed": false
             },
-            "index": 2
+            "index": 0
           }
         ]
       }

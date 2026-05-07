@@ -1,35 +1,49 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Papa from 'papaparse';
 import { TeamData } from '@/types/raffle';
 import { RoundConfigurationSettings } from '@/utils/configurationManager';
 import { RaffleModelType } from '@/types/raffleModels';
+import { createGeneratedAvatarDataUrl } from '@/utils/photoUtils';
 
 interface CSVUploaderProps {
   onDataLoaded: (data: TeamData[], configName?: string, roundSettings?: RoundConfigurationSettings) => void;
   isDisabled?: boolean;
 }
 
+type UploadMode = 'standard' | 'simple';
+
+const SIMPLE_POINTS_PER_ENTRY = 100;
+
 const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = false }) => {
+  const [mode, setMode] = useState<UploadMode>('standard');
   const [configName, setConfigName] = useState('');
   const [showNameInput, setShowNameInput] = useState(false);
   const [numberOfRounds, setNumberOfRounds] = useState<number | string>(5);
   const [uploadedData, setUploadedData] = useState<TeamData[] | null>(null);
 
-  const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  // Simple-mode column picker state
+  const [simpleHeaders, setSimpleHeaders] = useState<string[]>([]);
+  const [simpleRows, setSimpleRows] = useState<Record<string, string>[]>([]);
+  const [nameColumn, setNameColumn] = useState<string>('');
+  const [disambiguatorColumn, setDisambiguatorColumn] = useState<string>('');
+  const [simpleSummary, setSimpleSummary] = useState<{ total: number; unique: number; duplicates: number } | null>(null);
 
-    // Generate default name from file
-    const defaultName = file.name.replace('.csv', '') + ' - ' + new Date().toLocaleDateString();
-    setConfigName(defaultName);
-    setShowNameInput(true);
+  const resetState = useCallback(() => {
+    setShowNameInput(false);
+    setUploadedData(null);
+    setSimpleHeaders([]);
+    setSimpleRows([]);
+    setNameColumn('');
+    setDisambiguatorColumn('');
+    setSimpleSummary(null);
+  }, []);
 
+  const handleStandardUpload = useCallback((file: File) => {
     Papa.parse<TeamData>(file, {
       header: true,
       skipEmptyLines: true,
       transform: (value, field) => {
-        // Convert Points and Submissions to numbers
         if (field === 'Points' || field === 'Submissions') {
           return parseInt(value, 10) || 0;
         }
@@ -42,14 +56,11 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
           return;
         }
 
-        // Validate the data structure
         const validData = results.data.filter((row): row is TeamData => {
-          // Skip completely empty rows
           if (!row || Object.keys(row).length === 0 || !row.Team) {
             return false;
           }
-          
-          const isValid = (
+          return (
             typeof row.Team === 'string' &&
             row.Team.trim() !== '' &&
             typeof row.Points === 'number' &&
@@ -59,29 +70,154 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
             typeof row['Last Submission'] === 'string' &&
             row['Last Submission'].trim() !== ''
           );
-          
-          return isValid;
         });
 
-        console.log(`CSV Upload: ${validData.length} valid teams loaded`);
+        console.log(`CSV Upload (standard): ${validData.length} valid teams loaded`);
 
         if (validData.length === 0) {
           alert('No valid data found. Please ensure your CSV has columns: Team, Points, Submissions, Last Submission');
           return;
         }
 
-        // Store the uploaded data for later configuration
         setUploadedData(validData);
       },
       error: (error) => {
         console.error('CSV parsing error:', error);
         alert('Error reading CSV file.');
-      }
+      },
     });
-
-    // Reset the input
-    event.target.value = '';
   }, []);
+
+  const handleSimpleUpload = useCallback((file: File) => {
+    Papa.parse<Record<string, string>>(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        if (results.errors.length > 0) {
+          console.error('CSV parsing errors:', results.errors);
+          alert('Error parsing CSV file. Please check the format.');
+          return;
+        }
+
+        const headers = results.meta.fields ?? [];
+        if (headers.length === 0) {
+          alert('No header row detected. The first row of your CSV must contain column names.');
+          return;
+        }
+
+        const rows = (results.data ?? []).filter((row) => row && Object.keys(row).length > 0);
+
+        setSimpleHeaders(headers);
+        setSimpleRows(rows);
+
+        // Heuristic defaults — pick a likely Name column and a likely disambiguator
+        // (email/id/phone if present), otherwise leave the disambiguator blank.
+        const lower = headers.map((h) => h.toLowerCase());
+        const nameIdx = lower.findIndex((h) => h.includes('name'));
+        const nameGuess = nameIdx >= 0 ? headers[nameIdx] : headers[0];
+        const disambiguatorIdx = lower.findIndex(
+          (h, i) => i !== nameIdx && (h.includes('email') || h.includes('mail') || h === 'id' || h.includes('phone'))
+        );
+        setNameColumn(nameGuess);
+        setDisambiguatorColumn(disambiguatorIdx >= 0 ? headers[disambiguatorIdx] : '');
+      },
+      error: (error) => {
+        console.error('CSV parsing error:', error);
+        alert('Error reading CSV file.');
+      },
+    });
+  }, []);
+
+  const handleFileUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const defaultName = file.name.replace(/\.csv$/i, '') + ' - ' + new Date().toLocaleDateString();
+      setConfigName(defaultName);
+      setShowNameInput(true);
+
+      if (mode === 'standard') {
+        handleStandardUpload(file);
+      } else {
+        handleSimpleUpload(file);
+      }
+
+      event.target.value = '';
+    },
+    [mode, handleStandardUpload, handleSimpleUpload]
+  );
+
+  // Build deduped TeamData from simple-mode column picks
+  const simpleProcessed = useMemo(() => {
+    if (mode !== 'simple' || !nameColumn || simpleRows.length === 0) {
+      return null;
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    const seen = new Map<string, TeamData>();
+    const nameCounts = new Map<string, number>();
+    const usedKeys = new Set<string>();
+    let droppedBlank = 0;
+
+    for (const row of simpleRows) {
+      const rawName = (row[nameColumn] ?? '').toString().trim();
+      if (!rawName) {
+        droppedBlank++;
+        continue;
+      }
+      const rawDisambiguator = disambiguatorColumn ? (row[disambiguatorColumn] ?? '').toString().trim() : '';
+      const disambiguatorKey = rawDisambiguator.toLowerCase();
+      // Dedup key: name + disambiguator (case-insensitive). When no disambiguator
+      // is picked, dedup by name alone.
+      const dedupKey = disambiguatorKey ? `${rawName.toLowerCase()}|${disambiguatorKey}` : rawName.toLowerCase();
+      if (seen.has(dedupKey)) continue;
+
+      // Generate a unique label among this import. First occurrence keeps the raw name;
+      // subsequent duplicates get " (N)" appended. The counter skips any candidate already
+      // taken — including ones produced by source values that literally contain "(N)".
+      const lowerName = rawName.toLowerCase();
+      let count = (nameCounts.get(lowerName) ?? 0) + 1;
+      let candidate = count === 1 ? rawName : `${rawName} (${count})`;
+      while (usedKeys.has(candidate)) {
+        count++;
+        candidate = `${rawName} (${count})`;
+      }
+      nameCounts.set(lowerName, count);
+      usedKeys.add(candidate);
+
+      seen.set(dedupKey, {
+        Team: candidate,
+        Points: SIMPLE_POINTS_PER_ENTRY,
+        Submissions: 1,
+        'Last Submission': today,
+        // displayName mirrors the unique label so duplicates are visibly distinguishable
+        // in the UI (no silent collisions where two rows render with the same name).
+        displayName: candidate,
+        disambiguator: rawDisambiguator || undefined,
+        avatarSrc: createGeneratedAvatarDataUrl(rawName),
+      });
+    }
+
+    const teams = Array.from(seen.values());
+    return {
+      teams,
+      summary: {
+        total: simpleRows.length - droppedBlank,
+        unique: teams.length,
+        duplicates: simpleRows.length - droppedBlank - teams.length,
+      },
+    };
+  }, [mode, nameColumn, disambiguatorColumn, simpleRows]);
+
+  // Keep summary state in sync for display
+  React.useEffect(() => {
+    if (simpleProcessed) {
+      setSimpleSummary(simpleProcessed.summary);
+    } else {
+      setSimpleSummary(null);
+    }
+  }, [simpleProcessed]);
 
   const handleConfigNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setConfigName(e.target.value);
@@ -89,12 +225,10 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
 
   const handleRoundsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Allow empty input for editing
     if (value === '') {
       setNumberOfRounds('');
       return;
     }
-    // Only allow numeric input
     const numericValue = parseInt(value, 10);
     if (!isNaN(numericValue) && numericValue > 0) {
       setNumberOfRounds(numericValue);
@@ -102,10 +236,9 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
   }, []);
 
   const handleRoundsBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-    // Ensure we have a valid number when focus is lost
     const value = parseInt(e.target.value, 10);
     if (isNaN(value) || value < 1) {
-      setNumberOfRounds(2); // Default to minimum
+      setNumberOfRounds(2);
     }
   }, []);
 
@@ -114,32 +247,37 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
       alert('Please enter a configuration name');
       return;
     }
-    
-    if (!uploadedData) {
-      alert('No data uploaded');
+
+    let dataToLoad: TeamData[] | null = null;
+    if (mode === 'standard') {
+      dataToLoad = uploadedData;
+    } else if (simpleProcessed) {
+      dataToLoad = simpleProcessed.teams;
+    }
+
+    if (!dataToLoad || dataToLoad.length === 0) {
+      alert('No data to load. Upload a CSV and (for Simple List mode) pick the Name column.');
       return;
     }
 
-    // Ensure numberOfRounds is a valid number
     const rounds = typeof numberOfRounds === 'string' ? parseInt(numberOfRounds, 10) : numberOfRounds;
     if (isNaN(rounds) || rounds < 1) {
       alert('Please enter a valid number of rounds (at least 1)');
       return;
     }
 
-    // Create round settings with correct defaults
     const roundSettings: RoundConfigurationSettings = {
       numberOfRounds: rounds,
       raffleModel: RaffleModelType.WEIGHTED_CONTINUOUS,
-      animationType: 'squidgame'
+      animationType: 'squidgame',
     };
 
-    // Call the parent handler with the data and settings
-    onDataLoaded(uploadedData, configName, roundSettings);
-    
-    setShowNameInput(false);
-    setUploadedData(null);
-  }, [configName, uploadedData, numberOfRounds, onDataLoaded]);
+    onDataLoaded(dataToLoad, configName, roundSettings);
+    resetState();
+  }, [configName, uploadedData, simpleProcessed, mode, numberOfRounds, onDataLoaded, resetState]);
+
+  const showColumnPicker = mode === 'simple' && simpleHeaders.length > 0;
+  const hasReadyData = mode === 'standard' ? !!uploadedData : !!simpleProcessed && simpleProcessed.teams.length > 0;
 
   return (
     <motion.div
@@ -147,8 +285,104 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
       animate={{ opacity: 1, y: 0 }}
       className="w-full max-w-md mx-auto"
     >
-      {/* Configuration Name Input */}
-      {showNameInput && (
+      {/* Mode toggle */}
+      <div className="mb-4 flex rounded-lg bg-gray-100 dark:bg-gray-800 p-1 text-sm">
+        <button
+          type="button"
+          onClick={() => {
+            setMode('standard');
+            resetState();
+          }}
+          className={`flex-1 px-3 py-1.5 rounded-md font-medium transition-colors ${
+            mode === 'standard'
+              ? 'bg-blue-600 text-white shadow'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+          }`}
+        >
+          Standard format
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMode('simple');
+            resetState();
+          }}
+          className={`flex-1 px-3 py-1.5 rounded-md font-medium transition-colors ${
+            mode === 'simple'
+              ? 'bg-purple-600 text-white shadow'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+          }`}
+        >
+          Simple list (pick column)
+        </button>
+      </div>
+
+      {/* Simple-mode hint banner — visible immediately when you toggle to Simple list */}
+      {mode === 'simple' && simpleHeaders.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="mb-4 p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg border border-purple-300 dark:border-purple-600 text-sm text-purple-900 dark:text-purple-50"
+        >
+          <div className="font-medium mb-1">Simple list mode</div>
+          <div className="text-xs text-purple-800 dark:text-purple-100">
+            Upload any CSV with a header row, then pick the Name column and (optionally) any column to use as a disambiguator. Each unique entry gets {SIMPLE_POINTS_PER_ENTRY} pts (1 ticket).
+          </div>
+        </motion.div>
+      )}
+
+      {/* Column picker (simple mode) */}
+      {showColumnPicker && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="mb-4 p-4 bg-purple-100 dark:bg-purple-900/50 rounded-lg border border-purple-300 dark:border-purple-600 space-y-3"
+        >
+          <div>
+            <label className="block text-sm font-medium text-purple-900 dark:text-purple-50 mb-1">
+              Name column:
+            </label>
+            <select
+              value={nameColumn}
+              onChange={(e) => setNameColumn(e.target.value)}
+              className="w-full px-3 py-2 border border-purple-300 dark:border-purple-600 rounded-md text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            >
+              <option value="">— Pick a column —</option>
+              {simpleHeaders.map((h) => (
+                <option key={h} value={h}>{h}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-purple-900 dark:text-purple-50 mb-1">
+              Disambiguator column (any unique field — masked in UI):
+            </label>
+            <select
+              value={disambiguatorColumn}
+              onChange={(e) => setDisambiguatorColumn(e.target.value)}
+              className="w-full px-3 py-2 border border-purple-300 dark:border-purple-600 rounded-md text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            >
+              <option value="">(none — dedupe by name only)</option>
+              {simpleHeaders.map((h) => (
+                <option key={h} value={h}>{h}</option>
+              ))}
+            </select>
+            <p className="mt-1 text-xs text-purple-800 dark:text-purple-100">
+              Shown as <span className="font-mono">abc***xyz</span> by default. Click the eye icon next to a name to reveal it.
+            </p>
+          </div>
+          {simpleSummary && (
+            <div className="text-xs text-purple-800 dark:text-purple-100">
+              {simpleSummary.unique} unique {simpleSummary.unique === 1 ? 'entry' : 'entries'}
+              {simpleSummary.duplicates > 0 && ` (${simpleSummary.duplicates} duplicates removed)`}
+              {' · '}{SIMPLE_POINTS_PER_ENTRY} pts each
+            </div>
+          )}
+        </motion.div>
+      )}
+
+      {/* Configuration Name + Rounds */}
+      {showNameInput && hasReadyData && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
@@ -218,28 +452,30 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
             />
           </svg>
         </div>
-        
+
         <label htmlFor="csv-upload" className="cursor-pointer">
           <span className="block text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Upload CSV File
           </span>
           <span className="block text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Expected format: Team, Points, Submissions, Last Submission
+            {mode === 'standard'
+              ? 'Expected format: Team, Points, Submissions, Last Submission'
+              : 'Any CSV with a header row — pick the Name column after upload'}
           </span>
-          
+
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white ${
-              isDisabled 
-                ? 'bg-gray-400 cursor-not-allowed' 
+              isDisabled
+                ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
             } transition-colors`}
           >
             Choose File
           </motion.div>
         </label>
-        
+
         <input
           id="csv-upload"
           type="file"
@@ -249,14 +485,28 @@ const CSVUploader: React.FC<CSVUploaderProps> = ({ onDataLoaded, isDisabled = fa
           className="hidden"
         />
       </div>
-      
+
       <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-        <p className="font-medium mb-1">CSV Requirements:</p>
-        <ul className="list-disc list-inside space-y-1">
-          <li>Header row with: Team, Points, Submissions, Last Submission</li>
-          <li>Points and Submissions must be numeric values</li>
-          <li>Player names should be unique</li>
-        </ul>
+        {mode === 'standard' ? (
+          <>
+            <p className="font-medium mb-1">CSV Requirements:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Header row with: Team, Points, Submissions, Last Submission</li>
+              <li>Points and Submissions must be numeric values</li>
+              <li>Player names should be unique</li>
+            </ul>
+          </>
+        ) : (
+          <>
+            <p className="font-medium mb-1">Simple List mode:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Upload any CSV with a header row</li>
+              <li>Pick which column holds the Name; optionally pick any column as a disambiguator</li>
+              <li>Duplicates are removed; each unique entry gets {SIMPLE_POINTS_PER_ENTRY} points (1 ticket)</li>
+              <li>The disambiguator is masked (e.g. <span className="font-mono">abc***xyz</span>); click the eye icon to reveal it</li>
+            </ul>
+          </>
+        )}
       </div>
     </motion.div>
   );

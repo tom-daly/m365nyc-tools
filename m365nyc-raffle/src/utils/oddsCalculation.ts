@@ -10,16 +10,23 @@
  * 3. The odds array structure is: odds[teamIndex][roundIndex]
  */
 
+type WithPoints = { Points?: number; points?: number };
+
+const readPoints = (p: WithPoints): { points: number; defined: boolean } => {
+  if (p.Points !== undefined) return { points: p.Points, defined: true };
+  if (p.points !== undefined) return { points: p.points, defined: true };
+  return { points: 0, defined: false };
+};
+
 /**
  * Calculate the odds of winning for each participant in a round
- * 
+ *
  * @param participants Array of participants with points
  * @returns Array of participants with calculated tickets and odds
  */
-export function calculateOdds<T extends { Points?: number } | { points?: number }>(
+export function calculateOdds<T extends WithPoints>(
   participants: T[]
 ): (T & { tickets: number, odds: number })[] {
-  // Skip calculation if no participants
   if (participants.length === 0) {
     console.log('No participants provided for odds calculation');
     return [];
@@ -27,9 +34,8 @@ export function calculateOdds<T extends { Points?: number } | { points?: number 
 
   // Calculate tickets for each participant (Points / 100, rounded down)
   const participantsWithTickets = participants.map(p => {
-    // Handle both Points (TeamData) and points (generic) properties
-    const points = (p as any).Points ?? (p as any).points ?? 0;
-    if (points === 0 && (p as any).Points === undefined && (p as any).points === undefined) {
+    const { points, defined } = readPoints(p);
+    if (!defined) {
       console.warn(`⚠️ Participant has undefined Points/points, using 0 instead:`, p);
     }
     return {
@@ -38,16 +44,13 @@ export function calculateOdds<T extends { Points?: number } | { points?: number 
     };
   });
 
-  // Calculate total tickets across all participants
   const totalTickets = calculateTotalTickets(participantsWithTickets);
-  
+
   console.log(`Odds calculation: ${participantsWithTickets.length} participants, ${totalTickets} total tickets`);
 
-  // Calculate odds for each participant
   return participantsWithTickets.map(p => {
     const odds = calculateSingleOdds(p.tickets, totalTickets);
-    // Handle both Points (TeamData) and points (generic) properties
-    const points = (p as any).Points ?? (p as any).points ?? 0;
+    const { points } = readPoints(p);
     console.log(`  Participant with ${points} points has ${p.tickets} tickets (${odds.toFixed(2)}% odds)`);
     return {
       ...p,
@@ -95,18 +98,13 @@ export function calculateSingleOdds(tickets: number, totalTickets: number): numb
  * @param participants Array of participants with points or tickets
  * @returns The total number of tickets in the round
  */
-export function calculateTotalTickets(participants: Array<{ Points?: number, points?: number, tickets?: number }>): number {
+export function calculateTotalTickets(participants: Array<WithPoints & { tickets?: number }>): number {
   return participants.reduce((sum, p) => {
-    // If tickets is already calculated, use that
     if (p.tickets !== undefined) {
       return sum + p.tickets;
     }
-    // Otherwise calculate from Points or points
-    const points = (p as any).Points ?? (p as any).points;
-    if (points !== undefined) {
-      return sum + calculateTickets(points);
-    }
-    return sum;
+    const { points, defined } = readPoints(p);
+    return defined ? sum + calculateTickets(points) : sum;
   }, 0);
 }
 

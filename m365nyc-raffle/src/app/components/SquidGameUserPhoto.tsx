@@ -1,72 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { getOptimalPhotoPath } from '@/utils/photoUtils';
+import { getInitials, getInitialsGradient, getResolvedOptimalPhotoPath } from '@/utils/photoUtils';
+import { usePhotoCatalog } from '@/utils/photoCatalog';
 
 interface SquidGameUserPhotoProps {
   name: string;
   className?: string;
   size: number; // Exact pixel size for the grid
+  avatarSrc?: string;
 }
 
-const SquidGameUserPhoto: React.FC<SquidGameUserPhotoProps> = ({ 
-  name, 
+const SquidGameUserPhoto: React.FC<SquidGameUserPhotoProps> = ({
+  name,
   className = '',
-  size = 50
+  size = 50,
+  avatarSrc
 }) => {
+  const photoCatalog = usePhotoCatalog();
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const photoPath = getOptimalPhotoPath(name, size);
+  const photoPath = getResolvedOptimalPhotoPath(name, size, photoCatalog, avatarSrc);
+  const isPhotoPending = Boolean(photoPath) && !imageError && isLoading;
 
   const handleImageLoad = () => {
     setIsLoading(false);
   };
 
   const handleImageError = () => {
+    console.warn('🖼️ SquidGameUserPhoto falling back to initials', { name, photoPath, size });
     setImageError(true);
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    setImageError(false);
+    setIsLoading(Boolean(photoPath));
+  }, [name, photoPath]);
+
+  // The gradient + initials always render as the backdrop. The actual photo
+  // (when present) layers on top and fades in only if it loads. This way the
+  // user always sees something — never a blank cell — regardless of whether
+  // next/image's onLoad fires for SVG data URLs or 404s for missing files.
   return (
-    <div 
-      className={`relative overflow-hidden ${className} ${
-        isLoading ? 'opacity-0' : 'opacity-100'
-      } transition-opacity duration-500 ease-in-out`}
+    <div
+      className={`relative overflow-hidden ${className}`}
       style={{ width: size, height: size }}
     >
-      {photoPath && !imageError ? (
-        <>
-          {isLoading && (
-            <div className="absolute inset-0 bg-gray-700 flex items-center justify-center">
-              {/* Spinning loading indicator */}
-              <div 
-                className="border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
-                style={{
-                  width: Math.max(20, size * 0.3) + 'px',
-                  height: Math.max(20, size * 0.3) + 'px',
-                  borderWidth: Math.max(2, size * 0.05) + 'px'
-                }}
-              />
-            </div>
-          )}
-          <Image
-            src={photoPath}
-            alt={`${name}'s photo`}
-            width={size}
-            height={size}
-            className={`object-cover w-full h-full ${
-              isLoading ? 'opacity-0' : 'opacity-100'
-            } transition-opacity duration-300`}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            priority // Load immediately for game performance
-            unoptimized // Since we already optimized manually
-          />
-        </>
-      ) : (
-        <div className="w-full h-full bg-gray-600 flex items-center justify-center">
-          <span className="text-white text-xs">No Photo</span>
-        </div>
+      <div className={`absolute inset-0 bg-gradient-to-br ${getInitialsGradient(name)} flex items-center justify-center`}>
+        <span className="text-white font-bold" style={{ fontSize: size * 0.4 + 'px' }}>
+          {getInitials(name)}
+        </span>
+      </div>
+      {photoPath && !imageError && (
+        <Image
+          src={photoPath}
+          alt={`${name}'s photo`}
+          width={size}
+          height={size}
+          className={`object-cover w-full h-full absolute inset-0 ${
+            isPhotoPending ? 'opacity-0' : 'opacity-100'
+          } transition-opacity duration-300`}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          unoptimized
+          loading="lazy"
+        />
       )}
     </div>
   );

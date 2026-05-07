@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Winner, TeamData } from '@/types/raffle';
 import UserPhoto from './UserPhoto';
+import TeamNameDisplay from './TeamNameDisplay';
 
 interface WinnersDisplayProps {
   winners: Winner[];
@@ -84,10 +85,17 @@ const WinnersDisplay: React.FC<WinnersDisplayProps> = ({ winners, teams, storage
                     {/* Winner content */}
                     <div className="pr-8">
                       <div className="flex items-center space-x-3 mb-3">
-                        <UserPhoto name={winner.team} size="lg" />
+                        <UserPhoto
+                          name={winnerTeamData?.displayName ?? winner.team}
+                          size="lg"
+                          avatarSrc={winnerTeamData?.avatarSrc}
+                        />
                         <div>
                           <h4 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-                            {winner.team}
+                            <TeamNameDisplay
+                              name={winnerTeamData?.displayName ?? winner.team}
+                              disambiguator={winnerTeamData?.disambiguator}
+                            />
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400">
                             {winner.roundName}

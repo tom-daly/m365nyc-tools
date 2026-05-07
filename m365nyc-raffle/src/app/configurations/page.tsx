@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ConfigurationManager, RaffleConfiguration } from '@/utils/configurationManager';
 import BackToTopButton from '@/components/BackToTopButton';
 import { useRaffleState } from '@/hooks/useRaffleState';
+import PageLoadingFallback from '../components/PageLoadingFallback';
 
-export default function ConfigurationsPage() {
+function ConfigurationsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [configurations, setConfigurations] = useState<RaffleConfiguration[]>([]);
@@ -574,5 +575,13 @@ export default function ConfigurationsPage() {
       {/* Back to Top Button */}
       <BackToTopButton threshold={300} />
     </div>
+  );
+}
+
+export default function ConfigurationsPage() {
+  return (
+    <Suspense fallback={<PageLoadingFallback />}>
+      <ConfigurationsPageContent />
+    </Suspense>
   );
 }

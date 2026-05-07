@@ -19,14 +19,11 @@ const RaffleProgress: React.FC<RaffleProgressProps> = ({
   totalTeams,
   raffleModel = RaffleModelType.UNIFORM_ELIMINATION
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isWeightedContinuous = raffleModel === RaffleModelType.WEIGHTED_CONTINUOUS;
   const model = RAFFLE_MODELS[raffleModel];
 
   useEffect(() => {
-    setIsMounted(true);
-    // Set a timeout to mark that the initial load is complete
     const timer = setTimeout(() => {
       setIsInitialLoad(false);
     }, 100);

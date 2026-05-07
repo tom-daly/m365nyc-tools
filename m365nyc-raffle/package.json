@@ -31,7 +31,8 @@
     "optimize:hq": "node scripts/optimizeImages.js --quality 95",
     "optimize:squid": "node scripts/optimizeSquidGame.js",
     "process:zips": "node scripts/processZipFiles.js",
-    "process:zips:watch": "node scripts/processZipFiles.js watch"
+    "process:zips:watch": "node scripts/processZipFiles.js watch",
+    "convert:feedback": "node scripts/convertSessionFeedback.js"
   },
   "dependencies": {
     "@modelcontextprotocol/server-puppeteer": "^2025.5.12",

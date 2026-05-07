@@ -63,8 +63,8 @@ const VirtualRow = React.memo(({
           #{team.playerNumber || index + 1}
         </div>
         <div className="flex items-center space-x-3 text-gray-900 dark:text-gray-100">
-          <UserPhotoOptimized name={team.Team} size="sm" />
-          <span className="truncate">{team.Team}</span>
+          <UserPhotoOptimized name={team.displayName ?? team.Team} size="sm" avatarSrc={team.avatarSrc} />
+          <span className="truncate">{team.displayName ?? team.Team}</span>
         </div>
         <div className="text-gray-900 dark:text-gray-100">
           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">

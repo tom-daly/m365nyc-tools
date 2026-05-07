@@ -11,6 +11,15 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      // Apostrophes/quotes in copy aren't a real bug — keep this advisory only.
+      "react/no-unescaped-entities": "warn",
+      "react-hooks/exhaustive-deps": "error"
+    }
+  }
 ];
 
 export default eslintConfig;

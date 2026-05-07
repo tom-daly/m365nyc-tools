@@ -3,10 +3,15 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import Image from 'next/image';
-import { getUserAvatarPath } from '@/utils/photoUtils';
+import { getInitials, getInitialsGradient, getResolvedPhotoPath } from '@/utils/photoUtils';
+import { usePhotoCatalog } from '@/utils/photoCatalog';
+import TeamNameDisplay from './TeamNameDisplay';
 
 interface WinnerConfirmationProps {
     winner: string;
+    winnerDisplayName?: string;
+    winnerDisambiguator?: string;
+    avatarSrc?: string;
     roundName: string;
     onConfirm: () => void;
     onReject: () => void;
@@ -16,25 +21,36 @@ interface WinnerConfirmationProps {
 
 const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
     winner,
+    winnerDisplayName,
+    winnerDisambiguator,
+    avatarSrc,
     roundName,
     onConfirm,
     onReject,
     onClose,
     isVisible = true
 }) => {
+    const photoCatalog = usePhotoCatalog();
     const [imageError, setImageError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const avatarPath = getUserAvatarPath(winner);
+    const displayName = winnerDisplayName ?? winner;
+    const avatarPath = getResolvedPhotoPath(displayName, 'avatar', photoCatalog, avatarSrc);
 
     const handleImageLoad = () => {
         setIsLoading(false);
     };
 
     const handleImageError = () => {
+        console.warn('🖼️ WinnerConfirmation falling back to initials', { displayName, avatarPath });
         setImageError(true);
         setIsLoading(false);
     };
+
+    useEffect(() => {
+        setImageError(false);
+        setIsLoading(Boolean(avatarPath));
+    }, [avatarPath, displayName]);
     // Handle reject with loser sound
     const handleReject = () => {
         // Play loser sound
@@ -154,33 +170,34 @@ const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
                         </h2>
 
                         <div className="flex flex-col items-center space-y-3">
-                            {/* Large Avatar (200x200) for Winner Display */}
+                            {/* Large Avatar (200x200) for Winner Display.
+                                Gradient + initials always render as a backdrop;
+                                the photo (if any) layers on top and fades in
+                                when loaded. Avoids a blank/skeleton state when
+                                next/image's onLoad doesn't fire (notably for
+                                SVG data URLs from CSV-imported users). */}
                             <div className="relative w-44 h-44">
-                                {avatarPath && !imageError ? (
-                                    <>
-                                        {isLoading && (
-                                            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
-                                        )}
-                                        <Image
-                                            src={avatarPath}
-                                            alt={`${winner}'s avatar`}
-                                            fill
-                                            className={`rounded-full object-cover border-4 border-gray-200 dark:border-gray-600 ${
-                                                isLoading ? 'opacity-0' : 'opacity-100'
-                                            } transition-opacity`}
-                                            onLoad={handleImageLoad}
-                                            onError={handleImageError}
-                                        />
-                                    </>
-                                ) : (
-                                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full border-4 border-gray-200 dark:border-gray-600 flex items-center justify-center">
-                                        <span className="text-gray-500 dark:text-gray-400 text-xl font-medium">No Photo</span>
-                                    </div>
+                                <div className={`absolute inset-0 bg-gradient-to-br ${getInitialsGradient(displayName)} rounded-full border-4 border-gray-200 dark:border-gray-600 flex items-center justify-center`}>
+                                    <span className="text-white text-5xl font-bold">{getInitials(displayName)}</span>
+                                </div>
+                                {avatarPath && !imageError && (
+                                    <Image
+                                        src={avatarPath}
+                                        alt={`${displayName}'s avatar`}
+                                        fill
+                                        className={`rounded-full object-cover border-4 border-gray-200 dark:border-gray-600 ${
+                                            isLoading ? 'opacity-0' : 'opacity-100'
+                                        } transition-opacity`}
+                                        onLoad={handleImageLoad}
+                                        onError={handleImageError}
+                                        loading="eager"
+                                        unoptimized
+                                    />
                                 )}
                             </div>
                             <div>
                                 <h3 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">
-                                    {winner}
+                                    <TeamNameDisplay name={displayName} disambiguator={winnerDisambiguator} />
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-400">
                                     {roundName}

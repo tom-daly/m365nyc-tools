@@ -10,12 +10,12 @@ const OUTPUT_FILE = './schedule-handout.html';
 // Room order as specified
 const ROOM_ORDER = [
     '05 Broadway',
-    '05 Marquis', 
     '05 Music Box',
-    '05 New Amsterdam',
     '05 Winter Garden',
     '06 Ambassador',
     '06 Belasco',
+    '06 Central Park East',
+    '06 Central Park West',
     '06 Radio City'
 ];
 
@@ -313,7 +313,7 @@ function generateHTMLHeader() {
             .page-break { page-break-before: always; }
             .no-break { page-break-inside: avoid; }
             .time-header { width: 65px !important; font-size: 11px !important; padding: 3px !important; background-color: #E3F2FD !important; }
-            .room-header { font-size: 11px !important; padding: 3px !important; }
+            .room-header { font-size: 10px !important; padding: 3px !important; }
             .session-cell { padding: 6px !important; font-size: 11px !important; }
             .session-title { font-size: 10px !important; line-height: 1.2 !important; }
             .session-speaker { font-size: 10px !important; }
@@ -593,14 +593,30 @@ function generateServiceBlockHTML(block) {
 `;
     
     block.timeSlots.forEach(({timeSlot, sessions}) => {
-        const radioSession = sessions.get('06 Radio City');
-        if (radioSession) {
-            const icon = getServiceIcon(radioSession.title);
+        // Look for service sessions in any room, prioritizing Radio City then Central Park West
+        let serviceSession = sessions.get('06 Radio City') || sessions.get('06 Central Park West');
+        let roomName = '06 Radio City Room';
+        
+        if (!serviceSession) {
+            // If no service session in preferred rooms, check all rooms
+            for (const [room, session] of sessions) {
+                if (session && session.isService) {
+                    serviceSession = session;
+                    roomName = room + ' Room';
+                    break;
+                }
+            }
+        } else if (sessions.get('06 Central Park West') && !sessions.get('06 Radio City')) {
+            roomName = '06 Central Park West Room';
+        }
+        
+        if (serviceSession) {
+            const icon = getServiceIcon(serviceSession.title);
             html += `            <tr class="${getBlockBackgroundClass(block.type)}">
                 <td class="single-room-time">${timeSlot}</td>
-                <td class="single-room-header">06 Radio City Room</td>
+                <td class="single-room-header">${roomName}</td>
                 <td class="session-cell service-session" style="padding: 2px 4px; height: auto;">
-                    <span class="icon">${icon}</span>${getServiceSessionTitle(radioSession.title, radioSession.speakers)}
+                    <span class="icon">${icon}</span>${getServiceSessionTitle(serviceSession.title, serviceSession.speakers)}
                 </td>
             </tr>
 `;

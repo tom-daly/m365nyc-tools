@@ -5,6 +5,9 @@ export interface TeamData {
   'Last Submission': string;
   playerNumber?: number; // Ranking based on points (highest points = #1)
   status?: 'eligible' | 'winner' | 'removed' | 'withdrawn';
+  displayName?: string; // Friendly name to show; falls back to Team when absent
+  disambiguator?: string; // Free-form disambiguator (email, ID, anything) — masked in UI
+  avatarSrc?: string; // Generated or uploaded avatar source used before catalog lookup
 }
 
 export interface RaffleRound {

@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { getUserThumbnailPath } from '@/utils/photoUtils';
+import { getInitials, getInitialsGradient, getResolvedPhotoPath } from '@/utils/photoUtils';
+import { usePhotoCatalog } from '@/utils/photoCatalog';
 
 interface UserPhotoProps {
   name: string;
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   className?: string;
+  avatarSrc?: string;
 }
 
-const UserPhoto: React.FC<UserPhotoProps> = ({ 
-  name, 
-  size = 'md', 
-  className = '' 
+const UserPhoto: React.FC<UserPhotoProps> = ({
+  name,
+  size = 'md',
+  className = '',
+  avatarSrc
 }) => {
+  const photoCatalog = usePhotoCatalog();
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const photoPath = getUserThumbnailPath(name);
+  const photoPath = getResolvedPhotoPath(name, 'thumbnail', photoCatalog, avatarSrc);
 
   const sizeClasses = {
     sm: 'w-8 h-8',
@@ -33,9 +37,15 @@ const UserPhoto: React.FC<UserPhotoProps> = ({
   };
 
   const handleImageError = () => {
+    console.warn('🖼️ UserPhoto falling back to initials', { name, photoPath });
     setImageError(true);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    setImageError(false);
+    setIsLoading(Boolean(photoPath));
+  }, [name, photoPath]);
 
   return (
     <div className={`relative ${className.includes('w-') && className.includes('h-') ? '' : sizeClasses[size]} ${className}`}>
@@ -53,11 +63,13 @@ const UserPhoto: React.FC<UserPhotoProps> = ({
             } transition-opacity`}
             onLoad={handleImageLoad}
             onError={handleImageError}
+            loading="lazy"
+            unoptimized
           />
         </>
       ) : (
-        <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center">
-          <span className="text-gray-500 dark:text-gray-400 text-xs font-medium">No Photo</span>
+        <div className={`w-full h-full bg-gradient-to-br ${getInitialsGradient(name)} rounded-full border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center`}>
+          <span className="text-white font-bold">{getInitials(name)}</span>
         </div>
       )}
     </div>
