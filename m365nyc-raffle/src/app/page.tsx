@@ -16,12 +16,14 @@ import WinnersDisplay from './components/WinnersDisplay';
 import WinnerConfirmation from './components/WinnerConfirmation';
 import MultiWinnerConfirmation from './components/MultiWinnerConfirmation';
 import PageLoadingFallback from './components/PageLoadingFallback';
+import IntroMusicButton from './components/IntroMusicButton';
 
 type AnimationPreset = 'regular' | 'none' | 'warp-speed' | 'fast';
 
 const RAFFLE_ANIMATION_PRESET_KEY = 'raffleAnimationPreset';
 const WINNERS_TO_DRAW_KEY = 'winnersToDraw';
 const DEFAULT_ANIMATION_PRESET: AnimationPreset = 'regular';
+const WINNER_MODAL_EXIT_MS = 450;
 const ANIMATION_PRESETS: Array<{ id: AnimationPreset; label: string; durationSec: number }> = [
   { id: 'regular', label: 'Normal / Anticipated Reveal - 15s', durationSec: 15 },
   { id: 'fast', label: 'Keep It Moving Mode - 7s', durationSec: 7 },
@@ -59,12 +61,10 @@ function HomeContent() {
   const [isMounted, setIsMounted] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [animationPreset, setAnimationPreset] = useState<AnimationPreset>(DEFAULT_ANIMATION_PRESET);
   const [winnersToDraw, setWinnersToDraw] = useState<number>(1);
   const [showDrawSettings, setShowDrawSettings] = useState(false);
   const hasLoadedInitialConfig = useRef(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const batchWinnersRef = useRef<string[]>([]);
   const remainingRounds = state.rounds.length - state.currentRound;
   const isFinalRound = state.raffleStarted && state.currentRound === state.rounds.length - 1;
@@ -148,28 +148,6 @@ function HomeContent() {
   // Set mounted state to prevent hydration mismatch
   useEffect(() => {
     setIsMounted(true);
-    
-    // Initialize audio
-    if (typeof window !== 'undefined') {
-      audioRef.current = new Audio('/sounds/intro.mp3');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
-      
-      const audio = audioRef.current;
-      const handleEnded = () => setIsPlaying(false);
-      const handlePause = () => setIsPlaying(false);
-      const handlePlay = () => setIsPlaying(true);
-      
-      audio.addEventListener('ended', handleEnded);
-      audio.addEventListener('pause', handlePause);
-      audio.addEventListener('play', handlePlay);
-      
-      return () => {
-        audio.removeEventListener('ended', handleEnded);
-        audio.removeEventListener('pause', handlePause);
-        audio.removeEventListener('play', handlePlay);
-      };
-    }
   }, []);
 
   // Load saved configuration on startup
@@ -357,33 +335,6 @@ function HomeContent() {
     });
   };
 
-  const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        // Fade out before pausing
-        const audio = audioRef.current;
-        const fadeOutDuration = 3000; // 3 second fade
-        const fadeSteps = 30;
-        const volumeStep = audio.volume / fadeSteps;
-        const fadeInterval = fadeOutDuration / fadeSteps;
-        
-        const fadeOut = setInterval(() => {
-          if (audio.volume > volumeStep) {
-            audio.volume = Math.max(0, audio.volume - volumeStep);
-          } else {
-            audio.volume = 0;
-            audio.pause();
-            clearInterval(fadeOut);
-            // Reset volume for next play
-            audio.volume = 0.3;
-          }
-        }, fadeInterval);
-      } else {
-        audioRef.current.play().catch(console.error);
-      }
-    }
-  };
-
   const handleStartRound = () => {
     if (!computed.canStartRound) return;
 
@@ -528,13 +479,17 @@ function HomeContent() {
     // appear to run twice.
     setTimeout(() => {
       actions.confirmWinner();
-    }, 300); // Match the modal animation duration
+    }, WINNER_MODAL_EXIT_MS);
   };
 
   const handleRejectWinner = () => {
-    actions.rejectWinner();
-    // Immediately start a new draw
-    actions.startDraw();
+    console.log('🔄 Rejecting winner and easing into redraw');
+    setModalVisible(false);
+
+    setTimeout(() => {
+      actions.rejectWinner();
+      actions.startDraw();
+    }, WINNER_MODAL_EXIT_MS);
   };
 
   const handleSpinComplete = () => {
@@ -589,6 +544,7 @@ function HomeContent() {
             onReject={handleRejectWinner}
             onClose={handleCloseWinnerModal}
             isVisible={modalVisible}
+            exitDurationMs={WINNER_MODAL_EXIT_MS}
           />
         );
       })()}
@@ -663,24 +619,9 @@ function HomeContent() {
           )}
           
           {/* Audio Play/Pause Button - Top Left */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleAudio}
+          <IntroMusicButton
             className="absolute top-0 left-0 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors z-30"
-            title={isPlaying ? "Pause intro music" : "Play intro music"}
-          >
-            {isPlaying ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            )}
-          </motion.button>
+          />
           
           {/* Always Visible Gear Icon - Top Right */}
           <motion.button

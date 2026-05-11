@@ -7,6 +7,7 @@ import { ConfigurationManager, RaffleConfiguration } from '@/utils/configuration
 import BackToTopButton from '@/components/BackToTopButton';
 import { useRaffleState } from '@/hooks/useRaffleState';
 import PageLoadingFallback from '../components/PageLoadingFallback';
+import IntroMusicButton from '../components/IntroMusicButton';
 
 function ConfigurationsPageContent() {
   const router = useRouter();
@@ -219,6 +220,7 @@ function ConfigurationsPageContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
+              <IntroMusicButton className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors" />
               <button
                 onClick={handleBack}
                 className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"

@@ -17,6 +17,7 @@ interface WinnerConfirmationProps {
     onReject: () => void;
     onClose?: () => void;
     isVisible?: boolean;
+    exitDurationMs?: number;
 }
 
 const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
@@ -28,11 +29,13 @@ const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
     onConfirm,
     onReject,
     onClose,
-    isVisible = true
+    isVisible = true,
+    exitDurationMs = 450
 }) => {
     const photoCatalog = usePhotoCatalog();
     const [imageError, setImageError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const modalTransitionDuration = exitDurationMs / 1000;
 
     const displayName = winnerDisplayName ?? winner;
     const avatarPath = getResolvedPhotoPath(displayName, 'avatar', photoCatalog, avatarSrc);
@@ -129,14 +132,14 @@ const WinnerConfirmation: React.FC<WinnerConfirmationProps> = ({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: modalTransitionDuration, ease: "easeInOut" }}
                     className="fixed top-0 left-0 w-full h-full min-h-screen bg-black bg-opacity-50 flex items-center justify-center z-50"
                 >
                     <motion.div
                         initial={{ y: 50 }}
                         animate={{ y: 0 }}
                         exit={{ y: 50 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: modalTransitionDuration, ease: "easeInOut" }}
                         className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-lg mx-4 shadow-2xl relative z-10 pointer-events-auto"
                     >
                 {/* Close X Button */}
