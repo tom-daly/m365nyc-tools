@@ -1,5 +1,5 @@
 /**
- * Comprehensive Data Analysis Script for M365 NYC Raffle System
+ * Comprehensive Data Analysis Script for Super Fun Raffle System
  * 
  * This script runs 1000 simulations and collects detailed data for analysis:
  * - Win rates by user and ticket source
@@ -440,7 +440,7 @@ function generateComprehensiveReport(
   const totalParticipants = userIds.size;
   
   let report = `
-# 🎯 M365 NYC Raffle System - Comprehensive Analysis Report
+# 🎯 Super Fun Raffle System - Comprehensive Analysis Report
 ## 📊 Simulation Overview
 - **Total Simulations:** ${totalSimulations}
 - **Total Participants:** ${totalParticipants}

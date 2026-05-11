@@ -1,4 +1,4 @@
-# 🎯 M365 NYC Raffle System
+# 🎯 Super Fun Raffle System
 
 A progressive raffle application built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. The system supports multiple elimination rounds based on point thresholds with an animated prize wheel for the final drawings.
 
@@ -37,7 +37,7 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:3001](http://localhost:3001) in your browser
 
 ## 📊 CSV Format
 

@@ -6,16 +6,23 @@ import UserPhoto from './UserPhoto';
 interface PrizeWheelProps {
   teams: TeamData[];
   isSpinning: boolean;
+  targetDurationMs?: number;
   onWinner: (winner: string) => void;
   onSpinComplete: () => void;
 }
 
-const PrizeWheel: React.FC<PrizeWheelProps> = ({ 
-  teams, 
-  isSpinning, 
-  onWinner, 
-  onSpinComplete 
+// Spin (3000) + winner display (2000)
+const WHEEL_BASELINE_MS = 5000;
+
+const PrizeWheel: React.FC<PrizeWheelProps> = ({
+  teams,
+  isSpinning,
+  targetDurationMs = WHEEL_BASELINE_MS,
+  onWinner,
+  onSpinComplete
 }) => {
+  const clampedTarget = Math.max(1000, Math.min(targetDurationMs || WHEEL_BASELINE_MS, 30000));
+  const safeSpeed = WHEEL_BASELINE_MS / clampedTarget;
   const [selectedTeam, setSelectedTeam] = useState<string>('');
   const [rotation, setRotation] = useState(0);
 
@@ -44,16 +51,16 @@ const PrizeWheel: React.FC<PrizeWheelProps> = ({
       
       setRotation(finalRotation);
       
-      // Set winner after spin animation
+      // Set winner after spin animation (durations scale with speedFactor)
       setTimeout(() => {
         setSelectedTeam(winner);
         onWinner(winner);
         setTimeout(() => {
           onSpinComplete();
-        }, 2000); // Show winner for 2 seconds
-      }, 3000); // Spin duration
+        }, 2000 / safeSpeed); // Show winner for 2 seconds
+      }, 3000 / safeSpeed); // Spin duration
     }
-  }, [isSpinning, teams, onWinner, onSpinComplete, createTicketPool]);
+  }, [isSpinning, teams, onWinner, onSpinComplete, createTicketPool, safeSpeed]);
 
   // Memoize wheel segments to prevent expensive recalculation on every render
   const wheelSegments = useMemo(() => {
@@ -88,9 +95,9 @@ const PrizeWheel: React.FC<PrizeWheelProps> = ({
         <motion.div
           className="relative w-80 h-80 rounded-full border-4 border-gray-800 overflow-hidden shadow-2xl"
           animate={{ rotate: rotation }}
-          transition={{ 
-            duration: isSpinning ? 3 : 0, 
-            ease: isSpinning ? "easeOut" : "linear" 
+          transition={{
+            duration: isSpinning ? 3 / safeSpeed : 0,
+            ease: isSpinning ? "easeOut" : "linear"
           }}
         >
           {wheelSegments.map((segment, index) => (

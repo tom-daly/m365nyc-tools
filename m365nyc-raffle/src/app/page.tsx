@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRaffleState } from '@/hooks/useRaffleState';
 import { ConfigurationManager, RaffleConfiguration, RoundConfigurationSettings } from '@/utils/configurationManager';
 import { TeamData } from '@/types/raffle';
@@ -14,7 +14,38 @@ import PrizeWheel from './components/PrizeWheel';
 import SquidGameAnimation from './components/SquidGameAnimation';
 import WinnersDisplay from './components/WinnersDisplay';
 import WinnerConfirmation from './components/WinnerConfirmation';
+import MultiWinnerConfirmation from './components/MultiWinnerConfirmation';
 import PageLoadingFallback from './components/PageLoadingFallback';
+
+type AnimationPreset = 'regular' | 'none' | 'warp-speed' | 'fast';
+
+const RAFFLE_ANIMATION_PRESET_KEY = 'raffleAnimationPreset';
+const WINNERS_TO_DRAW_KEY = 'winnersToDraw';
+const DEFAULT_ANIMATION_PRESET: AnimationPreset = 'regular';
+const ANIMATION_PRESETS: Array<{ id: AnimationPreset; label: string; durationSec: number }> = [
+  { id: 'regular', label: 'Normal / Anticipated Reveal - 15s', durationSec: 15 },
+  { id: 'fast', label: 'Keep It Moving Mode - 7s', durationSec: 7 },
+  { id: 'warp-speed', label: 'Warp Speed Mode - 3s', durationSec: 3 },
+  { id: 'none', label: 'Crowd’s Getting Restless Mode - 0s', durationSec: 0 }
+];
+
+const getAnimationDurationMs = (preset: AnimationPreset): number => {
+  return (ANIMATION_PRESETS.find(option => option.id === preset)?.durationSec ?? 15) * 1000;
+};
+
+const parseSavedAnimationPreset = (saved: string | null): AnimationPreset => {
+  if (!saved) return DEFAULT_ANIMATION_PRESET;
+  if (ANIMATION_PRESETS.some(option => option.id === saved)) {
+    return saved as AnimationPreset;
+  }
+
+  const parsedDuration = parseFloat(saved);
+  if (!Number.isFinite(parsedDuration)) return DEFAULT_ANIMATION_PRESET;
+  if (parsedDuration <= 0) return 'none';
+  if (parsedDuration <= 3) return 'warp-speed';
+  if (parsedDuration <= 7) return 'fast';
+  return 'regular';
+};
 
 function HomeContent() {
   const router = useRouter();
@@ -29,8 +60,20 @@ function HomeContent() {
   const [modalVisible, setModalVisible] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [animationPreset, setAnimationPreset] = useState<AnimationPreset>(DEFAULT_ANIMATION_PRESET);
+  const [winnersToDraw, setWinnersToDraw] = useState<number>(1);
+  const [showDrawSettings, setShowDrawSettings] = useState(false);
   const hasLoadedInitialConfig = useRef(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const batchWinnersRef = useRef<string[]>([]);
+  const remainingRounds = state.rounds.length - state.currentRound;
+  const isFinalRound = state.raffleStarted && state.currentRound === state.rounds.length - 1;
+  const maxWinnersByRounds = remainingRounds <= 1 ? 1 : remainingRounds - 1;
+  const maxWinnersToDraw = Math.min(
+    25,
+    Math.max(1, computed.eligibleTeamsForCurrentRound.length),
+    Math.max(1, maxWinnersByRounds)
+  );
 
   // Helper function to update current config and save to localStorage
   const updateCurrentConfig = useCallback((config: RaffleConfiguration | null) => {
@@ -44,6 +87,63 @@ function HomeContent() {
       }
     }
   }, []); // Remove isMounted dependency to prevent infinite loops
+
+  // Load persisted animation preset + winner count preferences on mount.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setAnimationPreset(parseSavedAnimationPreset(localStorage.getItem(RAFFLE_ANIMATION_PRESET_KEY)));
+    const savedWinners = parseInt(localStorage.getItem(WINNERS_TO_DRAW_KEY) || '1', 10);
+    if (Number.isFinite(savedWinners) && savedWinners >= 1 && savedWinners <= 25) {
+      setWinnersToDraw(savedWinners);
+    }
+  }, []);
+
+  // Persist whenever they change.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(RAFFLE_ANIMATION_PRESET_KEY, animationPreset);
+  }, [animationPreset]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(WINNERS_TO_DRAW_KEY, String(winnersToDraw));
+  }, [winnersToDraw]);
+
+  useEffect(() => {
+    const clamped = Math.max(1, Math.min(winnersToDraw, maxWinnersToDraw));
+    if (winnersToDraw !== clamped) {
+      console.log('⬇️ Auto-downgrading winners-to-draw', {
+        requested: winnersToDraw,
+        clamped,
+        remainingRounds,
+        maxBatchRounds: maxWinnersByRounds,
+        eligibleTeams: computed.eligibleTeamsForCurrentRound.length
+      });
+      setWinnersToDraw(clamped);
+    }
+  }, [
+    computed.eligibleTeamsForCurrentRound.length,
+    maxWinnersToDraw,
+    maxWinnersByRounds,
+    remainingRounds,
+    state.currentRound,
+    state.rounds.length,
+    winnersToDraw
+  ]);
+
+  useEffect(() => {
+    if (!isFinalRound) return;
+
+    if (winnersToDraw !== 1) {
+      console.log('🏁 Final round forcing winners-to-draw to 1');
+      setWinnersToDraw(1);
+    }
+
+    if (animationPreset !== 'regular') {
+      console.log('🏁 Final round resetting speed to anticipated reveal');
+      setAnimationPreset('regular');
+    }
+  }, [animationPreset, isFinalRound, winnersToDraw]);
 
   // Set mounted state to prevent hydration mismatch
   useEffect(() => {
@@ -285,20 +385,125 @@ function HomeContent() {
   };
 
   const handleStartRound = () => {
-    if (computed.canStartRound) {
-      // Show preparing overlay during transition to Squid Game
-      setIsTransitioning(true);
-      
-      // Delay to show overlay, then start draw
-      setTimeout(() => {
-        actions.startDraw();
-        
-        // Keep overlay visible briefly to ensure smooth transition
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 800);
-      }, 100);
+    if (!computed.canStartRound) return;
+
+    // Cap target at what's actually achievable: input value, eligible pool, remaining rounds.
+    const target = Math.max(1, Math.min(winnersToDraw, maxWinnersToDraw));
+
+    batchWinnersRef.current = [];
+    actions.setMultiDrawTarget(target > 1 ? target : undefined);
+
+    if (animationPreset === 'none') {
+      const weightedPool = computed.eligibleTeamsForCurrentRound.flatMap(team =>
+        Array.from({ length: Math.max(1, Math.floor(team.Points / 100)) }, () => team.Team)
+      );
+      const selectedWinners: string[] = [];
+      const pool = [...weightedPool];
+
+      while (selectedWinners.length < target && pool.length > 0) {
+        const nextWinner = pool[Math.floor(Math.random() * pool.length)];
+        selectedWinners.push(nextWinner);
+        for (let i = pool.length - 1; i >= 0; i--) {
+          if (pool[i] === nextWinner) {
+            pool.splice(i, 1);
+          }
+        }
+      }
+
+      console.log('⚡ None animation preset selected winners immediately:', selectedWinners);
+
+      if (selectedWinners.length === 0) return;
+
+      if (target > 1) {
+        actions.selectBatchWinners(selectedWinners);
+      } else {
+        actions.selectWinner(selectedWinners[0]);
+        setModalVisible(true);
+      }
+      return;
     }
+
+    // Show preparing overlay during transition to Squid Game
+    setIsTransitioning(true);
+
+    // Delay to show overlay, then start draw
+    setTimeout(() => {
+      actions.startDraw();
+
+      // Keep overlay visible briefly to ensure smooth transition
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 800);
+    }, 100);
+  };
+
+  const handleConfirmAllMultiWinners = () => {
+    actions.confirmAllPendingWinners();
+  };
+
+  const handleCancelMultiDraw = () => {
+    batchWinnersRef.current = [];
+    actions.cancelMultiDraw();
+  };
+
+  const handleAddRounds = useCallback((additionalRounds: number) => {
+    const safeAdditionalRounds = Math.max(1, Math.min(additionalRounds, 25));
+    const newTotalRounds = state.rounds.length + safeAdditionalRounds;
+
+    const settings: RoundConfigurationSettings = {
+      numberOfRounds: newTotalRounds,
+      raffleModel: currentRaffleModel,
+      winnersPerRound: currentConfig?.roundSettings.winnersPerRound ?? 1,
+      showOdds: currentConfig?.roundSettings.showOdds ?? false,
+      animationType
+    };
+
+    const regeneratedRounds = ConfigurationManager.generateOptimalRounds(state.teams, settings);
+    const completedRounds = state.rounds.slice(0, Math.min(state.currentRound, state.rounds.length));
+    const mergedRounds = [...completedRounds, ...regeneratedRounds.slice(completedRounds.length)].map((round, index, allRounds) => ({
+      ...round,
+      id: index + 1,
+      name: index === allRounds.length - 1 ? 'Final Round' : `Round ${index + 1}`
+    }));
+
+    console.log('➕ Extending raffle rounds', {
+      previousTotal: state.rounds.length,
+      added: safeAdditionalRounds,
+      newTotal: mergedRounds.length,
+      currentRound: state.currentRound
+    });
+
+    actions.updateRounds(mergedRounds);
+
+    if (currentConfig) {
+      const updatedConfig: RaffleConfiguration = {
+        ...currentConfig,
+        roundSettings: {
+          ...currentConfig.roundSettings,
+          numberOfRounds: mergedRounds.length,
+          raffleModel: currentRaffleModel,
+          animationType
+        },
+        rounds: mergedRounds,
+        lastModified: new Date()
+      };
+
+      ConfigurationManager.saveConfiguration(updatedConfig);
+      updateCurrentConfig(updatedConfig);
+    }
+  }, [
+    actions,
+    animationType,
+    currentConfig,
+    currentRaffleModel,
+    state.currentRound,
+    state.rounds,
+    state.teams,
+    updateCurrentConfig
+  ]);
+
+  const handleReplacePendingWinner = (rejected: string) => {
+    actions.replacePendingWinner(rejected);
   };
 
   const handleWinnerSelected = (winner: string) => {
@@ -306,28 +511,23 @@ function HomeContent() {
     setModalVisible(true); // Reset modal visibility for new winner
   };
 
+  const handleBatchWinnersSelected = (winners: string[]) => {
+    if (!state.multiDrawTarget || state.multiDrawTarget <= 1) return;
+
+    console.log('🎯 Multi-winner animation selected batch:', winners);
+    batchWinnersRef.current = winners;
+  };
+
   const handleConfirmWinner = () => {
+    console.log('✅ Confirming winner and returning to manual round control');
     // Start modal exit animation
     setModalVisible(false);
     
-    // After modal animation completes, show transition overlay
+    // After the modal exit finishes, commit the winner and wait for the user to
+    // explicitly start the next draw. Auto-starting here caused the raffle to
+    // appear to run twice.
     setTimeout(() => {
-      setIsTransitioning(true);
-      
-      // Delay state changes to ensure overlay is fully visible
-      setTimeout(() => {
-        actions.confirmWinner();
-        
-        // Additional delay before starting draw to prevent flash
-        setTimeout(() => {
-          actions.startDraw();
-          
-          // Keep overlay visible longer to ensure SquidGame component is fully loaded
-          setTimeout(() => {
-            setIsTransitioning(false);
-          }, 1200); // Extended to 1200ms for complete elimination of flicker
-        }, 150);
-      }, 100);
+      actions.confirmWinner();
     }, 300); // Match the modal animation duration
   };
 
@@ -338,10 +538,18 @@ function HomeContent() {
   };
 
   const handleSpinComplete = () => {
+    if (state.multiDrawTarget && state.multiDrawTarget > 1 && batchWinnersRef.current.length > 0) {
+      console.log('🎉 Completing one-spin multi-winner batch draw');
+      actions.selectBatchWinners(batchWinnersRef.current);
+      batchWinnersRef.current = [];
+      return;
+    }
+
     actions.stopDraw();
   };
 
   const handleCloseSquidGame = () => {
+    batchWinnersRef.current = [];
     actions.stopDraw();
   };
 
@@ -385,6 +593,34 @@ function HomeContent() {
         );
       })()}
 
+      {/* Multi-Winner Batch Confirmation: shown when target reached, or when
+          target not reached but the eligible pool is exhausted. */}
+      {(() => {
+        if (state.isDrawing) return null;
+        if (!state.multiDrawTarget || state.multiDrawTarget <= 1) return null;
+        if (state.pendingWinners.length === 0) return null;
+
+        const reachedTarget = state.pendingWinners.length >= state.multiDrawTarget;
+        const pendingSet = new Set(state.pendingWinners);
+        const remainingEligible = computed.eligibleTeamsForCurrentRound.filter(
+          t => !pendingSet.has(t.Team) && Math.floor(t.Points / 100) > 0
+        );
+        const poolExhausted = remainingEligible.length === 0;
+
+        if (!reachedTarget && !poolExhausted) return null;
+
+        return (
+          <MultiWinnerConfirmation
+            pendingWinners={state.pendingWinners}
+            teams={state.teams}
+            roundName={computed.currentRoundData?.name ?? 'Final Round'}
+            onReplace={handleReplacePendingWinner}
+            onConfirmAll={handleConfirmAllMultiWinners}
+            onCancel={handleCancelMultiDraw}
+          />
+        );
+      })()}
+
       {/* Transition Overlay */}
       {isTransitioning && (
         <motion.div
@@ -418,7 +654,7 @@ function HomeContent() {
           {!state.isDrawing && (
             <>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-                🎯 M365 NYC Raffle System
+                🎯 Super Fun Raffle System
               </h1>
               <p className="text-base text-white dark:text-white">
                 🎲 Progressive raffle with elimination tiers based on point thresholds
@@ -559,19 +795,105 @@ function HomeContent() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4"
           >
-            <div className="text-center space-y-3">
+            <div className="text-center">
               {!state.isDrawing && computed.eligibleTeamsForCurrentRound.length > 0 && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleStartRound}
-                  disabled={!computed.canStartRound}
-                  className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  🎲 Draw Winner - {computed.currentRoundData?.name}
-                </motion.button>
+                <>
+                  <div className="relative flex items-center justify-center min-h-[52px]">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleStartRound}
+                      disabled={!computed.canStartRound}
+                      className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    >
+                      🎲 Draw {winnersToDraw > 1 ? `${winnersToDraw} Winners` : 'Winner'} - {computed.currentRoundData?.name}
+                    </motion.button>
+                    <button
+                      type="button"
+                      onClick={() => setShowDrawSettings(prev => !prev)}
+                      className="absolute right-0 p-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      aria-expanded={showDrawSettings}
+                      aria-controls="draw-settings-panel"
+                      aria-label={showDrawSettings ? 'Collapse draw settings' : 'Expand draw settings'}
+                    >
+                      <svg
+                        className={`w-5 h-5 transform transition-transform ${showDrawSettings ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <AnimatePresence initial={false}>
+                    {showDrawSettings && (
+                      <motion.div
+                        id="draw-settings-panel"
+                        initial={{ opacity: 0, height: 0, y: -8 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mx-auto mt-3 flex w-fit max-w-full flex-wrap items-center justify-center gap-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 p-4">
+                          <div className="flex items-center gap-3">
+                            <label
+                              htmlFor="raffle-animation-preset"
+                              className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap"
+                            >
+                              Speed:
+                            </label>
+                            <select
+                              id="raffle-animation-preset"
+                              value={animationPreset}
+                              onChange={(e) => setAnimationPreset(e.target.value as AnimationPreset)}
+                              disabled={isFinalRound}
+                              className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              title={isFinalRound ? 'Final round always uses Normal / Anticipated Reveal - 15s' : 'Choose the draw speed'}
+                            >
+                              {ANIMATION_PRESETS.map(option => (
+                                <option key={option.id} value={option.id}>
+                                  {option.label}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <label
+                              htmlFor="winners-to-draw"
+                              className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                            >
+                              Winners:
+                            </label>
+                            <input
+                              id="winners-to-draw"
+                              type="number"
+                              min={1}
+                              max={maxWinnersToDraw}
+                              value={winnersToDraw}
+                              disabled={isFinalRound}
+                              onChange={(e) => {
+                                const v = parseInt(e.target.value, 10);
+                                if (Number.isFinite(v)) {
+                                  setWinnersToDraw(Math.max(1, Math.min(v, 25)));
+                                }
+                              }}
+                              className="w-16 px-2 py-1.5 text-sm text-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                              {isFinalRound ? 'Final round always pulls 1 winner' : '# of winners to pull'}
+                            </span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </>
               )}
-              
+
               {computed.eligibleTeamsForCurrentRound.length === 0 && computed.currentRoundData && (
                 <div className="bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-400 dark:border-yellow-600 rounded-lg p-4">
                   <p className="text-yellow-800 dark:text-yellow-200">
@@ -592,6 +914,7 @@ function HomeContent() {
             remainingTeams={state.remainingTeams.length}
             totalTeams={state.teams.length}
             raffleModel={currentRaffleModel}
+            onAddRounds={handleAddRounds}
           />
         )}
 
@@ -604,19 +927,30 @@ function HomeContent() {
           >
             {animationType === 'wheel' ? (
               <PrizeWheel
-                teams={computed.eligibleTeamsForCurrentRound}
+                teams={computed.eligibleTeamsForCurrentRound.filter(
+                  t => !state.pendingWinners.includes(t.Team)
+                )}
                 isSpinning={state.isDrawing}
+                targetDurationMs={getAnimationDurationMs(animationPreset)}
                 onWinner={handleWinnerSelected}
                 onSpinComplete={handleSpinComplete}
               />
             ) : (
               <SquidGameAnimation
-                teams={computed.eligibleTeamsForCurrentRound}
+                teams={computed.eligibleTeamsForCurrentRound.filter(
+                  t => !state.pendingWinners.includes(t.Team)
+                )}
                 allTeams={state.teams}
                 isSpinning={state.isDrawing}
-                previousWinners={state.winners.map(w => w.team)}
+                targetDurationMs={getAnimationDurationMs(animationPreset)}
+                winnerCount={state.multiDrawTarget ?? 1}
+                previousWinners={[
+                  ...state.winners.map(w => w.team),
+                  ...state.pendingWinners
+                ]}
                 withdrawnPlayers={state.withdrawnPlayers}
                 onWinner={handleWinnerSelected}
+                onBatchWinners={handleBatchWinnersSelected}
                 onSpinComplete={handleSpinComplete}
                 onClose={handleCloseSquidGame}
               />
@@ -627,10 +961,10 @@ function HomeContent() {
 
         {/* Live Data Table - Single Source of Truth During Raffle */}
         {state.raffleStarted && state.teams.length > 0 && (
-          <DataTable 
-            teams={state.teams} 
+          <DataTable
+            teams={state.teams}
             title="Live Player Status"
-            showOdds={false}
+            showOdds={true}
             currentRoundOdds={oddsPerRound}
             currentRound={state.currentRound}
             collapsible={true}

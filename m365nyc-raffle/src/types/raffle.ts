@@ -32,6 +32,8 @@ export interface RaffleState {
   remainingTeams: TeamData[];
   isDrawing: boolean;
   raffleStarted: boolean;
-  pendingWinner?: string; // Winner waiting for confirmation
+  pendingWinner?: string; // Single-winner mode: winner waiting for confirmation
+  pendingWinners: string[]; // Multi-winner mode: winners accumulated for batch confirmation
+  multiDrawTarget?: number; // Multi-winner mode: total winners to draw in current batch
   withdrawnPlayers: string[]; // Players who were withdrawn after being selected as winners
 }

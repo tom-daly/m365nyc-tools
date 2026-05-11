@@ -198,6 +198,7 @@ export const useRaffleState = () => {
       if (!savedState.rounds) savedState.rounds = DEFAULT_ROUNDS;
       if (!savedState.remainingTeams) savedState.remainingTeams = [];
       if (!savedState.withdrawnPlayers) savedState.withdrawnPlayers = [];
+      if (!savedState.pendingWinners) savedState.pendingWinners = [];
       
       console.log('🔄 INIT: State validation completed');
       return savedState;
@@ -213,6 +214,8 @@ export const useRaffleState = () => {
       isDrawing: false,
       raffleStarted: false,
       pendingWinner: undefined,
+      pendingWinners: [],
+      multiDrawTarget: undefined,
       withdrawnPlayers: []
     };
     console.log('🆕 INIT: Default state created');
@@ -332,7 +335,9 @@ export const useRaffleState = () => {
       currentRound: 0,
       remainingTeams: prev.teams.filter(team => team.status === 'eligible'),
       winners: [],
-      pendingWinner: undefined
+      pendingWinner: undefined,
+      pendingWinners: [],
+      multiDrawTarget: undefined
     }));
   }, [state.teams.length]);
 
@@ -341,11 +346,196 @@ export const useRaffleState = () => {
   }, []);
 
   const selectWinner = useCallback((selectedWinner: string) => {
+    setState(prev => {
+      // Multi-winner mode is finalized in a single batch after the animation
+      // completes, so single-winner selection is the only path that should land
+      // here during an active draw.
+      if (prev.multiDrawTarget && prev.multiDrawTarget > 1) {
+        return prev;
+      }
+      // Single-winner mode (unchanged behavior)
+      return {
+        ...prev,
+        pendingWinner: selectedWinner,
+        isDrawing: false
+      };
+    });
+  }, []);
+
+  const pickWeightedWinnerFromPool = useCallback((pool: TeamData[]): string | null => {
+    if (pool.length === 0) return null;
+
+    const tickets: string[] = [];
+    pool.forEach(team => {
+      const count = Math.floor(team.Points / 100);
+      for (let i = 0; i < count; i++) tickets.push(team.Team);
+    });
+
+    if (tickets.length === 0) return null;
+    return tickets[Math.floor(Math.random() * tickets.length)];
+  }, []);
+
+  // Pick a weighted-random replacement from teams that pass the round threshold
+  // and aren't already pending, previous winners, withdrawn, or zero-ticket.
+  const pickReplacementWinner = useCallback((
+    rejected: string,
+    pendingWinners: string[],
+    winners: Winner[],
+    withdrawnPlayers: string[],
+    remainingTeams: TeamData[],
+    round: RaffleRound | undefined
+  ): string | null => {
+    if (!round) return null;
+    const pendingSet = new Set(pendingWinners.filter(p => p !== rejected));
+    const winnerSet = new Set(winners.map(w => w.team));
+    const withdrawnSet = new Set([...withdrawnPlayers, rejected]);
+
+    const pool = remainingTeams.filter(t =>
+      t.status !== 'winner' &&
+      t.Points >= round.pointThreshold &&
+      Math.floor(t.Points / 100) > 0 &&
+      !pendingSet.has(t.Team) &&
+      !winnerSet.has(t.Team) &&
+      !withdrawnSet.has(t.Team)
+    );
+    return pickWeightedWinnerFromPool(pool);
+  }, [pickWeightedWinnerFromPool]);
+
+  const selectBatchWinners = useCallback((selectedWinners: string[]) => {
+    setState(prev => {
+      if (!prev.multiDrawTarget || prev.multiDrawTarget <= 1) return prev;
+      if (prev.pendingWinners.length > 0) return prev;
+
+      const round = prev.rounds[prev.currentRound];
+      const winnerSet = new Set(prev.winners.map(w => w.team));
+      const withdrawnSet = new Set(prev.withdrawnPlayers);
+      const availableTeams = prev.remainingTeams.filter(t =>
+        t.status !== 'winner' &&
+        (!round || t.Points >= round.pointThreshold) &&
+        Math.floor(t.Points / 100) > 0 &&
+        !winnerSet.has(t.Team) &&
+        !withdrawnSet.has(t.Team)
+      );
+
+      const availableSet = new Set(availableTeams.map(t => t.Team));
+      const batch: string[] = [];
+      const selectedSet = new Set<string>();
+
+      selectedWinners.forEach(teamName => {
+        if (selectedSet.size >= prev.multiDrawTarget!) return;
+        if (!selectedSet.has(teamName) && availableSet.has(teamName)) {
+          batch.push(teamName);
+          selectedSet.add(teamName);
+        }
+      });
+
+      while (batch.length < prev.multiDrawTarget) {
+        const pool = availableTeams.filter(t =>
+          !selectedSet.has(t.Team)
+        );
+
+        const nextWinner = pickWeightedWinnerFromPool(pool);
+        if (!nextWinner) break;
+
+        batch.push(nextWinner);
+        selectedSet.add(nextWinner);
+      }
+
+      console.log('🎯 Finalized multi-winner batch from animation:', batch);
+
+      return {
+        ...prev,
+        pendingWinners: batch,
+        pendingWinner: undefined,
+        isDrawing: false
+      };
+    });
+  }, [pickWeightedWinnerFromPool]);
+
+  const setMultiDrawTarget = useCallback((target: number | undefined) => {
     setState(prev => ({
       ...prev,
-      pendingWinner: selectedWinner,
+      multiDrawTarget: target,
+      pendingWinners: target && target > 1 ? [] : prev.pendingWinners
+    }));
+  }, []);
+
+  const cancelMultiDraw = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      pendingWinners: [],
+      multiDrawTarget: undefined,
       isDrawing: false
     }));
+  }, []);
+
+  const replacePendingWinner = useCallback((rejected: string) => {
+    setState(prev => {
+      if (!prev.pendingWinners.includes(rejected)) return prev;
+      const round = prev.rounds[prev.currentRound];
+      const replacement = pickReplacementWinner(
+        rejected,
+        prev.pendingWinners,
+        prev.winners,
+        prev.withdrawnPlayers,
+        prev.remainingTeams,
+        round
+      );
+
+      const withdrawn = [...prev.withdrawnPlayers, rejected];
+      const markWithdrawn = (t: TeamData): TeamData =>
+        t.Team === rejected ? { ...t, status: 'withdrawn' as const } : t;
+
+      if (!replacement) {
+        return {
+          ...prev,
+          pendingWinners: prev.pendingWinners.filter(p => p !== rejected),
+          withdrawnPlayers: withdrawn,
+          teams: prev.teams.map(markWithdrawn),
+          remainingTeams: prev.remainingTeams.map(markWithdrawn)
+        };
+      }
+      return {
+        ...prev,
+        pendingWinners: prev.pendingWinners.map(p => p === rejected ? replacement : p),
+        withdrawnPlayers: withdrawn,
+        teams: prev.teams.map(markWithdrawn),
+        remainingTeams: prev.remainingTeams.map(markWithdrawn)
+      };
+    });
+  }, [pickReplacementWinner]);
+
+  const confirmAllPendingWinners = useCallback(() => {
+    setState(prev => {
+      if (prev.pendingWinners.length === 0) return prev;
+
+      const newWinners: Winner[] = prev.pendingWinners.map((teamName, idx) => {
+        const roundIdx = prev.currentRound + idx;
+        const roundData = prev.rounds[roundIdx] || prev.rounds[prev.rounds.length - 1];
+        return {
+          team: teamName,
+          round: roundIdx + 1,
+          roundName: roundData.name,
+          prize: `Prize ${prev.winners.length + idx + 1}`
+        };
+      });
+
+      const winnerNames = new Set(prev.pendingWinners);
+      const updateStatus = (t: TeamData) =>
+        winnerNames.has(t.Team) ? { ...t, status: 'winner' as const } : t;
+
+      return {
+        ...prev,
+        winners: [...prev.winners, ...newWinners],
+        teams: prev.teams.map(updateStatus),
+        remainingTeams: prev.remainingTeams.map(updateStatus),
+        currentRound: prev.currentRound + prev.pendingWinners.length,
+        pendingWinners: [],
+        multiDrawTarget: undefined,
+        pendingWinner: undefined,
+        isDrawing: false
+      };
+    });
   }, []);
 
   const confirmWinner = useCallback(() => {
@@ -393,13 +583,19 @@ export const useRaffleState = () => {
   const rejectWinner = useCallback(() => {
     setState(prev => {
       if (!prev.pendingWinner) return prev;
-      
+
       console.log(`🚫 REJECTING WINNER: ${prev.pendingWinner}`);
       console.log(`Adding to withdrawn players list`);
-      
+
+      const rejected = prev.pendingWinner;
+      const markWithdrawn = (t: TeamData): TeamData =>
+        t.Team === rejected ? { ...t, status: 'withdrawn' as const } : t;
+
       return {
         ...prev,
-        withdrawnPlayers: [...prev.withdrawnPlayers, prev.pendingWinner],
+        withdrawnPlayers: [...prev.withdrawnPlayers, rejected],
+        teams: prev.teams.map(markWithdrawn),
+        remainingTeams: prev.remainingTeams.map(markWithdrawn),
         pendingWinner: undefined,
         isDrawing: false
       };
@@ -445,6 +641,8 @@ export const useRaffleState = () => {
         isDrawing: false,
         raffleStarted: false,
         pendingWinner: undefined,
+        pendingWinners: [],
+        multiDrawTarget: undefined,
         withdrawnPlayers: []
       };
       console.log('🔄 RESET: New state created');
@@ -485,7 +683,9 @@ export const useRaffleState = () => {
         currentRound: 0,
         winners: [],
         remainingTeams: prev.teams.filter(team => team.status === 'eligible'),
-        pendingWinner: undefined
+        pendingWinner: undefined,
+        pendingWinners: [],
+        multiDrawTarget: undefined
       };
     });
   }, []); // Empty dependency array to prevent re-creation
@@ -505,9 +705,12 @@ export const useRaffleState = () => {
 
   const eligibleTeamsForCurrentRound = useMemo(() => {
     if (!currentRoundData) return [];
-    const eligibleTeams = state.remainingTeams.filter(team => team.status === 'eligible');
+    const withdrawnSet = new Set(state.withdrawnPlayers);
+    const eligibleTeams = state.remainingTeams.filter(team =>
+      team.status === 'eligible' && !withdrawnSet.has(team.Team)
+    );
     return filterTeamsForRound(eligibleTeams, currentRoundData);
-  }, [state.remainingTeams, currentRoundData, filterTeamsForRound]);
+  }, [state.remainingTeams, state.withdrawnPlayers, currentRoundData, filterTeamsForRound]);
 
   // The action functions are all useCallback'd, so memoizing the wrapper keeps
   // the `actions` object reference stable across renders. Without this, every
@@ -522,12 +725,17 @@ export const useRaffleState = () => {
     stopDraw,
     conductDraw,
     selectWinner,
+    selectBatchWinners,
     confirmWinner,
     rejectWinner,
     clearPendingWinner,
     resetRaffle,
     updateRounds,
-    updateRaffleModel
+    updateRaffleModel,
+    setMultiDrawTarget,
+    cancelMultiDraw,
+    replacePendingWinner,
+    confirmAllPendingWinners
   }), [
     loadTeamData,
     startRaffle,
@@ -535,12 +743,17 @@ export const useRaffleState = () => {
     stopDraw,
     conductDraw,
     selectWinner,
+    selectBatchWinners,
     confirmWinner,
     rejectWinner,
     clearPendingWinner,
     resetRaffle,
     updateRounds,
-    updateRaffleModel
+    updateRaffleModel,
+    setMultiDrawTarget,
+    cancelMultiDraw,
+    replacePendingWinner,
+    confirmAllPendingWinners
   ]);
 
   const computed = useMemo(() => ({

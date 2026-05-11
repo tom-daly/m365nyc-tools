@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { TeamData } from '@/types/raffle';
 import SquidGameUserPhoto from './SquidGameUserPhoto';
 import { getOptimalCatalogPhotoPath, userHasCatalogPhoto } from '@/utils/photoUtils';
@@ -35,12 +35,20 @@ interface SquidGameAnimationProps {
   teams: TeamData[]; // Currently eligible teams for selection in this round
   allTeams?: TeamData[]; // All original teams for display (includes winners and eliminated)
   isSpinning: boolean; // Whether the raffle animation should be running
+  winnerCount?: number; // Number of winners to animate/reveal in this draw
   previousWinners?: string[]; // Previous winners from earlier rounds (orange overlay)
   withdrawnPlayers?: string[]; // Players who were withdrawn after being selected (red X)
+  targetDurationMs?: number; // Target end-to-end duration of one draw, in ms.
   onWinner: (winner: string) => void; // Callback when a winner is selected
+  onBatchWinners?: (winners: string[]) => void; // Callback when a winner batch is selected
   onSpinComplete: () => void; // Callback when the spin animation completes
   onClose: () => void; // Callback to close the animation view
 }
+
+// Baseline total duration (preload 1500 + spin 7000 + winner display 3000 +
+// exit 2000). Internal speedFactor is derived as baseline / target so the
+// caller picks an absolute duration in seconds, not a multiplier.
+const SQUIDGAME_BASELINE_MS = 13500;
 
 /**
  * SquidGameAnimation Component
@@ -61,12 +69,21 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
   teams,
   allTeams,
   isSpinning,
+  winnerCount = 1,
   previousWinners = [], // Default to empty array if not provided
   withdrawnPlayers = [], // Default to empty array if not provided
+  targetDurationMs = SQUIDGAME_BASELINE_MS,
   onWinner,
+  onBatchWinners,
   onSpinComplete,
   onClose
 }) => {
+  // Derive an internal speed multiplier from the requested absolute duration.
+  // Clamp the resulting target to a sane window (1s minimum, 30s maximum) so
+  // a bad value can't freeze the UI or zip past so fast that onWinner fires
+  // before React commits the spinning state.
+  const clampedTarget = Math.max(1000, Math.min(targetDurationMs || SQUIDGAME_BASELINE_MS, 30000));
+  const safeSpeed = SQUIDGAME_BASELINE_MS / clampedTarget;
   const photoCatalog = usePhotoCatalog();
   // =============================================================================
   // STATE MANAGEMENT
@@ -78,14 +95,14 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
   /** Grid dimensions for optimal display layout */
   const [gridSize, setGridSize] = useState({ rows: 0, cols: 0 });
   
-  /** Currently selected winner (green overlay with bounce animation) */
-  const [selectedWinner, setSelectedWinner] = useState<string | null>(null);
+  /** Currently selected winners (green overlay with bounce animation) */
+  const [selectedWinners, setSelectedWinners] = useState<string[]>([]);
   
   /** Current state of the raffle animation process */
   const [raffleState, setRaffleState] = useState<RaffleState>('idle');
   
-  /** Player currently highlighted during animation cycling */
-  const [currentHighlight, setCurrentHighlight] = useState<string | null>(null);
+  /** Players currently highlighted during animation cycling */
+  const [currentHighlights, setCurrentHighlights] = useState<string[]>([]);
   
   /** Complete list of all winners (current + previous) for orange overlay display */
   const [winners, setWinners] = useState<string[]>(previousWinners);
@@ -98,6 +115,12 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
 
   /** Reference to current animation timeout for cleanup */
   const [raffleAnimationRef, setRaffleAnimationRef] = useState<NodeJS.Timeout | null>(null);
+
+  /** Guards against startLotteryAnimation being kicked off twice — at very
+   * short target durations the preload-delay window collapses to ~100ms and
+   * a state-driven re-trigger can fire before the first scheduled run, so we
+   * need a hard guard, not just a raffleState check. */
+  const animationRunningRef = useRef(false);
   
   /** Current player number being displayed during spinning animation */
   const [currentSpinNumber, setCurrentSpinNumber] = useState<string>('001');
@@ -275,6 +298,27 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     return shuffled;
   }, [rng]);
 
+  const drawDistinctWinners = useCallback((weightedPool: string[], count: number): string[] => {
+    const requestedCount = Math.max(1, count);
+    const pool = [...weightedPool];
+    const chosen: string[] = [];
+
+    while (chosen.length < requestedCount && pool.length > 0) {
+      const randomSeed = Math.floor(rng() * 999999999);
+      const randomIndex = randomSeed % pool.length;
+      const winner = pool[randomIndex];
+      chosen.push(winner);
+
+      for (let i = pool.length - 1; i >= 0; i--) {
+        if (pool[i] === winner) {
+          pool.splice(i, 1);
+        }
+      }
+    }
+
+    return chosen;
+  }, [rng]);
+
   // =============================================================================
   // EFFECT HOOKS - STATE SYNCHRONIZATION
   // =============================================================================
@@ -306,6 +350,8 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
       setWinners([]);
       setWithdrawn([]);
       setEliminated([]);
+      setSelectedWinners([]);
+      setCurrentHighlights([]);
     } else {
       console.log(`Setting winners to:`, previousWinners);
       setWinners(previousWinners);
@@ -588,7 +634,12 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
    */
   const startLotteryAnimation = useCallback(() => {
     if (tickets.length === 0) return;
-    
+    if (animationRunningRef.current) {
+      console.log('🛑 startLotteryAnimation called while already running — ignoring');
+      return;
+    }
+    animationRunningRef.current = true;
+
     // Get eligible participants (only teams that are currently in the eligible list AND not previous winners, withdrawn, or eliminated)
     const eligibleTeamNames = teams.map(t => t.Team);
     const eligibleTickets = tickets.filter(ticket => 
@@ -602,6 +653,7 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     
     if (eligibleTickets.length === 0) {
       console.log('No eligible participants remaining');
+      animationRunningRef.current = false;
       return;
     }
 
@@ -640,132 +692,121 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     console.log(`===============================`);
 
     setRaffleState('spinning');
-    let animationSpeed = 100; // Start slower (100ms instead of 25ms)
+    let animationSpeed = 100 / safeSpeed; // Start slower (100ms instead of 25ms)
     let elapsed = 0;
-    const totalDuration = 7000; // 7 seconds total (longer for more dramatic ending)
+    const totalDuration = 7000 / safeSpeed; // 7 seconds total (longer for more dramatic ending)
     let playerNumberIndex = 0;
 
     /**
      * Inner animation function that runs the visual cycling and timing
      * Handles different animation phases with progressive speed reduction
      */
-    const animate = () => {
-      if (elapsed >= totalDuration) {
-        // Animation complete - select final winner
-        const randomSeed = Math.floor(rng() * 999999999); // Very high random number
-        const randomIndex = randomSeed % shuffledWeightedTickets.length;
-        let finalWinnerId = shuffledWeightedTickets[randomIndex];
-        
-        console.log(`🎯 FINAL SELECTION DEBUG 🎯`);
-        console.log(`Random index selected: ${randomIndex} out of ${shuffledWeightedTickets.length} total tickets`);
-        console.log(`Selected ticket: "${finalWinnerId}"`);
-        console.log(`Is previous winner: ${winners.includes(finalWinnerId)}`);
-        
-        // Check if this winner was already a winner (previous winner drawn again)
-        if (winners.includes(finalWinnerId)) {
-          // This is a previous winner being drawn again - mark as withdrawn/eliminated
-          console.log(`❌ ${finalWinnerId} was already a winner - marking as withdrawn and redrawing`);
-          setEliminated(prev => [...prev, finalWinnerId]);
-          // Note: No need to update tickets directly since we compute status from state arrays during render
-          
-          // Continue drawing until we get a new winner (not a previous winner)
-          let attempts = 0;
-          const maxAttempts = 50; // Prevent infinite loop
-          console.log(`🔄 Redrawing for new winner...`);
-          while (winners.includes(finalWinnerId) && attempts < maxAttempts) {
-            const newRandomIndex = Math.floor(rng() * shuffledWeightedTickets.length);
-            finalWinnerId = shuffledWeightedTickets[newRandomIndex];
-            attempts++;
-            console.log(`  Attempt ${attempts}: Index ${newRandomIndex} -> "${finalWinnerId}" (Previous winner: ${winners.includes(finalWinnerId)})`);
-          }
-          
-          if (attempts >= maxAttempts) {
-            console.log('❌ No new winners available - all eligible participants are previous winners');
+      const animate = () => {
+        if (elapsed >= totalDuration) {
+          const requestedWinnerCount = Math.max(1, Math.min(winnerCount, eligibleTickets.length));
+          const finalWinnerIds = drawDistinctWinners(shuffledWeightedTickets, requestedWinnerCount);
+
+          if (finalWinnerIds.length === 0) {
+            console.log('❌ No winners available after weighted selection');
             setRaffleState('idle');
+            animationRunningRef.current = false;
             return;
           }
-          console.log(`✅ New winner found after ${attempts} attempts: "${finalWinnerId}"`);
-        }
-        
-        console.log(`🏆 FINAL WINNER: "${finalWinnerId}"`);
-        console.log(`Winner's player number: #${eligibleTickets.find(t => t.teamName === finalWinnerId)?.playerNumber}`);
-        console.log(`===============================`);
-        
-        
-        // Set the final winner (guaranteed to be a new winner)
-        setCurrentHighlight(finalWinnerId);
-        setSelectedWinner(finalWinnerId);
-        setRaffleState('complete');
-        
-        // Play winner sound immediately
-        playWinnerSound();
-        
-        console.log(`🏆 SETTING NEW WINNER 🏆`);
-        console.log(`Previous winners:`, winners);
-        console.log(`Adding new winner: "${finalWinnerId}"`);
-        
-        // Add new winner to winners list
-        setWinners(prev => {
-          const newWinners = [...prev, finalWinnerId];
-          console.log(`Updated winners array:`, newWinners);
-          return newWinners;
-        });
-        // Note: No need to update tickets directly since we compute isWinner from winners array during render
 
-        // Wait 3 seconds on the winner before calling onWinner
-        setTimeout(() => {
-          onWinner(finalWinnerId);
+          console.log(`🎯 FINAL SELECTION DEBUG 🎯`);
+          console.log(`Requested winners: ${requestedWinnerCount}`);
+          console.log(`Final winners:`, finalWinnerIds);
+          console.log(
+            `Winner player numbers:`,
+            finalWinnerIds.map(id => `#${eligibleTickets.find(t => t.teamName === id)?.playerNumber}`)
+          );
+          console.log(`===============================`);
+
+          setCurrentHighlights(finalWinnerIds);
+          setSelectedWinners(finalWinnerIds);
+          setRaffleState('complete');
+
+          playWinnerSound();
+
+          console.log(`🏆 SETTING NEW WINNER BATCH 🏆`);
+          console.log(`Previous winners:`, winners);
+          console.log(`Adding new winners:`, finalWinnerIds);
+
+          setWinners(prev => {
+            const newWinners = [...new Set([...prev, ...finalWinnerIds])];
+            console.log(`Updated winners array:`, newWinners);
+            return newWinners;
+          });
+
           setTimeout(() => {
-            onSpinComplete();
-            setRaffleState('idle');
-            setCurrentHighlight(null);
-          }, 2000);
-        }, 3000); // 3 second delay as requested
-        
-        return;
-      }
+            if (finalWinnerIds.length > 1) {
+              console.log('🎯 Emitting batch winners from Squid Game animation:', finalWinnerIds);
+              onBatchWinners?.(finalWinnerIds);
+            } else {
+              onWinner(finalWinnerIds[0]);
+            }
+
+            setTimeout(() => {
+              onSpinComplete();
+              setRaffleState('idle');
+              setCurrentHighlights([]);
+              animationRunningRef.current = false;
+            }, 2000 / safeSpeed);
+          }, 3000 / safeSpeed); // 3 second delay as requested
+
+          return;
+        }
 
       // Calculate easing - very fast start, gradual slowdown to very slow
       const progress = elapsed / totalDuration;
       
-      // Enhanced phase-based animation speeds with more dramatic slowdown
+      // Enhanced phase-based animation speeds with more dramatic slowdown.
+      // All durations are divided by safeSpeed so the relative pacing
+      // (fast → gradual → dramatic) is preserved at any speed.
       if (progress < 0.4) {
         // Phase 1: Medium start (0-2.8s)
-        animationSpeed = 100; // Start at 100ms
+        animationSpeed = 100 / safeSpeed; // Start at 100ms
         setRaffleState('spinning');
       } else if (progress < 0.7) {
-        // Phase 2: Gradual slowdown (2.8-4.9s) 
+        // Phase 2: Gradual slowdown (2.8-4.9s)
         const phaseProgress = (progress - 0.4) / 0.3;
-        animationSpeed = 100 + (phaseProgress * 150); // 100ms to 250ms
+        animationSpeed = (100 + (phaseProgress * 150)) / safeSpeed; // 100ms to 250ms
         setRaffleState('spinning');
       } else if (progress < 0.9) {
         // Phase 3: Slower (4.9-6.3s)
         const phaseProgress = (progress - 0.7) / 0.2;
-        animationSpeed = 250 + (phaseProgress * 350); // 250ms to 600ms
+        animationSpeed = (250 + (phaseProgress * 350)) / safeSpeed; // 250ms to 600ms
         setRaffleState('slowing');
       } else {
         // Phase 4: Very dramatic ending (6.3-7s)
         const phaseProgress = (progress - 0.9) / 0.1;
-        animationSpeed = 600 + (phaseProgress * 900); // 600ms to 1500ms (very very slow)
+        animationSpeed = (600 + (phaseProgress * 900)) / safeSpeed; // 600ms to 1500ms (very very slow)
         setRaffleState('slowing');
       }
 
-      // Highlight random eligible participant
-      const randomIndex = Math.floor(rng() * 999999999); // Very high random number
-      const finalIndex = randomIndex % shuffledWeightedTickets.length;
-      const randomId = shuffledWeightedTickets[finalIndex];
-      setCurrentHighlight(randomId);
-      
-      // Play click sound for each cycle
+      // Highlight one or more random eligible participants depending on the
+      // requested winner count. This keeps batch draws visible in the grid
+      // without re-running the whole animation N times.
+      const randomIds = drawDistinctWinners(
+        shuffledWeightedTickets,
+        Math.max(1, Math.min(winnerCount, eligibleTickets.length))
+      );
+      setCurrentHighlights(randomIds);
+
       playClickSound();
       
       // Update spinning number display
-      const currentPlayerNumber = shuffledPlayerNumbers[playerNumberIndex % shuffledPlayerNumbers.length];
-      setCurrentSpinNumber(currentPlayerNumber);
+      const currentPlayerNumbers = randomIds
+        .map(id => eligibleTickets.find(ticket => ticket.teamName === id)?.playerNumber)
+        .filter((playerNumber): playerNumber is string => Boolean(playerNumber));
+      const currentSpinLabel = currentPlayerNumbers.length > 0
+        ? currentPlayerNumbers.join(', ')
+        : shuffledPlayerNumbers[playerNumberIndex % shuffledPlayerNumbers.length];
+      setCurrentSpinNumber(currentSpinLabel);
       
       // Log cycling every 500ms during spinning phase
       if (raffleState === 'spinning' && playerNumberIndex % 20 === 0) {
-        console.log(`🎲 Animation cycling: Player #${currentPlayerNumber} -> ${randomId} (Speed: ${animationSpeed}ms, Progress: ${(progress * 100).toFixed(1)}%)`);
+        console.log(`🎲 Animation cycling: [${randomIds.join(', ')}] (Speed: ${animationSpeed}ms, Progress: ${(progress * 100).toFixed(1)}%)`);
       }
       
       playerNumberIndex++;
@@ -778,7 +819,7 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     };
 
     animate();
-  }, [tickets, teams, rng, onWinner, onSpinComplete, shuffleArray, winners, withdrawn, withdrawnPlayers, eliminated, raffleState, playWinnerSound, playClickSound]);
+  }, [tickets, teams, drawDistinctWinners, winnerCount, onWinner, onBatchWinners, onSpinComplete, shuffleArray, winners, withdrawn, withdrawnPlayers, eliminated, raffleState, playWinnerSound, playClickSound, safeSpeed]);
 
   /**
    * Effect to trigger raffle animation when spinning begins
@@ -793,18 +834,33 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
     console.log(`===============================`);
     
     if (isSpinning && tickets.length > 0 && gridSize.rows > 0 && gridSize.cols > 0 && raffleState === 'idle' && allImagesLoaded) {
+      // Don't schedule a second start while one is already pending or running.
+      if (animationRunningRef.current) {
+        return;
+      }
       console.log('SquidGame: All images loaded, starting lottery animation with delay');
-      setSelectedWinner(null);
-      setCurrentHighlight(null);
-      
-      // Add a delay to ensure the grid is fully rendered and user can see it
-      setTimeout(() => {
+      setSelectedWinners([]);
+      setCurrentHighlights([]);
+
+      // Add a delay to ensure the grid is fully rendered and user can see it.
+      // Return cleanup so a dep change inside this short window cancels the
+      // pending start instead of letting two starts fire (the bug at very
+      // short target durations).
+      const startTimer = setTimeout(() => {
         startLotteryAnimation();
-      }, 1500); // 1.5 second delay since images are already loaded
+      }, 1500 / safeSpeed);
+      return () => clearTimeout(startTimer);
     } else if (isSpinning && !allImagesLoaded) {
       console.log('SquidGame: Waiting for images to load before starting raffle...');
     }
-  }, [isSpinning, tickets.length, gridSize.rows, gridSize.cols, raffleState, startLotteryAnimation, winners, eliminated, withdrawn, allImagesLoaded]);
+  }, [isSpinning, tickets.length, gridSize.rows, gridSize.cols, raffleState, startLotteryAnimation, winners, eliminated, withdrawn, allImagesLoaded, safeSpeed]);
+
+  // Reset the run-guard whenever the spin cycle ends, so the next draw can start.
+  useEffect(() => {
+    if (!isSpinning) {
+      animationRunningRef.current = false;
+    }
+  }, [isSpinning]);
 
   // =============================================================================
   // LAYOUT AND STYLING CALCULATIONS
@@ -909,10 +965,12 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
           )}
           
           {/* Winner announcement */}
-          {selectedWinner && (
+          {selectedWinners.length > 0 && (
             <>
               <span className="text-sm text-gray-300">|</span>
-              <span className="text-sm font-bold text-yellow-400">🎉 {selectedWinner} WINS!</span>
+              <span className="text-sm font-bold text-yellow-400">
+                🎉 {selectedWinners.length > 1 ? `${selectedWinners.length} WINNERS SELECTED!` : `${selectedWinners[0]} WINS!`}
+              </span>
             </>
           )}
         </div>
@@ -925,7 +983,7 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
             <div className="text-white text-sm font-medium">
               {raffleState === 'spinning' && '🎲 Drawing...'}
               {raffleState === 'slowing' && '⏳ Almost there...'}
-              {raffleState === 'complete' && '🎉 Winner Selected!'}
+              {raffleState === 'complete' && `🎉 ${selectedWinners.length > 1 ? 'Winners Selected!' : 'Winner Selected!'}`}
             </div>
           )}
 
@@ -965,12 +1023,12 @@ const SquidGameAnimation: React.FC<SquidGameAnimationProps> = ({
         <div style={containerStyle}>
           {tickets.map((ticket) => {
             // Calculate player status for rendering logic
-            const isCurrentWinner = selectedWinner === ticket.teamName;
+            const isCurrentWinner = selectedWinners.includes(ticket.teamName);
             const isAnyWinner = winners.includes(ticket.teamName) || isCurrentWinner;
             const isEliminated = eliminated.includes(ticket.teamName);
             const isWithdrawn = withdrawn.includes(ticket.teamName) || withdrawnPlayers.includes(ticket.teamName);
             const isAutoWithdrawn = ticket.ticketCount === 0; // Players with 0 tickets are auto-withdrawn
-            const isHighlighted = currentHighlight === ticket.teamName;
+            const isHighlighted = currentHighlights.includes(ticket.teamName);
             const eligibleTeamNames = teams.map(t => t.Team);
             const isEligible = eligibleTeamNames.includes(ticket.teamName) && !isAnyWinner && !isEliminated && !isWithdrawn && !isAutoWithdrawn;
 

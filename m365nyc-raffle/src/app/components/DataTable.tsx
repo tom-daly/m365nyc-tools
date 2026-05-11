@@ -20,15 +20,17 @@ const TeamRow = React.memo(({
   team, 
   index, 
   showOdds, 
-  currentRoundOdds 
+  currentRoundOdds,
+  currentRoundTotalTickets
 }: { 
   team: TeamData; 
   index: number; 
   showOdds: boolean; 
   currentRoundOdds: number[]; 
+  currentRoundTotalTickets: number;
 }) => {
   // Memoize expensive calculations
-  const { statusColor, statusText, statusTooltip, oddValue } = useMemo(() => {
+  const { statusColor, statusText, statusTooltip, oddValue, oddTooltip } = useMemo(() => {
     const tickets = Math.floor(team.Points / 100);
     const finalStatus = team.status;
     
@@ -53,15 +55,21 @@ const TeamRow = React.memo(({
 
     // Odds calculation - simplified for current round only
     let oddValue = '--';
+    let oddTooltip = 'No odds available for this player';
     if (showOdds && currentRoundOdds && currentRoundOdds.length > index) {
       const odds = currentRoundOdds[index];
       if (odds !== undefined && odds !== null && odds > 0) {
         oddValue = `${odds.toFixed(2)}%`;
+        oddTooltip = `${tickets} ${tickets === 1 ? 'ticket' : 'tickets'} / ${currentRoundTotalTickets} total eligible tickets = ${oddValue}`;
+      } else if (tickets === 0) {
+        oddTooltip = 'No odds available because this player has 0 tickets';
+      } else {
+        oddTooltip = `No odds available this round. ${tickets} ${tickets === 1 ? 'ticket' : 'tickets'} would be divided by the total eligible ticket pool.`;
       }
     }
 
-    return { statusColor, statusText, statusTooltip, oddValue };
-  }, [team.status, team.Points, showOdds, currentRoundOdds, index]);
+    return { statusColor, statusText, statusTooltip, oddValue, oddTooltip };
+  }, [team.status, team.Points, showOdds, currentRoundOdds, currentRoundTotalTickets, index]);
 
   // Use stable key based on team name only
   return (
@@ -114,7 +122,7 @@ const TeamRow = React.memo(({
                 ? 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border border-gray-300 dark:border-gray-600'
                 : 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200 border border-purple-200 dark:border-purple-800 hover:shadow-sm'
             }`}
-            title={oddValue === '--' ? 'No odds available for this player' : `Chance of winning in current round`}
+            title={oddTooltip}
           >
             {oddValue}
           </span>
@@ -215,6 +223,14 @@ const DataTable: React.FC<DataTableProps> = ({ teams, title = "Player Data", sho
     // with a "show more" option, but for now we'll render all
     return filteredTeams;
   }, [sortedTeams]);
+
+  const currentRoundTotalTickets = useMemo(() => {
+    return teams.reduce((sum, team, index) => {
+      const odds = currentRoundOdds[index];
+      if (odds === undefined || odds === null || odds <= 0) return sum;
+      return sum + Math.max(0, Math.floor(team.Points / 100));
+    }, 0);
+  }, [teams, currentRoundOdds]);
   
   // Suppress unused variable warnings for debugging variables
   void debugStats;
@@ -311,6 +327,7 @@ const DataTable: React.FC<DataTableProps> = ({ teams, title = "Player Data", sho
                   index={index}
                   showOdds={showOddsLocal}
                   currentRoundOdds={currentRoundOdds}
+                  currentRoundTotalTickets={currentRoundTotalTickets}
                 />
               ))}
               </tbody>

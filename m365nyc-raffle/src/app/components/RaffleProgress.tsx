@@ -10,6 +10,7 @@ interface RaffleProgressProps {
   remainingTeams: number;
   totalTeams: number;
   raffleModel?: RaffleModelType;
+  onAddRounds?: (additionalRounds: number) => void;
 }
 
 const RaffleProgress: React.FC<RaffleProgressProps> = ({ 
@@ -17,9 +18,11 @@ const RaffleProgress: React.FC<RaffleProgressProps> = ({
   currentRound, 
   remainingTeams,
   totalTeams,
-  raffleModel = RaffleModelType.UNIFORM_ELIMINATION
+  raffleModel = RaffleModelType.UNIFORM_ELIMINATION,
+  onAddRounds
 }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [roundsToAdd, setRoundsToAdd] = useState(1);
   const isWeightedContinuous = raffleModel === RaffleModelType.WEIGHTED_CONTINUOUS;
   const model = RAFFLE_MODELS[raffleModel];
 
@@ -29,6 +32,14 @@ const RaffleProgress: React.FC<RaffleProgressProps> = ({
     }, 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleAddRounds = () => {
+    if (!onAddRounds) return;
+    const safeAdditionalRounds = Math.max(1, Math.min(roundsToAdd, 25));
+    console.log(`➕ Adding ${safeAdditionalRounds} rounds from Raffle Progress`);
+    onAddRounds(safeAdditionalRounds);
+    setRoundsToAdd(1);
+  };
   
   return (
     <motion.div
@@ -38,7 +49,7 @@ const RaffleProgress: React.FC<RaffleProgressProps> = ({
         duration: isInitialLoad ? 0 : 0.5,
         ease: "easeOut"
       }}
-      className="w-full max-w-4xl mx-auto mb-8"
+      className="w-full mb-8"
     >
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="text-center mb-6">
@@ -162,6 +173,45 @@ const RaffleProgress: React.FC<RaffleProgressProps> = ({
             }
           </p>
         </motion.div>
+
+        {onAddRounds && (
+          <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  Need more prize rounds?
+                </h4>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                  Add 1 or more rounds to keep drawing additional winners.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  min={1}
+                  max={25}
+                  value={roundsToAdd}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    if (Number.isFinite(value)) {
+                      setRoundsToAdd(Math.max(1, Math.min(value, 25)));
+                    }
+                  }}
+                  className="w-20 px-3 py-2 text-sm text-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  aria-label="Rounds to add"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddRounds}
+                  className="px-4 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                >
+                  Add Rounds
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );
