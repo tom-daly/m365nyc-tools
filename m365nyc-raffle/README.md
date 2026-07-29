@@ -58,7 +58,91 @@ Beta Team,950,12,2024-01-14
 Gamma Force,1150,18,2024-01-16
 ```
 
-A sample CSV file is provided at `public/sample-data.csv` for testing.
+For a live event this CSV is generated from Goosechase — see below. You can also
+hand-write one with the four columns above.
+
+## 🦆 Refreshing from Goosechase
+
+Team data and participant photos both come from a Goosechase experience export.
+The whole loop is automated by the **`goosechase-refresh` skill** — in Claude Code, run:
+
+```
+/goosechase-refresh
+```
+
+It asks which year (defaults to the latest), drives Chrome to download the two
+exports from Goosechase Studio, then rebuilds everything and reports coverage.
+
+### What it needs
+
+Two files, both from Goosechase Studio. Neither is sufficient alone — the zip has
+no points, and the CSV has no photos.
+
+| Input | Where | Provides |
+|---|---|---|
+| Submissions zip (~360MB) | Review → Submissions → **Download**, grouped **by Team** | Photos |
+| Participants CSV | Review → Stats → **Participants** → Download CSV | Points, submissions |
+
+> The Stats page has four "Download CSV" buttons. It must be the **Participants**
+> one — *Submissions* gives one row per submission with no per-team totals.
+
+### The pipeline
+
+```
+Goosechase export .zip
+  → npm run refresh:ingest -- "<zip>" --participants "<csv>"
+ingest/raw/<Team>/<Mission>.jpg                      source photos, local only
+  → npm run optimize:images
+public/users/<Team>/{avatar,lg,sm,thumbnail}.webp    deployed with the site
+  → npm run build
+public/photo-catalog.json                            which teams have photos
+
+Participants.csv
+  → npm run refresh:teams -- "<csv>"
+ingest/teams.csv                                     upload this to the app
+```
+
+Avatars prefer each person's "Believe in Your Selfie" submission and fall back to
+a generated dicebear thumb. Expect roughly half the field to have real photos.
+
+### Manual commands
+
+```bash
+npm run refresh:wipe                 # report what would be cleared (dry run)
+npm run refresh:wipe -- --confirm    # clear derived data
+npm run refresh:ingest -- "<zip>" --participants "<csv>" --dry-run
+npm run refresh:teams -- "<csv>"     # -> ingest/teams.csv
+```
+
+`ingest/raw` is the only copy of the source photos and is **never** cleared unless
+you pass `--include-raw`. Dry-run the ingest and compare counts before doing that —
+a smaller export will silently drop people who no longer appear in it.
+
+Everything under `ingest/` is gitignored working data. It lives outside `public/`
+deliberately, so the full-resolution originals can never be copied into the
+deployed site.
+
+## ☁️ Deployment
+
+Hosted on Azure Static Web Apps as a fully static export — no server, no database.
+
+```bash
+npm run build
+npm run deploy:quick    # build + upload
+npm run deploy          # re-optimize photos, then build + upload
+```
+
+Requires the Azure CLI and a current `az login`. The deployment token is read from
+Azure at run time and never written to disk.
+
+Deploys run from a workstation rather than CI, because `public/users/` is generated
+locally and is not committed — a CI deploy would replace every avatar with a
+gradient. The GitHub Action lints, builds, and verifies only.
+
+Deployed photos are publicly fetchable at the site URL. Keeping the source files
+out of git protects the repository, not the live site.
+
+See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for resource names and the safety guards.
 
 ## 🎮 How to Use
 
@@ -109,6 +193,27 @@ src/
     └── raffle.ts                # TypeScript interfaces
 ```
 
+Outside `src/`:
+
+```
+.claude/skills/goosechase-refresh/
+├── SKILL.md                     # The /goosechase-refresh workflow
+└── scripts/
+    ├── ingestGoosechaseZip.js   # export zip -> ingest/raw
+    ├── convertParticipants.js   # participants CSV -> ingest/teams.csv
+    └── wipePhotoData.js         # clear derived data
+
+scripts/                         # shared build/deploy tooling
+├── optimizeImages.js            # ingest/raw -> public/users
+├── generatePhotoCatalog.js      # prebuild: photo-catalog.json
+├── pruneStaticExport.js         # postbuild: guard + SWA config
+└── deployToAzure.js             # upload out/ to Azure
+
+ingest/                          # gitignored working data
+├── raw/<Team>/<Mission>.jpg     # source photos
+└── teams.csv                    # generated raffle CSV
+```
+
 ## 🎨 Customization
 
 ### Modify Round Configuration
@@ -144,9 +249,17 @@ color: `hsl(${(index * 137.5) % 360}, 70%, 60%)` // Adjust HSL values
 ### Available Scripts
 
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
+- `npm run build` - Build the static export to `out/`
 - `npm run lint` - Run ESLint
+- `npm run test` - Run the Jest suite
+- `npm run deploy:quick` - Build and deploy to Azure
+- `npm run refresh:ingest` - Ingest a Goosechase export zip
+- `npm run refresh:teams` - Convert a Goosechase participants CSV
+- `npm run refresh:wipe` - Clear derived photo data (dry run by default)
+- `npm run optimize:images` - Rebuild avatars from `ingest/raw`
+
+`npm run start` is not useful here — the app is a static export, so serve `out/`
+with any static file server instead.
 
 ### Adding New Features
 
