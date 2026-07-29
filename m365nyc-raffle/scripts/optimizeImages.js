@@ -18,9 +18,12 @@ const sharp = require('sharp');
 // Configuration
 const CONFIG = {
   // Source and destination directories
-  sourceDir: path.join(process.cwd(), 'data', 'raw'),
+  sourceDir: path.join(process.cwd(), 'ingest', 'raw'),
   outputDir: path.join(process.cwd(), 'public', 'users'),
-  backupDir: path.join(process.cwd(), 'public', 'originals-backup'),
+  // ingest/raw is itself the pristine copy, so the backup is off by default. It
+  // must never point inside public/ — anything there is copied into the static
+  // export and published.
+  backupDir: path.join(process.cwd(), 'ingest', '_backup'),
   
   // Image optimization settings - multiple sizes
   sizes: {
@@ -51,7 +54,7 @@ const CONFIG = {
   // File processing settings
   supportedFormats: ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp', '.svg'],
   outputFormat: 'webp', // Convert all to WebP for best compression
-  createBackup: true,
+  createBackup: false,
   
   // Processing options
   fit: 'cover', // 'cover', 'contain', 'fill', 'inside', 'outside'
@@ -313,7 +316,10 @@ class ImageOptimizer {
 
   async getTeamsFromCSV() {
     try {
-      const csvPath = path.join(process.cwd(), 'data', 'M365 NYC Goosechase\'s leaderboard (3).csv');
+      // ingest/teams.csv is produced by the goosechase-refresh skill
+      // (.claude/skills/goosechase-refresh/scripts/convertParticipants.js). Teams
+      // listed there but missing from ingest/raw get a generated fallback avatar.
+      const csvPath = process.env.TEAMS_CSV || path.join(process.cwd(), 'ingest', 'teams.csv');
       const csvContent = await fs.readFile(csvPath, 'utf-8');
       const lines = csvContent.split('\n');
       

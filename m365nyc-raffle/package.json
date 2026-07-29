@@ -3,8 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/generatePhotoCatalog.js",
     "dev": "next dev --turbopack -p 3001",
+    "prebuild": "node scripts/generatePhotoCatalog.js",
     "build": "next build",
+    "postbuild": "node scripts/pruneStaticExport.js",
+    "photos:catalog": "node scripts/generatePhotoCatalog.js",
+    "refresh:wipe": "node .claude/skills/goosechase-refresh/scripts/wipePhotoData.js",
+    "refresh:ingest": "node .claude/skills/goosechase-refresh/scripts/ingestGoosechaseZip.js",
+    "refresh:teams": "node .claude/skills/goosechase-refresh/scripts/convertParticipants.js",
+    "deploy": "npm run optimize:images && npm run build && node scripts/deployToAzure.js",
+    "deploy:quick": "npm run build && node scripts/deployToAzure.js",
     "start": "next start -p 3001",
     "lint": "next lint",
     "test": "jest",
@@ -30,8 +39,6 @@
     "optimize:thumbnail": "node scripts/batchOptimize.js thumbnail",
     "optimize:hq": "node scripts/optimizeImages.js --quality 95",
     "optimize:squid": "node scripts/optimizeSquidGame.js",
-    "process:zips": "node scripts/processZipFiles.js",
-    "process:zips:watch": "node scripts/processZipFiles.js watch",
     "convert:feedback": "node scripts/convertSessionFeedback.js"
   },
   "dependencies": {

@@ -310,7 +310,7 @@ export default function DebugPersistencePage() {
 
         {results.length === 0 && (
           <div className="text-center py-12 opacity-50">
-            <p>No tests run yet. Click "Run All Tests" to start.</p>
+            <p>No tests run yet. Click &ldquo;Run All Tests&rdquo; to start.</p>
           </div>
         )}
 

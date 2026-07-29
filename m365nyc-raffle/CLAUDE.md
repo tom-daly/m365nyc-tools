@@ -39,8 +39,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run optimize:squid` - Optimize for Squid Game theme
 
 ### ZIP File Processing
-- `npm run process:zips` - Process all zip files in data/ folder and create thumbnails
-- `npm run process:zips:watch` - Watch for new zip files and process automatically
+- `npm run refresh:ingest` - Ingest a Goosechase export zip into `ingest/raw/`
+- `npm run refresh:teams` - Convert a Goosechase participants CSV to `ingest/teams.csv`
+- `npm run refresh:wipe` - Clear derived photo data (dry run unless `--confirm`)
 
 ## Application Architecture
 

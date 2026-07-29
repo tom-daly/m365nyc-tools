@@ -54,7 +54,7 @@ export const ensurePhotoCatalogLoaded = async (): Promise<void> => {
     return;
   }
 
-  photoCatalogPromise = fetch('/api/photo-catalog', { cache: 'no-store' })
+  photoCatalogPromise = fetch('/photo-catalog.json', { cache: 'no-store' })
     .then(async (response) => {
       if (!response.ok) {
         throw new Error(`Photo catalog request failed with ${response.status}`);

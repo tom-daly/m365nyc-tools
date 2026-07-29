@@ -1,0 +1,61 @@
+name: Build m365nyc-raffle
+
+# Build verification only. Deploys are run from a workstation via
+# `npm run deploy`, because the attendee photos the site serves live in
+# public/users/ and are deliberately never committed to this public repo.
+# See m365nyc-raffle/DEPLOYMENT.md.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'm365nyc-raffle/**'
+      - '.github/workflows/deploy-raffle.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'm365nyc-raffle/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Lint and build
+    defaults:
+      run:
+        working-directory: m365nyc-raffle
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: m365nyc-raffle/package-lock.json
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      # prebuild snapshots public/users into photo-catalog.json; postbuild prunes
+      # out/originals-backup and copies in staticwebapp.config.json.
+      - run: npm run build
+
+      # A public deploy of full-resolution attendee photos is not something to
+      # leave resting on one script, so assert it here too.
+      - name: Verify no original photos in the export
+        run: |
+          if [ -d out/originals-backup ]; then
+            echo "::error::out/originals-backup survived the build."
+            exit 1
+          fi
+
+      - name: Upload static export
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-export
+          path: m365nyc-raffle/out
+          retention-days: 7

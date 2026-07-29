@@ -1,0 +1,11 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/_next/*", "/users/*", "/sounds/*", "/thumbs/*", "/*.{json,png,jpg,jpeg,webp,svg,ico,mp3,html,txt}"]
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".webp": "image/webp",
+    ".mp3": "audio/mpeg"
+  }
+}
